@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project>
+  <name>Dondomofon</name>
+  <id>Dondomofon</id>
+
+  <schedules>
+    <schedule>
+      <provider>Yandex Direct (fitmedia)</provider>
+      <start></start>
+      <interval></interval>
+
+      
+      <requests>
+		
+		  <request>
+          <name>getbanners</name>
+          <params>
+            <param>
+              <name>login</name>
+              <value>fitmedia</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>client</name>
+              <value>dondomofon</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>isagency</name>
+              <value>True</value>
+              <type>boolean</type>
+            </param>
+            <param>
+              <name>onlyactivecampaigns</name>
+              <value>False</value>
+              <type>boolean</type>
+            </param>									
+          </params>
+        </request>
+        
+      </requests>
+    </schedule>
+
+  </schedules>
+</project>

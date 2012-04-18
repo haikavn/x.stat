@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<globallogs>
+  <globallog datetime="14.03.2012 16:16">
+    <projectlog datetime="14.03.2012 16:16">
+      <schedulelog datetime="14.03.2012 16:16">
+      </schedulelog>
+    </projectlog>
+  </globallog>
+  <globallog datetime="14.03.2012 16:16">
+    <projectlog datetime="14.03.2012 16:16">
+      <schedulelog datetime="14.03.2012 16:16">
+        <requestlog methodname="getbanners" datetime="14.03.2012 16:16">
+          <params>
+            <param>fitmedia</param>
+            <param>dondomofon</param>
+            <param>True</param>
+            <param>False</param>
+          </params>
+          <logs>
+            <log status="OK">GetSubClients - [OK]</log>
+            <log status="OK">GetCampaignList - [OK]</log>
+            <log status="OK">GetBanners - [OK]</log>
+          </logs>
+        </requestlog>
+      </schedulelog>
+    </projectlog>
+  </globallog>
+  <globallog datetime="14.03.2012 16:16">
+    <projectlog datetime="14.03.2012 16:16">
+      <schedulelog datetime="14.03.2012 16:16">
+        <requestlog methodname="getbanners" datetime="14.03.2012 16:16">
+          <params>
+            <param>fitmedia</param>
+            <param>dondomofon</param>
+            <param>True</param>
+            <param>False</param>
+          </params>
+          <logs>
+            <log status="OK">GetSubClients - [OK]</log>
+            <log status="OK">GetCampaignList - [OK]</log>
+            <log status="OK">GetBanners - [OK]</log>
+          </logs>
+        </requestlog>
+      </schedulelog>
+    </projectlog>
+  </globallog>
+</globallogs>

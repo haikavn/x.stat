@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project>
+  <name>Toplamp</name>
+  <id>Toplamp</id>
+
+  <schedules>
+    <schedule>
+      <provider>Orders Toplamp</provider>
+      <start></start>
+      <interval></interval>
+
+
+      <requests>
+        <request>
+          <name>getorders</name>
+          <isinitial>True</isinitial>
+          <params>
+            <param>
+              <name>startdate</name>
+              <value>01.09.2011</value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+          </params>
+        </request>
+
+        <request>
+          <name>getorders</name>
+          <params>
+            <param>
+              <name>startdate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+          </params>
+        </request>
+      </requests>
+    </schedule>
+  </schedules>
+</project>

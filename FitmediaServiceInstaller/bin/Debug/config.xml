@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<providers>
+  <provider>
+    <type>YandexAPIServiceProvider</type>
+    <name>Yandex Direct (fitmedia)</name>
+    <url>https://soap.direct.yandex.ru/json-api/v4/</url>
+    <params>
+      <param>
+        <name>token</name>
+        <value>da04a71ccc2b4fb9a715b99ea3e7fa02</value>
+      </param>
+      <param>
+        <name>application_id</name>
+        <value>82a35319beff4fceaf4bc705375b7476</value>
+      </param>
+      <param>
+        <name>login</name>
+        <value>fitmedia</value>
+      </param>
+    </params>
+  </provider>
+  <provider>
+    <type>OrdersAPIServiceProvider</type>
+    <name>Orders Insidehome</name>
+    <url>http://www.insidehome.ru/api/</url>
+    <params>
+      <param>
+        <name>orders_page</name>
+        <value>order_list_xml.aspx</value>
+      </param>
+      <param>
+        <name>details_page</name>
+        <value>order_details_xml.aspx</value>
+      </param>
+    </params>
+  </provider>
+  <provider>
+    <type>OrdersAPIServiceProvider</type>
+    <name>Orders Toplamp</name>
+    <url>http://toplamp.ru/include/</url>
+    <formats>
+      <datetime>yyyy-MM-dd HH:mm:ss</datetime>
+    </formats>
+    <params>
+      <param>
+        <name>orders_page</name>
+        <value>xml_list.php</value>
+      </param>
+      <param>
+        <name>details_page</name>
+        <value>xml_order.php</value>
+      </param>
+    </params>
+  </provider>
+  <provider>
+    <type>YandexAPIServiceProvider</type>
+    <name>Yandex Direct (insidehome2)</name>
+    <url>https://soap.direct.yandex.ru/json-api/v4/</url>
+    <formats>
+      <datetime>yyyy-MM-dd</datetime>
+    </formats>
+    <params>
+      <param>
+        <name>token</name>
+        <value>9674c751b47e4311bd573a1366b2e921</value>
+      </param>
+      <param>
+        <name>application_id</name>
+        <value>82a35319beff4fceaf4bc705375b7476</value>
+      </param>
+      <param>
+        <name>login</name>
+        <value>insidehome2</value>
+      </param>
+    </params>
+  </provider>
+</providers>

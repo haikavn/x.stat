@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fitmedia", "fitmedia\fitmedia.csproj", "{A5836C66-1805-4163-934F-251C16A2581B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIServiceProviderNamespace", "APIServiceProvider\APIServiceProviderNamespace.csproj", "{246D7144-9FF0-42AF-B880-659C0E33B643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitmediaSync", "FitmediaSync\FitmediaSync.csproj", "{DBA55747-AA5F-4BB5-8C5F-416C075A8146}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitmediaServiceInstaller", "FitmediaServiceInstaller\FitmediaServiceInstaller.csproj", "{3F5C1D26-1641-4A8F-A14A-34A2385B5614}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5836C66-1805-4163-934F-251C16A2581B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5836C66-1805-4163-934F-251C16A2581B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5836C66-1805-4163-934F-251C16A2581B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5836C66-1805-4163-934F-251C16A2581B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{246D7144-9FF0-42AF-B880-659C0E33B643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{246D7144-9FF0-42AF-B880-659C0E33B643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{246D7144-9FF0-42AF-B880-659C0E33B643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{246D7144-9FF0-42AF-B880-659C0E33B643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBA55747-AA5F-4BB5-8C5F-416C075A8146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA55747-AA5F-4BB5-8C5F-416C075A8146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA55747-AA5F-4BB5-8C5F-416C075A8146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA55747-AA5F-4BB5-8C5F-416C075A8146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5C1D26-1641-4A8F-A14A-34A2385B5614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5C1D26-1641-4A8F-A14A-34A2385B5614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5C1D26-1641-4A8F-A14A-34A2385B5614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5C1D26-1641-4A8F-A14A-34A2385B5614}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

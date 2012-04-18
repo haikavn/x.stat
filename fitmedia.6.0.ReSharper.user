@@ -1,0 +1,414 @@
+<Configuration>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="163" fromTop="6" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx" caret="107" fromTop="1" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:Default.aspx.cs" caret="10221" fromTop="117" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:Default.aspx" caret="2728" fromTop="11" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:Default.aspx" caret="3648" fromTop="4" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="686" fromTop="12" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="2114" fromTop="9" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="1263" fromTop="1" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="2026" fromTop="14" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="2424" fromTop="17" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="5500" fromTop="15" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="6746" fromTop="8" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:Default.aspx" caret="2726" fromTop="15" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:Default.aspx" caret="2644" fromTop="10" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:Default.aspx.cs" caret="6310" fromTop="10" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="8487" fromTop="13" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="8447" fromTop="13" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="8447" fromTop="11" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="7805" fromTop="5" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="3036" fromTop="19" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx.cs" caret="2774" fromTop="9" />
+      <File id="A5836C66-1805-4163-934F-251C16A2581B/f:datagen.aspx" caret="108" fromTop="1" />
+    </RecentEdits>
+  </RecentFiles>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="CSharpCodeCompletionContext">
+      <Item value="DataTable`0" priority="31" />
+      <Item value="new" priority="479" />
+      <Item value="DataTable" priority="28" />
+      <Item value="Hashtable`0" priority="98" />
+      <Item value="Page" priority="95" />
+      <Item value="if" priority="767" />
+      <Item value="campaignids" priority="191" />
+      <Item value="null" priority="767" />
+      <Item value="e" priority="63" />
+      <Item value="else" priority="159" />
+      <Item value="node" priority="479" />
+      <Item value="true" priority="511" />
+      <Item value="return" priority="191" />
+      <Item value="as" priority="95" />
+      <Item value="Convert`0" priority="31" />
+      <Item value="bool" priority="95" />
+      <Item value="false" priority="63" />
+      <Item value="isfirst" priority="63" />
+      <Item value="tvCampaigns" priority="63" />
+      <Item value="IsPostBack" priority="31" />
+      <Item value="ArgumentOutOfRangeException`0" priority="31" />
+      <Item value="rid" priority="31" />
+      <Item value="continue" priority="191" />
+      <Item value="rep" priority="31" />
+      <Item value="this" priority="63" />
+      <Item value="public" priority="63" />
+      <Item value="virtual" priority="63" />
+      <Item value="void" priority="127" />
+      <Item value="execLogXML" priority="127" />
+      <Item value="DateTime`0" priority="319" />
+      <Item value="now" priority="31" />
+      <Item value="parameters" priority="159" />
+      <Item value="for" priority="127" />
+      <Item value="int" priority="191" />
+      <Item value="i" priority="543" />
+      <Item value="Length" priority="53" />
+      <Item value="iserror" priority="31" />
+      <Item value="string" priority="572" />
+      <Item value="status" priority="127" />
+      <Item value="msg" priority="31" />
+      <Item value="logxml" priority="319" />
+      <Item value="System" priority="287" />
+      <Item value="IO" priority="26" />
+      <Item value="File`0" priority="26" />
+      <Item value="xmldoc" priority="255" />
+      <Item value="XmlElement`0" priority="319" />
+      <Item value="root" priority="159" />
+      <Item value="BeginLog`0" priority="31" />
+      <Item value="EndLog`0" priority="31" />
+      <Item value="res" priority="319" />
+      <Item value="break" priority="127" />
+      <Item value="SyncManager" priority="57" />
+      <Item value="sm" priority="31" />
+      <Item value="AddLog`0" priority="479" />
+      <Item value="strs" priority="63" />
+      <Item value="try" priority="31" />
+      <Item value="ex" priority="63" />
+      <Item value="catch" priority="31" />
+      <Item value="Exception`0" priority="31" />
+      <Item value="Runtime" priority="107" />
+      <Item value="Serialization" priority="134" />
+      <Item value="Web" priority="80" />
+      <Item value="Script" priority="26" />
+      <Item value="JavaScriptConverter`0" priority="26" />
+      <Item value="jss" priority="31" />
+      <Item value="Json" priority="80" />
+      <Item value="JsonReaderWriterFactory`0" priority="107" />
+      <Item value="DataContractJsonSerializer`0" priority="26" />
+      <Item value="DataContractJsonSerializer" priority="28" />
+      <Item value="buffer" priority="31" />
+      <Item value="XmlDictionaryReaderQuotas`0" priority="63" />
+      <Item value="byte" priority="31" />
+      <Item value="Encoding`0" priority="63" />
+      <Item value="xdr" priority="159" />
+      <Item value="XmlDictionaryReader`0" priority="31" />
+      <Item value="char" priority="86" />
+      <Item value="StringSplitOptions`0" priority="31" />
+      <Item value="XmlDocument`0" priority="31" />
+      <Item value="XmlDocument" priority="28" />
+      <Item value="data" priority="95" />
+      <Item value="foreach" priority="127" />
+      <Item value="XmlNode`0" priority="95" />
+      <Item value="ArrayList`0" priority="63" />
+      <Item value="ArrayList" priority="57" />
+      <Item value="ar" priority="319" />
+      <Item value="logins" priority="31" />
+      <Item value="xml" priority="31" />
+      <Item value="isactive" priority="63" />
+      <Item value="name" priority="31" />
+      <Item value="id" priority="95" />
+      <Item value="login" priority="31" />
+      <Item value="activesonly" priority="64" />
+      <Item value="s" priority="191" />
+      <Item value="cid" priority="31" />
+      <Item value="compaignids" priority="31" />
+      <Item value="phrases" priority="31" />
+      <Item value="node1" priority="95" />
+      <Item value="campaignid" priority="31" />
+      <Item value="phrase" priority="31" />
+      <Item value="phraseid" priority="63" />
+      <Item value="url" priority="31" />
+      <Item value="private" priority="31" />
+      <Item value="HandleDeleteReport`0" priority="31" />
+      <Item value="DeleteReport`0" priority="63" />
+      <Item value="HandleGetReportList`0" priority="31" />
+      <Item value="GetReportList`0" priority="31" />
+      <Item value="TreeNode`0" priority="63" />
+      <Item value="decimal" priority="128" />
+      <Item value="Decimal`0" priority="32" />
+      <Item value="or" priority="287" />
+      <Item value="cat1" priority="159" />
+      <Item value="startdate" priority="223" />
+      <Item value="catcount1" priority="31" />
+      <Item value="totalsum" priority="31" />
+      <Item value="expenses" priority="31" />
+      <Item value="totalsums" priority="63" />
+      <Item value="expensess" priority="127" />
+      <Item value="chardata1" priority="31" />
+      <Item value="while" priority="31" />
+      <Item value="ed" priority="63" />
+      <Item value="Sunday" priority="16" />
+      <Item value="enddate" priority="63" />
+      <Item value="DayOfWeek`0" priority="95" />
+      <Item value="dow" priority="63" />
+      <Item value="nfi" priority="191" />
+      <Item value="projectids" priority="31" />
+      <Item value="GridView1" priority="31" />
+      <Item value="protected" priority="63" />
+      <Item value="override" priority="63" />
+      <Item value="TotalRowCountAvailable" priority="31" />
+      <Item value="HAGridView`0" priority="31" />
+      <Item value="gvData" priority="63" />
+      <Item value="DataRow" priority="16" />
+      <Item value="rowView" priority="31" />
+      <Item value="Calendar2" priority="31" />
+      <Item value="Calendar1" priority="31" />
+      <Item value="total_g" priority="31" />
+      <Item value="totalsumr_g" priority="31" />
+      <Item value="totalsumd_g" priority="31" />
+      <Item value="totalsumdd_g" priority="31" />
+      <Item value="expenses_g" priority="31" />
+      <Item value="griddata" priority="95" />
+    </ItemStatistics>
+    <ItemStatistics item="AspCodeCompletionContext">
+      <Item value="asp" priority="27" />
+      <Item value="VerticalAlign" priority="13" />
+      <Item value="Top" priority="13" />
+      <Item value="runat" priority="20" />
+      <Item value="server" priority="20" />
+      <Item value="Text" priority="6" />
+      <Item value="br" priority="13" />
+      <Item value="Click" priority="6" />
+      <Item value="TableCell`0" priority="20" />
+      <Item value="TableRow`0" priority="13" />
+      <Item value="Leaf" priority="13" />
+      <Item value="DataFormatString" priority="20" />
+      <Item value="trirand:JQGridColumn" priority="13" />
+      <Item value="trirand" priority="13" />
+      <Item value="IntegerFormatter`0" priority="6" />
+      <Item value="ThousandsSeparator" priority="6" />
+      <Item value="Formatter" priority="6" />
+      <Item value="CurrencyFormatter`0" priority="6" />
+      <Item value="Prefix" priority="6" />
+      <Item value="DefaultValue" priority="6" />
+      <Item value="NumberFormatter`0" priority="6" />
+      <Item value="TextAlign" priority="6" />
+      <Item value="Right" priority="13" />
+      <Item value="Columns" priority="6" />
+      <Item value="AutoGenerateColumns" priority="6" />
+      <Item value="GridView1" priority="7" />
+      <Item value="cc1" priority="6" />
+      <Item value="ShowFooter" priority="6" />
+      <Item value="Font" priority="13" />
+      <Item value="style" priority="6" />
+      <Item value="vertical-align" priority="7" />
+      <Item value="top" priority="9" />
+      <Item value="RowDataBound" priority="6" />
+      <Item value="HorizontalAlign" priority="6" />
+      <Item value="Width" priority="6" />
+      <Item value="jqxTree" priority="6" />
+      <Item value="float" priority="7" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TreeNodeEventArgs">
+      <Item value="Node" priority="242" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.Page">
+      <Item value="Session" priority="107" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TreeNode">
+      <Item value="Checked" priority="188" />
+      <Item value="Value" priority="107" />
+      <Item value="Parent" priority="215" />
+      <Item value="ChildNodes" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Convert">
+      <Item value="ToInt16`0" priority="26" />
+      <Item value="ToInt32`0" priority="26" />
+      <Item value="ToDecimal`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Hashtable">
+      <Item value="Remove`0" priority="26" />
+      <Item value="Count" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TreeView">
+      <Item value="Nodes" priority="26" />
+      <Item value="ShowCheckBoxes" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TreeNodeCollection">
+      <Item value="Clear`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="Now" priority="134" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.DateTime">
+      <Item value="ToShortDateString`0" priority="26" />
+      <Item value="ToShortTimeString`0" priority="26" />
+      <Item value="ToString`0" priority="81" />
+      <Item value="Month" priority="26" />
+      <Item value="Date" priority="26" />
+      <Item value="Day" priority="26" />
+      <Item value="DayOfWeek" priority="80" />
+      <Item value="AddDays`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Object">
+      <Item value="ToString`0" priority="107" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:APIServiceProviderNamespace.APIServiceProviderRequest">
+      <Item value="RequestLogXml" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.IO.File">
+      <Item value="Exists`0" priority="26" />
+      <Item value="Create`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlDocument">
+      <Item value="CreateElement`0" priority="26" />
+      <Item value="AppendChild`0" priority="26" />
+      <Item value="Save`0" priority="26" />
+      <Item value="LoadXml`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlElement">
+      <Item value="InnerXml" priority="26" />
+      <Item value="ChildNodes" priority="26" />
+      <Item value="InnerText" priority="431" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.FileStream">
+      <Item value="Close`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:APIServiceProviderNamespace.SyncManager">
+      <Item value="Start`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Exception">
+      <Item value="Message" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Script.Serialization.JavaScriptConverter">
+      <Item value="Serialize`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Runtime.Serialization.Json.JsonReaderWriterFactory">
+      <Item value="CreateJsonReader`0" priority="80" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Xml.XmlDictionaryReaderQuotas">
+      <Item value="Max" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Text.Encoding">
+      <Item value="UTF8" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Text.Encoding">
+      <Item value="GetBytes`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="Split`0" priority="53" />
+      <Item value="ToLower`0" priority="26" />
+      <Item value="Length" priority="81" />
+      <Item value="Remove`0" priority="53" />
+      <Item value="Replace`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.StringSplitOptions">
+      <Item value="None" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlDictionaryReader">
+      <Item value="Read`0" priority="26" />
+      <Item value="ReadOuterXml`0" priority="26" />
+      <Item value="Close`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlNode">
+      <Item value="Name" priority="53" />
+      <Item value="ChildNodes" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.ArrayList">
+      <Item value="Add`0" priority="80" />
+      <Item value="Count" priority="161" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Int32">
+      <Item value="ToString`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:APIServiceProviderNamespace.main+ordersTotalsRow">
+      <Item value="total" priority="26" />
+      <Item value="totala" priority="26" />
+      <Item value="totalr" priority="26" />
+      <Item value="totalsum" priority="26" />
+      <Item value="totalsuma" priority="26" />
+      <Item value="totalsumd" priority="53" />
+      <Item value="totalsumdd" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Decimal">
+      <Item value="ToString`0" priority="80" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DayOfWeek">
+      <Item value="Saturday" priority="26" />
+      <Item value="Sunday" priority="80" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Globalization.NumberFormatInfo">
+      <Item value="NumberGroupSeparator" priority="26" />
+      <Item value="NumberDecimalSeparator" priority="26" />
+      <Item value="NumberDecimalDigits" priority="26" />
+      <Item value="CurrencyGroupSeparator" priority="26" />
+      <Item value="CurrencyDecimalSeparator" priority="26" />
+      <Item value="CurrencyDecimalDigits" priority="26" />
+      <Item value="CurrencySymbol" priority="53" />
+      <Item value="DigitSubstitution" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:fitmedia.HAGridView">
+      <Item value="OnTotalRowCountAvailable`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.GridView">
+      <Item value="Columns" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.DataControlField">
+      <Item value="FooterText" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="CssCodeCompletionContext">
+      <Item value="vertical-align" priority="0" />
+      <Item value="top" priority="1" />
+      <Item value="float" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.GridViewRowEventArgs">
+      <Item value="Row" priority="80" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.GridViewRow">
+      <Item value="RowType" priority="26" />
+      <Item value="DataItem" priority="26" />
+      <Item value="Cells" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Format`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.TableCell">
+      <Item value="Text" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.SessionState.HttpSessionState">
+      <Item value="Remove`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.UI.WebControls.Calendar">
+      <Item value="SelectedDate" priority="26" />
+      <Item value="TodaysDate" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="JavaScriptSpecificContext">
+      <Item value="alert" priority="10" />
+      <Item value="var" priority="10" />
+      <Item value="Database" priority="10" />
+      <Item value="new" priority="10" />
+      <Item value="Array" priority="10" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+</Configuration>

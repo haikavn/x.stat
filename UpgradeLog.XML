@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="fitmedia">
+</Property><Property Name="Solution File" Value="D:\Hayk\Work\Vigen\fitmedia\fitmedia.sln">
+</Property><Property Name="User Options File" Value="D:\Hayk\Work\Vigen\fitmedia\fitmedia.suo">
+</Property><Property Name="Date" Value="12 марта 2012 г.">
+</Property><Property Name="Time" Value="1:18">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="fitmedia.sln" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia.sln">
+</Event><Event ErrorLevel="0" Project="" Source="fitmedia.suo" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia.suo">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\fitmedia.csproj" Description="Project file successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\fitmedia.csproj">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\fitmedia.csproj.user" Description="Project user file successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\fitmedia.csproj.user">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\datagen.aspx.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\datagen.aspx.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\datagen.aspx.designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\datagen.aspx.designer.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\datagrid.aspx.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\datagrid.aspx.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\datagrid.aspx.designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\datagrid.aspx.designer.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\Default.aspx.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\Default.aspx.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\Default.aspx.designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\Default.aspx.designer.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\default1.aspx.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\default1.aspx.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\default1.aspx.designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\default1.aspx.designer.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\default2.aspx.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\default2.aspx.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\default2.aspx.designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\default2.aspx.designer.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\orders.aspx.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\orders.aspx.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\orders.aspx.designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\orders.aspx.designer.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\orders_chart.aspx.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\orders_chart.aspx.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\orders_chart.aspx.designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\orders_chart.aspx.designer.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\datagen.aspx" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\datagen.aspx">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\datagrid.aspx" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\datagrid.aspx">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\Default.aspx" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\Default.aspx">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\default1.aspx" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\default1.aspx">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\default2.aspx" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\default2.aspx">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\index.html" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\index.html">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\orders.aspx" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\orders.aspx">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\orders_chart.aspx" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\orders_chart.aspx">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\Web.config" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\fitmedia\Web.config">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\fitmedia.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="fitmedia" Source="fitmedia\fitmedia.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\APIServiceProviderNamespace.csproj" Description="Project file successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\APIServiceProviderNamespace.csproj">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\APIServiceProvider.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\APIServiceProvider.cs">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\APIServiceProviderRequest.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\APIServiceProviderRequest.cs">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\DBModule.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\DBModule.cs">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\main.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\main.cs">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\main.Designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\main.Designer.cs">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\Project.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\Project.cs">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\Properties\Settings.Designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\app.config" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\app.config">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\main.xsc" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\main.xsc">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\main.xsd" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\main.xsd">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\main.xss" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\main.xss">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\Properties\Settings.settings" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\config.xml" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\APIServiceProvider\config.xml">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\APIServiceProviderNamespace.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="APIServiceProviderNamespace" Source="APIServiceProvider\APIServiceProviderNamespace.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\FitmediaSync.csproj" Description="Project file successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaSync\FitmediaSync.csproj">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\FitmediaServiceInstaller.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaSync\FitmediaServiceInstaller.cs">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\Service1.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaSync\Service1.cs">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\Service1.Designer.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaSync\Service1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\Program.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaSync\Program.cs">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaSync\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\Service1.resx" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaSync\Service1.resx">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\FitmediaSync.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="FitmediaSync" Source="FitmediaSync\FitmediaSync.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="FitmediaServiceInstaller" Source="FitmediaServiceInstaller\FitmediaServiceInstaller.csproj" Description="Project file successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaServiceInstaller\FitmediaServiceInstaller.csproj">
+</Event><Event ErrorLevel="0" Project="FitmediaServiceInstaller" Source="FitmediaServiceInstaller\Program.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaServiceInstaller\Program.cs">
+</Event><Event ErrorLevel="0" Project="FitmediaServiceInstaller" Source="FitmediaServiceInstaller\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Hayk\Work\Vigen\fitmedia\Backup\FitmediaServiceInstaller\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="FitmediaServiceInstaller" Source="FitmediaServiceInstaller\FitmediaServiceInstaller.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="FitmediaServiceInstaller" Source="FitmediaServiceInstaller\FitmediaServiceInstaller.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="fitmedia.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="fitmedia.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="fitmedia" Source="fitmedia\fitmedia.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="APIServiceProviderNamespace" Source="APIServiceProvider\APIServiceProviderNamespace.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="FitmediaSync" Source="FitmediaSync\FitmediaSync.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="FitmediaServiceInstaller" Source="FitmediaServiceInstaller\FitmediaServiceInstaller.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

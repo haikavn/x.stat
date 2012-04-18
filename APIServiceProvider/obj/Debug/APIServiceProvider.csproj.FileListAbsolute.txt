@@ -1,0 +1,6 @@
+C:\Haik\fitmedia\APIServiceProvider\bin\Debug\APIServiceProvider.dll
+C:\Haik\fitmedia\APIServiceProvider\bin\Debug\APIServiceProvider.pdb
+C:\Haik\fitmedia\APIServiceProvider\obj\Debug\ResolveAssemblyReference.cache
+C:\Haik\fitmedia\APIServiceProvider\obj\Debug\APIServiceProvider.dll
+C:\Haik\fitmedia\APIServiceProvider\obj\Debug\APIServiceProvider.pdb
+C:\Haik\fitmedia\APIServiceProvider\bin\Debug\APIServiceProvider.dll.config

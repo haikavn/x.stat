@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<providers>
+  <provider>
+    <type>YandexAPIServiceProvider</type>
+    <name>Yandex Direct</name>
+    <url>https://soap.direct.yandex.ru/json-api/v4/</url>
+    <params>
+      <param>
+        <name>token</name>
+        <value>da04a71ccc2b4fb9a715b99ea3e7fa02</value>
+      </param>
+      <param>
+        <name>application_id</name>
+        <value>82a35319beff4fceaf4bc705375b7476</value>
+      </param>
+      <param>
+        <name>login</name>
+        <value>fitmedia</value>
+      </param>
+    </params>
+  </provider>
+</providers>

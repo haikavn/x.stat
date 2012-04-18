@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project>
+  <name>Insidehome</name>
+  <id>Insidehome</id>
+
+  <schedules>
+    <schedule>
+      <provider>Yandex Direct (insidehome2)</provider>
+      <start></start>
+      <interval></interval>
+
+      
+      <requests>
+        <request>
+          <name>getsummarystats</name>
+          <isinitial>True</isinitial>
+          <params>
+            <param>
+              <name>login</name>
+              <value>insidehome2</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>client</name>
+              <value></value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>startdate</name>
+              <value>01.09.2011</value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>isagency</name>
+              <value>False</value>
+              <type>boolean</type>
+            </param>
+          </params>
+        </request>
+
+        <request>
+          <name>getsummarystats</name>
+          <params>
+            <param>
+              <name>login</name>
+              <value>insidehome2</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>client</name>
+              <value></value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>startdate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>isagency</name>
+              <value>False</value>
+              <type>boolean</type>
+            </param>
+          </params>
+        </request>
+      </requests>
+    </schedule>
+
+    <schedule>
+      <provider>Orders Insidehome</provider>
+      <start></start>
+      <interval></interval>
+      
+        <requests>
+        <request>
+          <name>getorders</name>
+          <params>
+            <param>
+              <name>startdate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+          </params>
+        </request>
+      </requests>
+    </schedule>
+  </schedules>
+</project>

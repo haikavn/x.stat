@@ -1,0 +1,11 @@
+D:\Haik\Vigen\fitmedia\FitmediaServiceInstaller\obj\Debug\ResolveAssemblyReference.cache
+D:\Haik\Vigen\fitmedia\FitmediaServiceInstaller\bin\Debug\FitmediaServiceInstaller.exe
+D:\Haik\Vigen\fitmedia\FitmediaServiceInstaller\bin\Debug\FitmediaServiceInstaller.pdb
+D:\Haik\Vigen\fitmedia\FitmediaServiceInstaller\obj\Debug\FitmediaServiceInstaller.exe
+D:\Haik\Vigen\fitmedia\FitmediaServiceInstaller\obj\Debug\FitmediaServiceInstaller.pdb
+D:\Hayk\Work\Vigen\fitmedia\FitmediaServiceInstaller\bin\Debug\FitmediaServiceInstaller.exe.config
+D:\Hayk\Work\Vigen\fitmedia\FitmediaServiceInstaller\bin\Debug\FitmediaServiceInstaller.exe
+D:\Hayk\Work\Vigen\fitmedia\FitmediaServiceInstaller\bin\Debug\FitmediaServiceInstaller.pdb
+D:\Hayk\Work\Vigen\fitmedia\FitmediaServiceInstaller\obj\Debug\ResolveAssemblyReference.cache
+D:\Hayk\Work\Vigen\fitmedia\FitmediaServiceInstaller\obj\Debug\FitmediaServiceInstaller.exe
+D:\Hayk\Work\Vigen\fitmedia\FitmediaServiceInstaller\obj\Debug\FitmediaServiceInstaller.pdb

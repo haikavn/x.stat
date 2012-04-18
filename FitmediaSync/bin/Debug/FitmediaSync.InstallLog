@@ -1,0 +1,26 @@
+﻿Installing assembly 'D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe
+   logfile = D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.InstallLog
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe assembly.
+Committing assembly 'D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe
+   logfile = D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.InstallLog
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe assembly.
+Remove InstallState file because there are no installers.
+Installing assembly 'D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe
+   logfile = D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.InstallLog
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe assembly.
+Committing assembly 'D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe
+   logfile = D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.InstallLog
+No public installers with the RunInstallerAttribute.Yes attribute could be found in the D:\Haik\Vigen\fitmedia\FitmediaSync\bin\debug\FitmediaSync.exe assembly.
+Remove InstallState file because there are no installers.

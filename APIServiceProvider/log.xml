@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<logs>
+  <log>
+    <traces>
+      <trace>
+        <date>09.02.2012 4:17:59</date>
+        <method>GetSubClients</method>
+        <error>{"error_detail":"","error_str":"Authorization error","error_code":53}</error>
+      </trace>
+      <trace>
+        <date>09.02.2012 4:17:59</date>
+        <method>GetCampaignList</method>
+        <error>error_str: "sub-clients list is nul"</error>
+      </trace>
+      <trace>
+        <date>09.02.2012 4:17:59</date>
+        <method>GetSummaryStats</method>
+        <error>error_str: "Campaigns id list is null"</error>
+      </trace>
+      <trace />
+    </traces>
+    <date>09.02.2012 4:17:59</date>
+    <method>getsummarystats</method>
+    <error>error_str: "Campaigns id list is null"</error>
+  </log>
+</logs>

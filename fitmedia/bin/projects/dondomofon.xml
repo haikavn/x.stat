@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project>
+  <name>Dondomofon</name>
+  <id>Dondomofon</id>
+  <startfrom>01.02.2012</startfrom>
+
+  <schedules>
+    <schedule>
+	  <id>1</id>
+      <provider>Yandex Direct (fitmedia)</provider>
+      <start></start>
+      <interval></interval>
+
+      
+      <requests>
+        <request>
+          <name>getreport</name>
+          <isinitial>True</isinitial>
+          <params>
+            <param>
+              <name>login</name>
+              <value>fitmedia</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>client</name>
+              <value>dondomofon</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>startdate</name>
+              <value>01.02.2012</value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>isagency</name>
+              <value>True</value>
+              <type>boolean</type>
+            </param>
+            <param>
+              <name>onlyactivecampaigns</name>
+              <value>False</value>
+              <type>boolean</type>
+            </param>			
+          </params>
+        </request>
+		
+		  <request>
+          <name>getbanners</name>
+          <isinitial>True</isinitial>
+          <params>
+            <param>
+              <name>login</name>
+              <value>fitmedia</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>client</name>
+              <value>dondomofon</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>isagency</name>
+              <value>True</value>
+              <type>boolean</type>
+            </param>
+            <param>
+              <name>onlyactivecampaigns</name>
+              <value>False</value>
+              <type>boolean</type>
+            </param>						
+          </params>
+        </request>
+
+        <request>
+          <name>getreport</name>
+          <params>
+            <param>
+              <name>login</name>
+              <value>fitmedia</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>client</name>
+              <value>dondomofon</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>startdate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>isagency</name>
+              <value>True</value>
+              <type>boolean</type>
+            </param>
+            <param>
+              <name>onlyactivecampaigns</name>
+              <value>True</value>
+              <type>boolean</type>
+            </param>						
+          </params>
+        </request>
+		
+				  <request>
+          <name>getbanners</name>
+          <params>
+            <param>
+              <name>login</name>
+              <value>fitmedia</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>client</name>
+              <value>dondomofon</value>
+              <type>string</type>
+            </param>
+            <param>
+              <name>isagency</name>
+              <value>True</value>
+              <type>boolean</type>
+            </param>
+            <param>
+              <name>onlyactivecampaigns</name>
+              <value>True</value>
+              <type>boolean</type>
+            </param>						
+          </params>
+        </request>
+        
+      </requests>
+    </schedule>
+
+	
+	  </schedules>
+</project>
