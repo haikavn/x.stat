@@ -28,12 +28,35 @@ namespace FitmediaSync
 
         protected override void OnStart(string[] args)
         {
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            File.WriteAllText(path.Replace("file:\\", "") + "\\shutdown", "ok");
+
+            //System.Windows.Forms.MessageBox.Show("kuku");
+
             sm.Start();
         }
 
         protected override void OnStop()
         {
             sm.Stop();
+
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            if (File.Exists(path.Replace("file:\\", "") + "\\shutdown"))
+                File.Delete(path.Replace("file:\\", "") + "\\shutdown");
+        }
+
+        protected override void OnShutdown()
+        {
+            sm.Stop();
+
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            if (File.Exists(path.Replace("file:\\", "") + "\\shutdown"))
+                File.Delete(path.Replace("file:\\", "") + "\\shutdown");
+
+
+         //   System.Windows.Forms.MessageBox.Show("haha");
+
+            base.OnShutdown();
         }
 
     }

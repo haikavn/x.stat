@@ -3,13 +3,24 @@
 <project>
   <name>Toplamp</name>
   <id>Toplamp</id>
-
+  <startfrom>01.09.2011</startfrom>
+   <coefs>
+  	<coef provider="Yandex Direct (fitmedia)">
+		<value>30</value>
+		<date>01.09.2011</date>
+	</coef>	
+  	<coef provider="Yandex Direct (fitmedia)">
+		<value>29.1</value>
+		<date>05.07.2012</date>
+	</coef>	
+  </coefs>
+  
   <schedules>
     <schedule>
+	  <id>1</id>	
       <provider>Orders Toplamp</provider>
       <start></start>
-      <interval></interval>
-
+      <interval>hourly</interval>
 
       <requests>
         <request>
@@ -18,12 +29,12 @@
           <params>
             <param>
               <name>startdate</name>
-              <value>01.09.2011</value>
+              <value>01.03.2012</value>
               <type>datetime</type>
             </param>
             <param>
               <name>enddate</name>
-              <value></value>
+              <value>02.03.2012</value>
               <type>datetime</type>
             </param>
           </params>
@@ -46,5 +57,6 @@
         </request>
       </requests>
     </schedule>
-  </schedules>
+
+   </schedules>
 </project>

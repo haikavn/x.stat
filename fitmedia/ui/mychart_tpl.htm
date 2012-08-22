@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    
+  
+    <script src="jquery-1.7.1.min.js" type="text/javascript"></script>      
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#statsTable td").hover(function () {
+            $(".sum").hide();
+            //$("#statsTable td").find("div").css("background-color", "");
+            $("#statsTable td[title='" + $(this).attr("title") + "']").find(".sum").show();
+            //$("#statsTable td[title='" + $(this).attr("title") + "']").find("div").css("background-color", "yellow");
+            //$("#statsTable td[title='" + $(this).attr("title") + "']").find("div").css("color", "black");
+
+        }, function () {
+            $(".sum").fadeOut("fast");
+            //$("#statsTable td[title='" + $(this).attr("title") + "']").find("div").css("background-color", "");
+            //$("#statsTable td[title='" + $(this).attr("title") + "']").find("div").css("color", "");
+
+        });
+    });
+
+    
+</script>
+</head>
+<body class='default'>
+	{[(TBL)]}
+</body>

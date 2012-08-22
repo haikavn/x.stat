@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<requests>
+  <requestlog methodname="getorders" datetime="22.08.2012 13:01:57" isinitial="True">
+    <params>
+      <param type="System.DateTime">01.09.2011</param>
+      <param type="System.DateTime">22.08.2012</param>
+    </params>
+    <logs>
+      <log status="ERROR">GetOrders - [Error loading details XML][Data at the root level is invalid. Line 1, position 1.]</log>
+    </logs>
+    <result>error</result>
+    <provider>APIServiceProviderNamespace.OrdersAPIServiceProvider</provider>
+    <providername>Orders Insidehome</providername>
+    <project>61</project>
+  </requestlog>
+  <requestlog methodname="getorders" datetime="22.08.2012 13:00:41" isinitial="True">
+    <params>
+      <param type="System.DateTime">01.09.2011</param>
+      <param type="System.DateTime">22.08.2012</param>
+    </params>
+    <logs>
+      <log status="ERROR">GetOrders(AddOrderDetails) - [Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.]</log>
+    </logs>
+    <result>error</result>
+    <provider>APIServiceProviderNamespace.OrdersAPIServiceProvider</provider>
+    <providername>Orders Insidehome</providername>
+    <project>61</project>
+  </requestlog>
+</requests>

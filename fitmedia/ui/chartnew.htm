@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <script src="jquery-1.7.1.min.js" type="text/javascript"></script>      
+    <script type="text/javascript">
+		function GenerateChart(id, cols, data)
+		{
+			var width = $("#" + id).width();
+			var height = $("#" + id).height();
+			var w = width / cols.length;
+			var h = 25;
+
+			var i;
+			var j;
+			var l = cols.length;
+			var x = 0;
+			var y = 0;
+			
+			var px = 0;
+			var py = 0;
+			var pw = 0;
+			var ph = 0;
+			
+			var border = '';
+			
+			for (i = 0; i < l; i++)
+			{
+				border = 'border-left:1px solid #BDB76B;border-bottom:1px solid #BDB76B;border-top:1px solid #BDB76B;';	
+				if (i == l - 1)
+						border += 'border-right:1px solid #BDB76B;';							
+				y = 0;
+				jQuery('<div/>', { 
+					id: 'col' + i, 
+					style: 'position: absolute; width: auto; height: ' + h + 'px; left: ' + x + 'px; top: ' + y + 'px; font-size: 10px;' + border
+				}).html('&nbsp;&nbsp;' + cols[i] + '&nbsp;&nbsp;').appendTo("#" + id); 
+				w = $("#col" + i).width();
+				y += h;
+				for (j = 1; j <= 20; j++)
+				{
+					border = 'border-left:1px solid #BDB76B;';
+					if (j == 11)
+					{
+						border += 'border-top:1px solid #000000;border-bottom:1px solid #BDB76B;';
+					}
+					else
+					if (j == 10)		
+					{
+						border += 'border-bottom:1px solid #000000;';
+					}
+					else
+					{
+						border += 'border-bottom:1px solid #BDB76B;';
+					}
+					if (i == 20)
+						border += 'border-right:1px solid #BDB76B;';
+					jQuery('<div/>', { 
+						id: 'cell_' + i + '_' + 'j', 
+						style: 'position: absolute; width: ' + w + 'px; height: ' + 25 + 'px; left: ' + x + 'px; top: ' + y + 'px; ' + border
+					}).html('&nbsp;').appendTo("#" + id); 	
+					y += h;				
+				}
+				
+				pw = w - 14;
+				px = x + 7;
+				
+				py = (100 - data[i].totala_p) / 10 * h + h; 
+				ph = data[i].totala_p / 10 * h - 1;
+				
+				jQuery('<div/>', { 
+						id: 'col_' + i + 'totala', 
+						style: 'position: absolute; width: ' + pw + 'px; height: ' + ph + 'px; left: ' + px + 'px; top: ' + py + 'px; background-color:#0F0'
+					}).html('&nbsp;').appendTo("#" + id); 	
+					
+				py = (100 - data[i].totalr_p) / 10 * h + h - (data[i].totala / 10 * h); 
+				ph = data[i].totalr_p / 10 * h;
+				
+				jQuery('<div/>', { 
+						id: 'col_' + i + 'totalr', 
+						style: 'position: absolute; width: ' + pw + 'px; height: ' + ph + 'px; left: ' + px + 'px; top: ' + py + 'px; background-color:#00F'
+					}).html('&nbsp;').appendTo("#" + id); 		
+					
+
+				py = h + 10 * h + 1; 
+				ph = data[i].yandex_p / 10 * h - 1;
+				
+				jQuery('<div/>', { 
+						id: 'col_' + i + 'yandex', 
+						style: 'position: absolute; width: ' + pw + 'px; height: ' + ph + 'px; left: ' + px + 'px; top: ' + py + 'px; background-color:#FF0'
+					}).html('&nbsp;').appendTo("#" + id); 	
+					
+				py = h + 10 * h + ph + 1; 
+				ph = data[i].google_p / 10 * h - 1;
+				
+				jQuery('<div/>', { 
+						id: 'col_' + i + 'google', 
+						style: 'position: absolute; width: ' + pw + 'px; height: ' + ph + 'px; left: ' + px + 'px; top: ' + py + 'px; background-color:#0FF'
+					}).html('&nbsp;').appendTo("#" + id); 										
+				
+				x += w;
+			}
+		}
+	    $(document).ready(function () {		
+			GenerateChart('chart', ['09.01.2012 - 15.01.2012','16.01.2012 - 22.01.2012','23.01.2012 - 29.01.2012','30.01.2012 - 05.02.2012','06.02.2012 - 12.02.2012','13.02.2012 - 19.02.2012','20.02.2012 - 26.02.2012','27.02.2012 - 04.03.2012','05.03.2012 - 11.03.2012','12.03.2012 - 18.03.2012','19.03.2012 - 25.03.2012','26.03.2012 - 01.04.2012','02.04.2012 - 08.04.2012','09.04.2012 - 15.04.2012','16.04.2012 - 22.04.2012','23.04.2012 - 29.04.2012','30.04.2012 - 06.05.2012','07.05.2012 - 13.05.2012','14.05.2012 - 20.05.2012','21.05.2012 - 27.05.2012','28.05.2012 - 03.06.2012'],[{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70},{totala_p:55,totalr_p:45,yandex_p:30,google_p:70}]);
+		});
+    </script>
+</head>
+<body class='default'>
+<div id="chart" style="width: 500px; height:450px"></div>
+</body>
+</html>

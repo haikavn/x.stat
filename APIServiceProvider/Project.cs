@@ -49,6 +49,22 @@ namespace APIServiceProviderNamespace
         }
 
         #endregion
+
+       #region Public Methods
+
+        public void LoadFromXML(XmlNode node)
+        {
+            if (node["name"] != null && node["type"] != null && node["value"] != null)
+            {
+                Name = node["name"].InnerText;
+                Type = node["type"].InnerText;
+                Value = node["value"].InnerText;
+                if (node["format"] != null)
+                    Format = node["format"].InnerText;
+            }
+        }
+
+       #endregion
    }
 
    public class ProjectScheduleParameterCollection
@@ -114,6 +130,56 @@ namespace APIServiceProviderNamespace
 
         #region Public Methods
 
+        public bool LoadFromXML(XmlNode node)
+        {
+            if (node.Name == "request" && node["name"] != null)
+            {
+                Name = node["name"].InnerText;
+                bool isinitial = false;
+                if (node["isinitial"] != null)
+                    if (!bool.TryParse(node["isinitial"].InnerText, out isinitial))
+                        isinitial = false;
+                IsInitial = isinitial;
+                if (node["params"] != null)
+                {
+                    XmlElement prs = node["params"];
+
+                    foreach (XmlNode param in prs.ChildNodes)
+                    {
+                        ProjectScheduleRequestParameter psrp = new ProjectScheduleRequestParameter();
+                        psrp.LoadFromXML(param);
+                        Parameters.Items.Add(psrp);
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public void LogFailedRequest(string logxml)
+        {
+            XmlDocument xmldoc = new XmlDocument();
+
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            if (!System.IO.File.Exists(path.Replace("file:\\", "") + "\\failed.xml"))
+            {
+                xmldoc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?><requests></requests>");
+            }
+            else
+                xmldoc.Load(path.Replace("file:\\", "") + "\\failed.xml");
+
+            XmlElement root = xmldoc["requests"];
+
+            if (root != null)
+            {
+                root.InnerXml += logxml;
+            }
+
+            xmldoc.Save(path.Replace("file:\\", "") + "\\failed.xml");
+        }
+
         private object[] Validate()
         {
             if (parameters.Items.Count == 0) return null;
@@ -149,7 +215,7 @@ namespace APIServiceProviderNamespace
                         break;
                     case "datetime":
                         {
-                            DateTime res = DateTime.Now;
+                            DateTime res = SyncManager.ExecutingDate;
                             if (p.Format.Length == 0)
                                 p.Format = "dd.MM.yyyy";
                             try
@@ -192,8 +258,11 @@ namespace APIServiceProviderNamespace
             if (prs == null) return "";
 
             schedule.Provider.ServiceProviderRequest.IsInitial = IsInitial;
+
             schedule.Provider.ServiceProviderRequest.HandleRequest(prs);
 
+            if (schedule.Provider.ServiceProviderRequest.HasError)
+                LogFailedRequest(schedule.Provider.ServiceProviderRequest.RequestLogXml);
 
             return schedule.Provider.ServiceProviderRequest.RequestLogXml;
         }
@@ -295,6 +364,49 @@ namespace APIServiceProviderNamespace
 
         #region Public Methods
 
+        public bool LoadFromXML(XmlNode node)
+        {
+            XmlNode scid = node["id"];
+            XmlNode provider = node["provider"];
+            XmlNode start = node["start"];
+            XmlNode interval = node["interval"];
+
+            if (provider == null) return false;
+
+            DateTime st = DateTime.Now;
+            if (!DateTime.TryParse(start.InnerText, out st))
+                st = DateTime.Now;
+
+            string it = "daily";
+            if (interval.InnerText == "daily" ||
+                interval.InnerText == "hourly" ||
+                interval.InnerText == "weekly")
+                it = interval.InnerText;
+
+            Provider = (APIServiceProvider)SyncManager.Providers.ServiceProviders[provider.InnerText];
+            Interval = it;
+            StartAt = st;
+            //LastExecutedAt = st;
+            if (scid != null)
+                Id = scid.InnerText;
+
+            XmlElement requests = node["requests"];
+
+            if (requests != null)
+            {
+                foreach (XmlNode nd in requests.ChildNodes)
+                {
+                    ProjectScheduleRequest psr = new ProjectScheduleRequest();
+                    psr.Schedule = this;
+
+                    if (psr.LoadFromXML(nd))
+                        Requests.Items.Add(psr);
+                }
+            }
+
+            return true;
+        }
+
         private void InitialCheck()
         {
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
@@ -324,17 +436,28 @@ namespace APIServiceProviderNamespace
                                         if (node2.Name == "schedulelog")
                                         {
                                             att = node2.Attributes["id"];
+                                            XmlAttribute att1 = node2.Attributes["initial"];
+                                            bool inital = false;
+                                            if (att1 != null && att1.Value == "True") inital = true;
                                             if (att != null && att.Value == id)
                                             {
-                                                initalRequestDone = true;
+                                                if (!initalRequestDone)
+                                                    initalRequestDone = inital;
                                                 if (dt != null)
                                                 {
                                                     try
                                                     {
-                                                        LastExecutedAt = DateTime.ParseExact(dt.Value, "dd.MM.yyyy HH:mm", null);
+                                                        LastExecutedAt = DateTime.ParseExact(dt.Value, "dd.MM.yyyy HH:mm:ss", null);
                                                     }
                                                     catch
                                                     {
+                                                        try
+                                                        {
+                                                            LastExecutedAt = DateTime.ParseExact(dt.Value, "dd.MM.yyyy HH:mm", null);
+                                                        }
+                                                        catch
+                                                        {
+                                                        }
                                                     }
                                                 }
                                             }
@@ -352,8 +475,8 @@ namespace APIServiceProviderNamespace
         {
             if (provider == null) return "";
 
-            DateTime now = DateTime.Now;
-            string logxml = "<schedulelog datetime=\"" + now.ToString("dd.MM.yyyy HH:mm") + "\" id=\"" + id + "\">";
+            DateTime now = SyncManager.ExecutingDate;
+            string logxml = "<schedulelog datetime=\"" + now.ToString("dd.MM.yyyy HH:mm") + "\" id=\"" + id + "\" initial=\"";
 
             if (!initalRequestDone)
                 InitialCheck();
@@ -363,6 +486,8 @@ namespace APIServiceProviderNamespace
                 //if (DateTime.Now >= StartAt)
                 {
                     initalRequestDone = true;
+
+                    logxml += "True\">";
 
                     for (int i = 0; i < requests.Items.Count; i++)
                     {
@@ -374,25 +499,59 @@ namespace APIServiceProviderNamespace
                     }
                 }
 
-                LastExecutedAt = DateTime.Now;
+                DateTime dt = new DateTime(SyncManager.ExecutingDate.Year, SyncManager.ExecutingDate.Month, SyncManager.ExecutingDate.Day, 23, 59, 59);//DateTime.Now;
+                LastExecutedAt = dt.AddDays(-1);
 
                 logxml += "</schedulelog>";
 
                 return logxml;
             }
 
-            TimeSpan ts = DateTime.Now - LastExecutedAt;
+            logxml += "False\">";
+
+            TimeSpan ts = SyncManager.ExecutingDate - LastExecutedAt;
+
+            //if (!SyncManager.IsProperlyShutedDown())
+            {
+                SyncManager.ExecutingDate = SyncManager.ExecutingDate.AddDays(-1);
+
+                int days = ts.Days;
+
+                while (days > 0)
+                {
+                    for (int i = 0; i < requests.Items.Count; i++)
+                    {
+                        ProjectScheduleRequest psr = (requests.Items[i] as ProjectScheduleRequest);
+                        if (!psr.IsInitial)
+                            psr.Request();
+                    }
+
+                    SyncManager.ExecutingDate = SyncManager.ExecutingDate.AddDays(-1);
+                    days--;
+                }
+
+                SyncManager.ExecutingDate = now;
+            }
+
+            try
+            {
+                string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+                File.AppendAllText(path.Replace("file:\\", "") + "\\requests1.txt", this.id.ToString() + ";" + SyncManager.ExecutingDate.ToString() + ";" + LastExecutedAt.ToString() + ";" + ts.TotalHours.ToString() + "\r\n");
+            }
+            catch
+            {
+            }
 
             switch (interval)
             {
                 case "hourly":
-                    if (ts.TotalHours < 1) return "";
+                    if (ts.TotalHours < 0.99) return "";
                     break;
                 case "daily":
-                    if (ts.TotalDays < 1) return "";
+                    if (ts.TotalDays < 0.99) return "";
                     break;
                 case "weekly":
-                    if (ts.TotalDays < 7) return "";
+                    if (ts.TotalDays < 6.99) return "";
                     break;
             }
 
@@ -403,7 +562,7 @@ namespace APIServiceProviderNamespace
                     logxml += psr.Request();
             }
 
-            LastExecutedAt = DateTime.Now;
+            LastExecutedAt = new DateTime(SyncManager.ExecutingDate.Year, SyncManager.ExecutingDate.Month, SyncManager.ExecutingDate.Day, SyncManager.ExecutingDate.Hour, SyncManager.ExecutingDate.Minute, 59);
 
             logxml += "</schedulelog>";
 
@@ -414,7 +573,8 @@ namespace APIServiceProviderNamespace
 
         public ProjectSchedule()
         {
-
+            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59);
+            LastExecutedAt = dt.AddDays(-1);
         }
     }
 
@@ -441,6 +601,99 @@ namespace APIServiceProviderNamespace
     }
 
 
+    public class ProjectCoef
+    {
+        #region Private members
+
+        private float coefValue = 1;
+        private DateTime coefDate = DateTime.Now;
+
+        private string providerName = "";
+
+        private Project coefProject = null;
+
+        #endregion
+
+        #region Public Region
+
+        public float CoefValue
+        {
+            get { return coefValue; }
+            set { coefValue = value; }
+        }
+
+        public DateTime CoefDate
+        {
+            get { return coefDate; }
+            set { coefDate = value; }
+        }
+
+        public string ProviderName
+        {
+            get { return providerName; }
+            set { providerName = value; }
+        }
+
+        public Project CoefProject
+        {
+            get { return coefProject; }
+            set { coefProject = value; }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public bool LoadFromXML(XmlNode node)
+        {
+            XmlAttribute att = node.Attributes["provider"];
+            if (att != null)
+            {
+                if (SyncManager.Providers.ServiceProviders[att.Value] != null)
+                {
+                    ProviderName = att.Value;
+
+                    XmlElement val = node["value"];
+                    XmlElement dt = node["date"];
+
+                    if (val != null)
+                    {
+                        try
+                        {
+                            CoefValue = float.Parse(val.InnerText);
+                        }
+                        catch
+                        {
+                            CoefValue = 1;
+                        }
+                    }
+
+                    if (dt != null)
+                    {
+                        try
+                        {
+                            CoefDate = DateTime.ParseExact(dt.InnerText, "dd.MM.yyyy", null);
+                        }
+                        catch
+                        {
+                            CoefDate = DateTime.Now;
+                        }
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        public ProjectCoef()
+        {
+        }
+    }
+
 
     public class Project
     {
@@ -449,10 +702,14 @@ namespace APIServiceProviderNamespace
         private string name = "";
         private string id = "";
         private int dbId = 0;
+        private string xmlFileName = "";
+
         private ProjectScheduleCollection schedules = new ProjectScheduleCollection();
         SyncManager manager = null;
 
         DateTime startFrom = DateTime.Now;
+
+        Hashtable coefs = new Hashtable();
 
         #endregion
 
@@ -481,6 +738,12 @@ namespace APIServiceProviderNamespace
             set { dbId = value; }
         }
 
+        public string XmlFileName
+        {
+            get { return xmlFileName; }
+            set { xmlFileName = value; }
+        }
+
         public SyncManager Manager
         {
             get { return manager; }
@@ -493,13 +756,24 @@ namespace APIServiceProviderNamespace
             set { startFrom = value; }
         }
 
+        public Hashtable Coefs
+        {
+            get { return coefs; }
+            set { coefs = value; }
+        }
 
+        public enum LoadOptions
+        {
+            All = 1,
+            Coefs = 2,
+            Schedules = 3
+        }
 
         #endregion
 
         #region Public Methods
 
-        public bool LoadFromXML(string filename)
+        public bool LoadFromXML(string filename, LoadOptions lo)
         {
             if (!System.IO.File.Exists(filename)) return false;
 
@@ -527,81 +801,37 @@ namespace APIServiceProviderNamespace
                 }
             }
 
+            XmlElement cfs = root["coefs"];
+
+            if (cfs != null && (lo == LoadOptions.All || lo == LoadOptions.Coefs))
+            {
+                coefs.Clear();
+                foreach (XmlNode cf in cfs.ChildNodes)
+                {
+                    ProjectCoef pc = new ProjectCoef();
+                    pc.CoefProject = this;
+                    if (pc.LoadFromXML(cf))
+                        coefs[pc.ProviderName] = pc;
+                }
+            }
+
             XmlElement schedules = root["schedules"];
 
             if (schedules == null) return false;
 
-            foreach (XmlNode node in schedules.ChildNodes)
+            if (lo == LoadOptions.All || lo == LoadOptions.Schedules)
             {
-                if (node.Name.ToLower() != "schedule") continue;
-
-                XmlNode scid = node["id"];
-                XmlNode provider = node["provider"];
-                XmlNode start = node["start"];
-                XmlNode interval = node["interval"];
-
-                if (provider == null) continue;
-
-                DateTime st = DateTime.Now;
-                if (!DateTime.TryParse(start.InnerText, out st))
-                    st = DateTime.Now;
-
-                string it = "daily";
-                if (interval.InnerText == "daily" ||
-                    interval.InnerText == "hourly" ||
-                    interval.InnerText == "weekly")
-                    it = interval.InnerText;
-
-                ProjectSchedule ps = new ProjectSchedule();
-                ps.ParentProject = this;
-                ps.Provider = (APIServiceProvider)SyncManager.Providers.ServiceProviders[provider.InnerText];
-                ps.Interval = it;
-                ps.StartAt = st;
-                ps.LastExecutedAt = st;
-                if (scid != null)
-                    ps.Id = scid.InnerText;
-
-                XmlElement requests = node["requests"];
-
-                if (requests != null)
+                Schedules.Items.Clear();
+                foreach (XmlNode node in schedules.ChildNodes)
                 {
-                    foreach (XmlNode nd in requests.ChildNodes)
-                    {
-                        if (nd.Name == "request" && nd["name"] != null)
-                        {
-                            ProjectScheduleRequest psr = new ProjectScheduleRequest();
-                            psr.Schedule = ps;
-                            psr.Name = nd["name"].InnerText;
-                            bool isinitial = false;
-                            if (nd["isinitial"] != null)
-                                if (!bool.TryParse(nd["isinitial"].InnerText, out isinitial))
-                                    isinitial = false;
-                            psr.IsInitial = isinitial;
-                            if (nd["params"] != null)
-                            {
-                                XmlElement prs = nd["params"];
+                    if (node.Name.ToLower() != "schedule") continue;
 
-                                foreach (XmlNode param in prs.ChildNodes)
-                                {
-                                    if (param["name"] != null && param["type"] != null && param["value"] != null)
-                                    {
-                                        ProjectScheduleRequestParameter psrp = new ProjectScheduleRequestParameter();
-                                        psrp.Name = param["name"].InnerText;
-                                        psrp.Type = param["type"].InnerText;
-                                        psrp.Value = param["value"].InnerText;
-                                        if (param["format"] != null)
-                                            psrp.Format = param["format"].InnerText;
-                                        psr.Parameters.Items.Add(psrp);
-                                    }
-                                }
-                            }
+                    ProjectSchedule ps = new ProjectSchedule();
+                    ps.ParentProject = this;
 
-                            ps.Requests.Items.Add(psr);
-                        }
-                    }
+                    if (ps.LoadFromXML(node))
+                        Schedules.Items.Add(ps);
                 }
-
-                Schedules.Items.Add(ps);
             }
 
             return true;
@@ -609,11 +839,11 @@ namespace APIServiceProviderNamespace
 
         public string Execute()
         {
-            DateTime now = DateTime.Now;
+            DateTime now = SyncManager.ExecutingDate;
 
-            string logxml = "<projectlog datetime=\"" + now.ToString("dd.MM.yyyy HH:mm") + "\" name=\"" + name + "\">";
+            string logxml = "<projectlog datetime=\"" + now.ToString("dd.MM.yyyy HH:mm:ss") + "\" name=\"" + name + "\">";
 
-           /* XmlElement root = SyncManager.ExecLogXml["execlogs"];
+           /*XmlElement root = SyncManager.ExecLogXml["execlogs"];
 
             if (root != null)
             {
@@ -622,12 +852,19 @@ namespace APIServiceProviderNamespace
                 att.Value = now.ToShortDateString() + " " + now.ToShortTimeString();
             }*/
 
+            int n = 0;
+
             for (int i = 0; i < schedules.Items.Count; i++)
             {
-                logxml += (schedules.Items[i] as ProjectSchedule).Execute();
+                string s = (schedules.Items[i] as ProjectSchedule).Execute();
+                if (s.Length == 0) n++;
+                logxml += s;
             }
 
             logxml += "</projectlog>";
+
+            if (n == schedules.Items.Count)
+                return "";
 
             return logxml;
         }
@@ -658,19 +895,38 @@ namespace APIServiceProviderNamespace
 
         #region Public Methods
 
-        public bool LoadProjects(SyncManager manager)
+        public bool LoadProjects(SyncManager manager, Project.LoadOptions lo)
         {
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
             if (!System.IO.Directory.Exists(path.Replace("file:\\", "") + "\\projects")) return false;
 
             string[] files = System.IO.Directory.GetFiles(path.Replace("file:\\", "") + "\\projects", "*.xml");
 
-            items.Clear();
+            if (lo == Project.LoadOptions.All)
+                items.Clear();
 
             for (int i = 0; i < files.Length; i++)
             {
-                Project prj = new Project();
-                if (!prj.LoadFromXML(files[i]))
+                Project prj = null;
+                if (lo == Project.LoadOptions.All)
+                {
+                    prj = new Project();
+                    prj.XmlFileName = files[i];
+                    items.Add(prj);
+                }
+                else
+                    for (int j = 0; j < items.Count; j++)
+                        if (((Project)items[j]).XmlFileName == files[i])
+                            prj = (Project)items[j];
+
+                if (prj == null)
+                {
+                    prj = new Project();
+                    prj.XmlFileName = files[i];
+                    items.Add(prj);
+                }
+
+                if (!prj.LoadFromXML(files[i], lo))
                 {
                     items.Clear();
                     return false;
@@ -679,7 +935,15 @@ namespace APIServiceProviderNamespace
                 prj.Manager = manager;
                 prj.DbId = DBModule.AddProject(prj.Name, prj.Id, prj.StartFrom);
 
-                items.Add(prj);
+                foreach(object k in prj.Coefs.Keys)
+                {
+                    ProjectCoef pc = (ProjectCoef)prj.Coefs[k.ToString()];
+                    if (pc != null)
+                    {
+                        APIServiceProvider sp = (APIServiceProvider)SyncManager.Providers.ServiceProviders[pc.ProviderName];
+                        DBModule.AddCoef(prj.DbId, pc.CoefDate, pc.CoefValue, sp.ServiceProviderType);
+                    }
+                }
             }
 
             return true;
@@ -699,8 +963,15 @@ namespace APIServiceProviderNamespace
         private static Project curExecProject = null;
 
         System.Timers.Timer timer = new System.Timers.Timer();
+        System.Timers.Timer checkTimer = new System.Timers.Timer();
 
         private static XmlDocument execLogXml = new XmlDocument();
+
+        private static DateTime executingDate = DateTime.Now;
+
+        private bool isStoped = false;
+
+        private bool isFirstTimerEvent = true;
 
         #endregion
 
@@ -723,6 +994,12 @@ namespace APIServiceProviderNamespace
             get { return execLogXml; }
         }
 
+        public static DateTime ExecutingDate
+        {
+            get { return SyncManager.executingDate; }
+            set { SyncManager.executingDate = value; }
+        }
+
         #endregion
 
         #region Public Methods
@@ -730,10 +1007,16 @@ namespace APIServiceProviderNamespace
         public void Init()
         {
             if (isInitialized) return;
-            projects.LoadProjects(this);
-            isInitialized = true;
+            projects.LoadProjects(this, Project.LoadOptions.All);
 
             Execute();
+            isInitialized = true;
+        }
+
+        public static bool IsProperlyShutedDown()
+        {
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            return !File.Exists(path.Replace("file:\\", "") + "\\shutdown");
         }
 
         public bool Start()
@@ -743,59 +1026,197 @@ namespace APIServiceProviderNamespace
             timer.Enabled = true;
             timer.Start();
 
+            isStoped = false;
+
+            checkTimer.Elapsed += new System.Timers.ElapsedEventHandler(checkTimer_Elapsed);
+            checkTimer.Enabled = true;
+            checkTimer.Interval = 30000;
+            checkTimer.Start();
+
             return true;
         }
 
         public void Resume()
         {
+            isStoped = false;
             timer.Enabled = true;
             timer.Start();
         }
 
         public void Stop()
         {
+            isStoped = true;
             timer.Enabled = false;
             timer.Stop();
         }
 
+        public void ExecuteFailedRequests()
+        {
+            XmlDocument xmldoc = new XmlDocument();
+
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+            if (!File.Exists(path.Replace("file:\\", "") + "\\failed.xml")) return;
+            xmldoc.Load(path.Replace("file:\\", "") + "\\failed.xml");
+
+            XmlElement root = xmldoc["requests"];
+
+            SyncManager.CurExecProject = new Project();
+
+
+            ArrayList nodestoremove = new ArrayList();
+
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Name != "requestlog") continue;
+
+                XmlAttribute datetime = node.Attributes["datetime"];
+
+                XmlElement provider = node["provider"];
+                XmlElement parameters = node["params"];
+                XmlElement providername = node["providername"];
+                XmlElement project = node["project"];
+
+                SyncManager.CurExecProject.DbId = int.Parse(project.InnerText);
+
+                Type t = Type.GetType(provider.InnerText);
+
+                XmlAttribute method = node.Attributes["methodname"];
+
+                APIServiceProviderCollection c = new APIServiceProviderCollection();
+
+                object[] pr = new object[parameters.ChildNodes.Count + 1];
+
+                pr[0] = method.InnerText;
+
+                int i = 1;
+
+                foreach (XmlNode p in parameters.ChildNodes)
+                {
+                    XmlAttribute type = p.Attributes["type"];
+                    t = Type.GetType(type.Value);
+
+                    if (t == typeof(DateTime))
+                        pr[i] = DateTime.ParseExact(p.InnerText, "dd.MM.yyyy", null);
+                    else
+                        if (t == typeof(int))
+                            pr[i] = int.Parse(p.InnerText);
+                        else
+                            if (t == typeof(bool))
+                                pr[i] = bool.Parse(p.InnerText);
+                            else
+                                pr[i] = p.InnerText;
+
+                    i++;
+                }
+
+                APIServiceProvider instance = (APIServiceProvider)c.ServiceProviders[providername.InnerText];
+
+                if (instance != null)
+                {
+                    instance.ServiceProviderRequest.HandleRequest(pr);
+                    if (!instance.ServiceProviderRequest.HasError)
+                    {
+                        nodestoremove.Add(node);
+                        try
+                        {
+                            //instance.ServiceProviderRequest.ExecutingMethodName = "getreport";
+                            DateTime dt = DateTime.ParseExact(datetime.Value, "dd.MM.yyyy HH:mm:ss", null);
+                            DBModule.DeleteExecLog(int.Parse(project.InnerText), dt, instance.ServiceProviderRequest.ExecutingMethodName);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            }
+
+            
+            if (nodestoremove.Count > 0)
+            {
+                for (int i = 0; i < nodestoremove.Count; i++)
+                    root.RemoveChild((XmlNode)nodestoremove[i]);
+
+                xmldoc.Save(path.Replace("file:\\", "") + "\\failed.xml");
+            }
+        }
+
         public string Execute()
         {
+            //if (isStoped) return "";
+            SyncManager.ExecutingDate = DateTime.Now;
+            /*if (isFirstTimerEvent && (SyncManager.ExecutingDate.Second != 59 || SyncManager.ExecutingDate.Minute != 59))
+            {
+                isFirstTimerEvent = false;
+                return "";
+            }*/
+
+
             Stop();
 
-            DateTime now = DateTime.Now;
+            try
+            {
+                string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+                //if (File.Exists(path.Replace("file:\\", "") + "\\requests.txt"))
+                File.AppendAllText(path.Replace("file:\\", "") + "\\requests.txt", SyncManager.ExecutingDate.ToString() + "\r\n");
+            }
+            catch
+            {
+            }
 
-            string logxml = "<globallog datetime=\"" + now.ToShortDateString() + " " + now.ToShortTimeString() + "\">"; 
+            projects.LoadProjects(this, Project.LoadOptions.Coefs);
+
+           ExecuteFailedRequests();
+
+           string logxml = "<globallog datetime=\"" + SyncManager.ExecutingDate.ToString("dd.MM.yyyy HH:mm:ss") + "\">";
+
+            int j = 0;
 
             for (int i = 0; i < projects.Items.Count; i++)
             {
                 SyncManager.CurExecProject = (projects.Items[i] as Project);
-                logxml += (projects.Items[i] as Project).Execute();
+                string s = (projects.Items[i] as Project).Execute();
+                if (s.Length == 0) j++;
+                logxml += s;
             }
 
             logxml += "</globallog>";
 
-            XmlDocument xmldoc = new XmlDocument();
-
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
-            if (!System.IO.File.Exists(path.Replace("file:\\", "") + "\\log.xml"))
+            if (j != projects.Items.Count)
             {
-                xmldoc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?><globallogs></globallogs>");
+                DBModule.RecalcStatCache();
+
+                XmlDocument xmldoc = new XmlDocument();
+
+                string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+                if (!System.IO.File.Exists(path.Replace("file:\\", "") + "\\log.xml"))
+                {
+                    xmldoc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?><globallogs></globallogs>");
+                }
+                else
+                    xmldoc.Load(path.Replace("file:\\", "") + "\\log.xml");
+
+
+                XmlElement root = xmldoc["globallogs"];
+
+                if (root == null)
+                {
+                    root = xmldoc.CreateElement("globallogs");
+                    xmldoc.AppendChild(root);
+                }
+
+                root.InnerXml += logxml;
+
+                xmldoc.Save(path.Replace("file:\\", "") + "\\log.xml");
             }
-            else
-                xmldoc.Load(path.Replace("file:\\", "") + "\\log.xml");
 
-
-            XmlElement root = xmldoc["globallogs"];
-
-            if (root == null)
+            if (isFirstTimerEvent)
             {
-                root = xmldoc.CreateElement("globallogs");
-                xmldoc.AppendChild(root);
+                isFirstTimerEvent = false;
+                while (SyncManager.ExecutingDate.Second != 59 || SyncManager.ExecutingDate.Minute != 59)
+                {
+                    SyncManager.ExecutingDate = DateTime.Now;
+                }
             }
-
-            root.InnerXml += logxml;
-
-            xmldoc.Save(path.Replace("file:\\", "") + "\\log.xml");
 
             Resume();
 
@@ -811,14 +1232,23 @@ namespace APIServiceProviderNamespace
             Execute();
         }
 
+        private void checkTimer_Elapsed(object sender, EventArgs e)
+        {
+            if (!timer.Enabled && !isStoped)
+            {
+                Resume();
+            }
+        }
+
         #endregion
 
         public SyncManager()
         {
             timer.Elapsed += new System.Timers.ElapsedEventHandler(timer_Elapsed);
             timer.Enabled = false;
-            timer.Interval = 3600000;
-            //timer.Interval = 5000;
+            //timer.Interval = 3600000;
+            //timer.Interval = 60000;
+            timer.Interval = 1000;
         }
     }
 }

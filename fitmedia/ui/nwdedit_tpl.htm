@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+
+    <script src="js/jquery-1.7.1.min.js" type="text/javascript"></script> 
+</head>
+<body class='default'>
+   <form method="post" action="nwdedit.aspx">
+   Нерабочие дни за 
+	{[(YEAR)]}&nbsp;год
+    {[(LINK)]}
+    &nbsp;&nbsp;
+    по умолчанию
+    <input id="default" name="default" type="checkbox" />
+   <br/><br/>
+		
+   {[(TBL)]}
+       
+   <br/>
+   <input type="submit" value="Submit" />
+   </form>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#year").change(function (e) {
+            $('#navigate').attr('href', 'nwdgen.aspx?year=' + $('#year').val());
+        });
+    });				
+</script> 

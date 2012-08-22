@@ -74,6 +74,10 @@ namespace APIServiceProviderNamespace
         private string requestLogXML = "";
         private bool isInitial = false;
 
+        private bool hasError = false;
+        private string executingMethodName = "";
+        private string executingErrorMsg = "";
+
         #endregion
 
         #region Public Members
@@ -96,6 +100,24 @@ namespace APIServiceProviderNamespace
             set { isInitial = value; }
         }
 
+        public bool HasError
+        {
+            get { return hasError; }
+            set { hasError = value; }
+        }
+
+        public string ExecutingMethodName
+        {
+            get { return executingMethodName; }
+            set { executingMethodName = value; }
+        }
+
+        public string ExecutingErrorMsg
+        {
+            get { return executingErrorMsg; }
+            set { executingErrorMsg = value; }
+        }
+
         #endregion
 
         #region Public Methods
@@ -112,12 +134,18 @@ namespace APIServiceProviderNamespace
 
         public virtual void BeginLog(params object[] parameters)
         {
-            DateTime now = DateTime.Now;
-            requestLogXML = "<requestlog methodname=\"" + parameters[0].ToString() + "\" datetime=\"" + now.ToString("dd.MM.yyyy HH:mm") + "\" isinitial=\"" + isInitial.ToString() + "\">";
+            hasError = false;
+            DateTime now = SyncManager.ExecutingDate;
+            executingMethodName = parameters[0].ToString();
+
+            requestLogXML = "<requestlog methodname=\"" + parameters[0].ToString() + "\" datetime=\"" + now.ToString("dd.MM.yyyy HH:mm:ss") + "\" isinitial=\"" + isInitial.ToString() + "\">";
             requestLogXML += "<params>";
             for (int i = 1; i < parameters.Length; i++)
             {
-                requestLogXML += "<param>" + parameters[i].ToString() + "</param>";
+                if (parameters[i].GetType() != typeof(DateTime))
+                    requestLogXML += "<param type=\"" + parameters[i].GetType().ToString() + "\">" + parameters[i].ToString() + "</param>";
+                else
+                    requestLogXML += "<param type=\"" + parameters[i].GetType().ToString() + "\">" + ((DateTime)parameters[i]).ToString("dd.MM.yyyy") + "</param>";
             }
             requestLogXML += "</params>";
             requestLogXML += "<logs>";
@@ -127,14 +155,32 @@ namespace APIServiceProviderNamespace
         {
             string status = "OK";
             if (iserror)
+            {
                 status = "ERROR";
+            }
+
+            executingErrorMsg = msg;
+
+            if (!hasError)
+                hasError = iserror;
+
             requestLogXML += "<log status=\"" + status + "\">" + msg + "</log>";
         }
 
         public virtual void EndLog()
         {
             requestLogXML += "</logs>";
+            if (hasError)
+                requestLogXML += "<result>error</result>";
+            else
+                requestLogXML += "<result>success</result>";
+
+            requestLogXML += "<provider>" + ServiceProvider.GetType().ToString() + "</provider>";
+            requestLogXML += "<providername>" + ServiceProvider.Name + "</providername>";
+            requestLogXML += "<project>" + SyncManager.CurExecProject.DbId.ToString() + "</project>";
             requestLogXML += "</requestlog>";
+
+            DBModule.AddExecLog(SyncManager.CurExecProject.DbId, SyncManager.ExecutingDate, hasError, executingErrorMsg, executingMethodName);
         }
 
         public virtual string ChangeDecimalSymbol(string number)
@@ -161,27 +207,47 @@ namespace APIServiceProviderNamespace
         {
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(IgnoreCertificateErrorHandler);
 
-            // создаем клиента
-            WebClient wc = new WebClient();
+            string res = "";
 
-            // отправляем POST-запрос и получаем ответ
-            byte[] result = wc.UploadData(ServiceProvider.Url, "POST", System.Text.Encoding.UTF8.GetBytes(buffer));
+            try
+            {
+                // создаем клиента
+                WebClient wc = new WebClient();
 
-            return Encoding.UTF8.GetString(result);
+                // отправляем POST-запрос и получаем ответ
+                byte[] result = wc.UploadData(ServiceProvider.Url, "POST", System.Text.Encoding.UTF8.GetBytes(buffer));
+
+                res = Encoding.UTF8.GetString(result);
+            }
+            catch
+            {
+                res = "{\"error_str\": \"Post failed\"}";
+            }
+
+            return res;
         }
 
         protected string Get(string buffer)
         {
             ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(IgnoreCertificateErrorHandler);
 
-            WebRequest req = WebRequest.Create(ServiceProvider.Url + buffer);
-            req.Method = "GET";
-            WebResponse resp = req.GetResponse();
+            string res = "";
 
-            StreamReader reader = new StreamReader(resp.GetResponseStream());
-            string res = reader.ReadToEnd();
-            reader.Close();
-            resp.Close();
+            try
+            {
+                WebRequest req = WebRequest.Create(ServiceProvider.Url + buffer);
+                req.Method = "GET";
+                WebResponse resp = req.GetResponse();
+
+                StreamReader reader = new StreamReader(resp.GetResponseStream());
+                res = reader.ReadToEnd();
+                reader.Close();
+                resp.Close();
+            }
+            catch (Exception ex)
+            {
+                return "{\"error_str\": \"Get failed\"}";
+            }
 
             return res;
         }
@@ -302,7 +368,8 @@ namespace APIServiceProviderNamespace
             if (res.Contains("error_str") || res.Contains("error_code"))
             {
                 //AddError(DateTime.Now, "CreateNewReport", res);
-                AddLog("CreateNewReport - [" + res + "]", true);
+                if (!res.Contains("\"error_code\":2"))
+                    AddLog("CreateNewReport - [" + res + "]", true);
                 return null;
             }
 
@@ -449,7 +516,7 @@ namespace APIServiceProviderNamespace
 
             if (logins == null)
             {
-                return "{\"error_str\": \"Campaigns id list is null\"}";
+                return StringCompressor.CompressString("{\"error_str\": \"Campaigns id list is null\"}");
             }
 
             DeleteAllReports();
@@ -468,24 +535,43 @@ namespace APIServiceProviderNamespace
                     continue;
                 }
 
-                System.Threading.Thread.Sleep(20000);
+                System.Threading.Thread.Sleep(10000);
                 string[] rep = HandleGetReportList(GetReportList(), rid);
-                while (rep.Length == 0)
+
+                int rc = 0;
+
+                while (rep.Length == 0 && rep != null)
                 {
-                    System.Threading.Thread.Sleep(20000);
+                    if (rc > 50) break;
+                    System.Threading.Thread.Sleep(10000);
                     rep = HandleGetReportList(GetReportList(), rid);
+                    rc++;
                 }
 
-                if (rep == null) continue;
+                if (rep == null)
+                {
+                    DeleteReport(rid);
+                    continue;
+                }
 
                 s = rep[0].Split(new char[1] { '=' });
 
                 if (s.Length == 3 && rep.Length > 0 && s[0] == rid && s[1].Length > 0 && s[2] != "Pending")
                 {
                     WebClient client = new WebClient();
-                    byte[] bytes = client.DownloadData(s[1]);
+                    byte[] bytes = null;
 
-                    res += StringCompressor.CompressString(Encoding.UTF8.GetString(bytes));
+                    try
+                    {
+                        bytes = client.DownloadData(s[1]);
+                        res += StringCompressor.CompressString(Encoding.UTF8.GetString(bytes));
+                    }
+                    catch(Exception ex)
+                    {
+                        bytes = null;
+                        DeleteReport(rid);
+                        res += StringCompressor.CompressString("{\"error_str\": \"" + ex.Message + "\"}");
+                    }
 
                     //if (i < login.Length - 1)
                         res += "{[(SEP)]}";
@@ -501,7 +587,40 @@ namespace APIServiceProviderNamespace
         {
             string[] strs = res.Split(new string[1] {"{[(SEP)]}"}, StringSplitOptions.None);
 
+            Hashtable dates = new Hashtable();
+
             XmlDocument xmldoc = new XmlDocument();
+
+            for (int i = 0; i < strs.Length; i++)
+            {
+                string str = "";
+
+                if (strs[i].Length > 0)
+                    str = StringCompressor.DecompressString(strs[i]);
+
+                if (str.Contains("error_str") || str.Contains("error_code") || str.Length == 0)
+                {
+                    //AddError(DateTime.Now, "GetReport", res);
+                    if (str.Length > 0)
+                    {
+                        AddLog("GetReport - [" + str + "]", true);
+                        return;
+                    }
+                }
+
+                if (str.Length > 0)
+                {
+                    try
+                    {
+                        xmldoc.LoadXml(str);
+                    }
+                    catch (Exception exobj)
+                    {
+                        AddLog("GetReport - [Error loading xml][" + exobj.Message + "]", true);
+                        return;
+                    }
+                }
+            }
 
             for (int i = 0; i < strs.Length; i++)
             {
@@ -510,13 +629,7 @@ namespace APIServiceProviderNamespace
                 if (strs[i].Length > 0) 
                     str = StringCompressor.DecompressString(strs[i]);
 
-                if (str.Contains("error_str") || str.Contains("error_code") || str.Length == 0)
-                {
-                    //AddError(DateTime.Now, "GetReport", res);
-                    if (str.Length > 0)
-                        AddLog("GetReport - [" + str + "]", true);
-                    continue;
-                }
+                if (str.Length == 0) continue;
 
                 try
                 {
@@ -587,13 +700,16 @@ namespace APIServiceProviderNamespace
 
                         //dataxml += " phrase=\"" + phrase + "\" />";
 
-                        
-
                         APIServiceProviderNamespace.main.campaignsDataTable dt = DBModule.GetCampaignByCID(campaignIDEl.InnerText);
 
                         if (dt != null && dt.Rows.Count > 0)
                         {
-                            if (!DBModule.AddStatisticsRecord(Convert.ToInt32(dt.Rows[0]["id"]), DateTime.ParseExact(statDateAtt.Value, df, null), Convert.ToInt32(showsAtt.Value), Convert.ToInt32(clicksAtt.Value), Convert.ToDecimal(ChangeDecimalSymbol(sumAtt.Value)), dataxml, StatLevel.Keyword))
+                            if (dates[statDateAtt.Value] == null)
+                            {
+                                DBModule.DeleteStatisticsRecords(SyncManager.CurExecProject.DbId, DateTime.ParseExact(statDateAtt.Value, df, null));
+                                dates[statDateAtt.Value] = true;
+                            }
+                            if (!DBModule.AddStatisticsRecord(Convert.ToInt32(dt.Rows[0]["id"]), DateTime.ParseExact(statDateAtt.Value, df, null), Convert.ToInt32(showsAtt.Value), Convert.ToInt32(clicksAtt.Value), Convert.ToDecimal(ChangeDecimalSymbol(sumAtt.Value)), dataxml, StatLevel.Keyword, SyncManager.CurExecProject.DbId, phrase))
                                 AddLog("GetReport(AddStatisticsRecord) - [" + DBModule.lastErrorString + "]", true);
                         }
                         else
@@ -699,9 +815,11 @@ namespace APIServiceProviderNamespace
             if (res.Contains("error_str") || res.Contains("error_code"))
             {
                // AddError(DateTime.Now, "GetSummaryStats", res);
-                AddLog("GetSummaryStats - [" + res + "]", true);
+                //AddLog("GetSummaryStats - [" + res + "]", true);
                 return null;
             }
+
+            decimal sum = 0;
 
             string[] results = res.Split(new string[1] { "{[(SEP)]}" }, StringSplitOptions.None);
 
@@ -713,7 +831,33 @@ namespace APIServiceProviderNamespace
                 XmlDictionaryReader xdr =
     System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encoding.UTF8.GetBytes(results[j]),
                                                                                XmlDictionaryReaderQuotas.Max);
+                xdr.Read();
+                XmlDocument xmldoc = new XmlDocument();
+                string xml = xdr.ReadOuterXml();
+                xmldoc.LoadXml(xml);
+
                 xdr.Close();
+
+                XmlElement root = xmldoc["root"];
+                if (root == null) return null;
+
+                XmlElement data = root["data"];
+                if (data == null) return null;
+
+                foreach (XmlNode node in data.ChildNodes)
+                {
+                    if (node.Name == "item")
+                    {
+                        try
+                        {
+                            sum += decimal.Parse(node["SumSearch"].InnerText);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+
                /* JsonTextParser parser = new JsonTextParser();
                 JsonObject obj = parser.Parse(results[j]);
                 JsonUtility.GenerateIndentedJsonText = false;
@@ -747,7 +891,7 @@ namespace APIServiceProviderNamespace
             }
 
             AddLog("GetSummaryStats - [OK]", false);
-            return new object();
+            return sum;
         }
 
         private string GetCampaignsList(string login, bool isagency)
@@ -827,7 +971,21 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                     if (!activesonly || (activesonly && isactive.InnerText.ToLower() == "yes"))
                     {
                         string s = id.InnerText;
-                        int cid = DBModule.AddCompaign(name.InnerText, id.InnerText, SyncManager.CurExecProject.DbId, ServiceProvider.Name, login.InnerText);
+                        Hashtable ht = HandleGetCampaignParams(GetCampaignParams(id.InnerText));
+
+                        decimal balance = 0;
+                        decimal maxtransfer = 0;
+
+                        try
+                        {
+                            balance = Convert.ToDecimal(ht["Rest"]);
+                            maxtransfer = Convert.ToDecimal(ht["SumAvailableForTransfer"]);
+                        }
+                        catch
+                        {
+                        }
+
+                        int cid = DBModule.AddCompaign(name.InnerText, id.InnerText, SyncManager.CurExecProject.DbId, ServiceProvider.Name, login.InnerText, APIServiceProviderTypes.YandexDirect, balance, maxtransfer);
                         if (cid == 0)
                         {
                             AddLog("GetCampaignList(AddCampaign) - [" + DBModule.lastErrorString + "]", true);
@@ -850,6 +1008,57 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
 
             AddLog("GetCampaignList - [OK]", false);
             return compaignids;
+        }
+
+        public string GetCampaignParams(string campaignid)
+        {
+            string json = "{" + ServiceProvider.GetQueryString() + ", \"method\": \"GetCampaignParams\", \"param\": {\"CampaignID\":\"" + campaignid + "\"} }";
+            return Post(json);
+        }
+
+        public Hashtable HandleGetCampaignParams(string res)
+        {
+            if (res.Contains("error_str") || res.Contains("error_code"))
+            {
+                //AddError(DateTime.Now, "GetSubClients", res);
+                AddLog("HandleGetCampaignParams - [" + res + "]", true);
+                return null;
+            }
+
+            if (res == "{\"data\":[]}") return null;
+
+            XmlDictionaryReader xdr =
+System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encoding.UTF8.GetBytes(res),
+                                                                           XmlDictionaryReaderQuotas.Max);
+
+            xdr.Read();
+            XmlDocument xmldoc = new XmlDocument();
+            string xml = xdr.ReadOuterXml();
+            xmldoc.LoadXml(xml);
+
+            xdr.Close();
+
+            XmlElement root = xmldoc["root"];
+            if (root == null) return null;
+
+            XmlElement data = root["data"];
+            if (data == null) return null;
+
+            Hashtable ht = new Hashtable();
+
+            foreach (XmlNode node in data.ChildNodes)
+            {
+                XmlAttribute type = node.Attributes["type"];
+
+                if (type == null) continue;
+
+                if (type.Value != "object")
+                {
+                    ht[node.Name] = node.InnerText;
+                }
+            }
+
+            return ht;
         }
 
 
@@ -1072,6 +1281,8 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
         {
             string methodname = (string)parameters[0];
 
+            BeginLog(parameters);
+
             string res = Request(parameters);
 
             try
@@ -1087,12 +1298,57 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                 AddLog(methodname + " - [" + ex.Message + "]", true);
             }
 
+            EndLog();
+
             return res;
         }
 
         #endregion
 
         #region Private Members
+
+        private XmlNode ConvertXmlElementToLowerCase(XmlDocument xmldoc, XmlNode node)
+        {
+            XmlNode nd = xmldoc.CreateNode(node.NodeType, node.Name.ToLower(), "");
+            if (node.Value != null)
+                nd.Value = node.Value;
+
+            if (node.Attributes != null)
+            foreach (XmlAttribute att in node.Attributes)
+            {
+                XmlAttribute at = xmldoc.CreateAttribute(att.Name.ToLower());
+                at.Value = att.Value;
+                nd.Attributes.Append(at);
+            }
+
+            if (node.ChildNodes != null)
+            foreach (XmlNode child in node.ChildNodes)
+            {
+                nd.AppendChild(ConvertXmlElementToLowerCase(xmldoc, child));
+            }
+
+            return nd;
+        }
+
+        private string ConvertXMLToLowerCase(string xml)
+        {
+            XmlDocument xmldoc = new XmlDocument();
+            try
+            {
+                xml = xml.Replace("&", "_A_N_D_");
+                xmldoc.LoadXml(xml);
+                if (xmldoc.FirstChild.NodeType != XmlNodeType.XmlDeclaration)
+                    xml = ConvertXmlElementToLowerCase(xmldoc, xmldoc.FirstChild).OuterXml;
+                else
+                    xml = ConvertXmlElementToLowerCase(xmldoc, xmldoc.LastChild).OuterXml;
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            return xml;
+        }
 
         private string GetOrders(DateTime startdate, DateTime enddate)
         {
@@ -1104,9 +1360,20 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
 
             while (dt <= enddate)
             {
-                if (dt != startdate)
-                    xml += "[{(XML_SEP)}]";
-                xml += StringCompressor.CompressString(Get(orders_page + "?date=" + dt.ToString("dd.MM.yyyy")));
+                string res = Get(orders_page + "?date=" + dt.ToString("dd.MM.yyyy"));
+                if (res.Length > 0)
+                {
+                    if (dt != startdate)
+                        xml += "[{(XML_SEP)}]";
+                    res = ConvertXMLToLowerCase(res);
+                    xml += StringCompressor.CompressString(res);
+                }
+                else
+                    if (res.Contains("error_str"))
+                    {
+                        AddLog("GetOrders - [Get method failed]", true);
+                        return "";
+                    }
 
                 dt = dt.AddDays(1);
             }
@@ -1123,14 +1390,169 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                 return null;
             }
 
+            Hashtable dates = new Hashtable();
+
             XmlDocument xmldoc = new XmlDocument();
 
             string[] xmls = res.Split(new string[1] { "[{(XML_SEP)}]" }, StringSplitOptions.None);
 
+            //string[] dxmls = new string[xmls.Length];
+            Hashtable dxmls = new Hashtable();
+
             for (int m = 0; m < xmls.Length; m++)
             {
                 string xmlstr = StringCompressor.DecompressString(xmls[m]);
-                xmldoc.LoadXml(xmlstr);
+                if (xmlstr.Contains("error_str"))
+                {
+                    AddLog("GetOrders", true);
+                    return null;
+                }
+                try
+                {
+                    xmldoc.LoadXml(xmlstr);
+                }
+                catch(Exception ex)
+                {
+                    AddLog("GetOrders - [Error loading XML][" + ex.Message + "]", true);
+                    return null;
+                }
+
+                XmlElement root = xmldoc["orders"];
+
+                if (root == null)
+                {
+                    AddLog("GetOrders - [Root element 'orders' is missing]", true);
+                    return null;
+                }
+
+                foreach (XmlElement node in root.ChildNodes)
+                {
+                    if (node.Name.ToLower() == "order")
+                    {
+                        XmlAttribute id = node.Attributes["id"];
+                        if (id == null)
+                        {
+                            AddLog("GetOrders - [Attribute 'id' is missing]", true);
+                            return null;
+                        }
+
+                        XmlNode status = node["status"];
+                        XmlNode datetodeliver = node["datetodeliver"];
+                        XmlNode deliverycost = node["deliverycost"];
+                        XmlNode deliveryprice = node["deliveryprice"];
+                        XmlNode iscash = node["iscash"];
+                        XmlNode additionaldeliverysum = node["additionaldeliverysum"];
+                        XmlNode sum = node["sum"];
+                        XmlNode discounted = node["discounted"];
+                        XmlNode ordersource = node["ordersource"];
+                        XmlNode deliverycity = node["deliverycity"];
+                        XmlNode orderdate = node["dateordered"];
+
+                        if (status == null || datetodeliver == null || deliverycost == null || deliveryprice == null || iscash == null || additionaldeliverysum == null || sum == null || discounted == null)
+                        {
+                            AddLog("GetOrders - [One of the fields is missing]", true);
+                            return null;
+                        }
+
+                        string details = GetOrderDetails(Convert.ToInt32(id.Value));
+
+                        if (m == 190) 
+                            m = 190;
+
+                        details = ConvertXMLToLowerCase(details);
+
+                        dxmls[id.Value] = StringCompressor.CompressString(details);
+
+                        XmlDocument dxml = new XmlDocument();
+
+                        try
+                        {
+                            dxml.LoadXml(details);
+                        }
+                        catch(Exception ex)
+                        {
+                            AddLog("GetOrders - [Error loading details XML][" + ex.Message + "]", true);
+                            return null;
+                        }
+
+                        XmlElement droot = dxml["order"];
+
+                        if (orderdate == null)
+                            orderdate = droot["dateordered"];
+
+                        if (orderdate == null)
+                        {
+                            AddLog("GetOrders - [Field 'dateordered' in details XML is missing]", true);
+                            return null;
+                        }
+
+                        XmlElement products = droot["orderedproducts"];
+
+                        if (products == null)
+                        {
+                            AddLog("GetOrders - [Element 'orderedproducts' in details XML is missing]", true);
+                            return null;
+                        }
+
+                        foreach (XmlNode node1 in products.ChildNodes)
+                        {
+                            if (node1.Name.ToLower() != "product") continue;
+
+                            XmlAttribute pid = node1.Attributes["id"];
+                            XmlNode ProductTitle = node1["producttitle"];
+                            XmlNode ProductStatus = node1["productstatus"];
+                            XmlNode Quantity = node1["quantity"];
+                            XmlNode SingleProductPrice = node1["singleproductprice"];
+                            XmlNode TotalSum = node1["totalsum"];
+                            XmlNode DiscountedPrice = node1["discountedprice"];
+
+                            if (pid == null || ProductTitle == null || ProductStatus == null || Quantity == null || SingleProductPrice == null || TotalSum == null || DiscountedPrice == null)
+                            {
+                                AddLog("GetOrders - [One of the fields in details XML is missing]", true);
+                                return null;
+                            }
+                        }
+
+                        products = droot["returnedproducts"];
+
+                        if (products == null)
+                        {
+                            AddLog("GetOrders - [Element 'returnedproducts' in details XML is missing]", true);
+                            return null;
+                        }
+
+                        foreach (XmlNode node1 in products.ChildNodes)
+                        {
+                            if (node1.Name.ToLower() != "product") continue;
+
+                            XmlAttribute pid = node1.Attributes["id"];
+                            XmlNode ProductTitle = node1["producttitle"];
+                            XmlNode Quantity = node1["quantity"];
+                            XmlNode TotalSum = node1["totalsum"];
+
+                            if (pid == null || ProductTitle == null || Quantity == null || TotalSum == null)
+                            {
+                                AddLog("GetOrders - [One of the fields in details XML is missing]", true);
+                                return null;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //************************
+
+            for (int m = 0; m < xmls.Length; m++)
+            {
+                string xmlstr = StringCompressor.DecompressString(xmls[m]);
+                try
+                {
+                    xmldoc.LoadXml(xmlstr);
+                }
+                catch
+                {
+                    continue;
+                }
 
                 XmlElement root = xmldoc["orders"];
 
@@ -1151,6 +1573,9 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                         XmlNode additionaldeliverysum = node["additionaldeliverysum"];
                         XmlNode sum = node["sum"];
                         XmlNode discounted = node["discounted"];
+                        XmlNode ordersource = node["ordersource"];
+                        XmlNode deliverycity = node["deliverycity"];
+                        XmlNode orderdate = node["dateordered"];
 
                         if (status == null || datetodeliver == null || deliverycost == null || deliveryprice == null || iscash == null || additionaldeliverysum == null || sum == null || discounted == null)
                             continue;
@@ -1159,14 +1584,27 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                         if (!DateTime.TryParse(datetodeliver.InnerText, out dt))
                             dt = DateTime.Now;
 
-                        string details = GetOrderDetails(Convert.ToInt32(id.Value));
+                        //string details = GetOrderDetails(Convert.ToInt32(id.Value));
+
+                        //details = ConvertXMLToLowerCase(details);
+
+                        string details = StringCompressor.DecompressString(dxmls[id.Value].ToString());
 
                         XmlDocument dxml = new XmlDocument();
-                        dxml.LoadXml(details);
+
+                        try
+                        {
+                            dxml.LoadXml(details);
+                        }
+                        catch
+                        {
+                            continue;
+                        }
 
                         XmlElement droot = dxml["order"];
 
-                        XmlNode orderdate = droot["DateOrdered"];
+                        if  (orderdate == null)
+                            orderdate = droot["dateordered"];
 
                         if (orderdate == null) continue;
 
@@ -1222,15 +1660,33 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                         {
                         }
 
-                        int oid = DBModule.AddOrder(Convert.ToInt32(id.Value), status.InnerText, datetime, dt, dc, dp, Convert.ToBoolean(iscash.InnerText), ads, sm, ds, ServiceProvider.Name, SyncManager.CurExecProject.DbId);
+                        string dcity = "";
+                        if (deliverycity != null)
+                            dcity = deliverycity.InnerText;
+                        string osource = "";
+                        if (ordersource != null)
+                            osource = ordersource.InnerText;
 
-                        if (oid == 0)
+                        if (dates[datetime.Year.ToString() + datetime.Month.ToString() + datetime.Day.ToString()] == null)
                         {
-                            AddLog("GetOrders(AddOrder) - [" + DBModule.lastErrorString + "]", true);
+                            DBModule.DeleteOrders(SyncManager.CurExecProject.DbId, datetime);
+                            dates[datetime.Year.ToString() + datetime.Month.ToString() + datetime.Day.ToString()] = true;
+                        }
+
+                        int oid = DBModule.AddOrder(Convert.ToInt32(id.Value), status.InnerText.Replace("_A_N_D_", "&"), datetime, dt, dc, dp, Convert.ToBoolean(iscash.InnerText), ads, sm, ds, ServiceProvider.Name, SyncManager.CurExecProject.DbId, osource.Replace("_A_N_D_", "&"), dcity.Replace("_A_N_D_", "&"));
+
+                        if (oid <= 0)
+                        {
+                            if (oid == 0)
+                            {
+                                AddLog("GetOrders(AddOrder) - [" + DBModule.lastErrorString + "]", true);
+                                DBModule.DeleteOrders(SyncManager.CurExecProject.DbId, datetime);
+                                return null;
+                            }
                             continue;
                         }
 
-                        XmlElement products = droot["orderedProducts"];
+                        XmlElement products = droot["orderedproducts"];
 
                         if (products == null) continue;
 
@@ -1239,12 +1695,12 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                             if (node1.Name.ToLower() != "product") continue;
 
                             XmlAttribute pid = node1.Attributes["id"];
-                            XmlNode ProductTitle = node1["ProductTitle"];
-                            XmlNode ProductStatus = node1["ProductStatus"];
-                            XmlNode Quantity = node1["Quantity"];
-                            XmlNode SingleProductPrice = node1["SingleProductPrice"];
-                            XmlNode TotalSum = node1["TotalSum"];
-                            XmlNode DiscountedPrice = node1["DiscountedPrice"];
+                            XmlNode ProductTitle = node1["producttitle"];
+                            XmlNode ProductStatus = node1["productstatus"];
+                            XmlNode Quantity = node1["quantity"];
+                            XmlNode SingleProductPrice = node1["singleproductprice"];
+                            XmlNode TotalSum = node1["totalsum"];
+                            XmlNode DiscountedPrice = node1["discountedprice"];
 
                             if (pid == null || ProductTitle == null || ProductStatus == null || Quantity == null || SingleProductPrice == null || TotalSum == null || DiscountedPrice == null) continue;
 
@@ -1282,13 +1738,15 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                             }
 
 
-                            if (!DBModule.AddOrderDetails(oid, Convert.ToInt32(pid.Value), ProductTitle.InnerText, ProductStatus.InnerText, (float)qty, spp, ts, dp, false))
+                            if (!DBModule.AddOrderDetails(oid, Convert.ToInt32(pid.Value), ProductTitle.InnerText.Replace("_A_N_D_", "&"), ProductStatus.InnerText.Replace("_A_N_D_", "&"), (float)qty, spp, ts, dp, false))
                             {
                                 AddLog("GetOrders(AddOrderDetails) - [" + DBModule.lastErrorString + "]", true);
+                                DBModule.DeleteOrders(SyncManager.CurExecProject.DbId, datetime);
+                                return null;
                             }
                         }
 
-                        products = droot["returnedProducts"];
+                        products = droot["returnedproducts"];
 
                         if (products == null) continue;
 
@@ -1297,9 +1755,9 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                             if (node1.Name.ToLower() != "product") continue;
 
                             XmlAttribute pid = node1.Attributes["id"];
-                            XmlNode ProductTitle = node1["ProductTitle"];
-                            XmlNode Quantity = node1["Quantity"];
-                            XmlNode TotalSum = node1["TotalSum"];
+                            XmlNode ProductTitle = node1["producttitle"];
+                            XmlNode Quantity = node1["quantity"];
+                            XmlNode TotalSum = node1["totalsum"];
 
                             if (pid == null || ProductTitle == null || Quantity == null || TotalSum == null) continue;
 
@@ -1310,12 +1768,78 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
                             if (!DBModule.AddOrderDetails(oid, Convert.ToInt32(pid.Value), ProductTitle.InnerText, "", (float)qty, 0, ts, 0, true))
                             {
                                 AddLog("GetOrders(AddOrderDetails) - [" + DBModule.lastErrorString + "]", true);
+                                DBModule.DeleteOrders(SyncManager.CurExecProject.DbId, datetime);
+                                return null;
                             }
                         }
 
                     }
                 }
 
+            }
+
+            dates.Clear();
+
+            APIServiceProviderNamespace.main.ordersDataTable ndo = DBModule.GetNotDeliveredOrders();
+            
+            foreach (APIServiceProviderNamespace.main.ordersRow or in ndo.Rows)
+            {
+                string details = GetOrderDetails(or.oid);
+
+                details = ConvertXMLToLowerCase(details);
+
+                XmlDocument dxml = new XmlDocument();
+                try
+                {
+                    dxml.LoadXml(details);
+                }
+                catch
+                {
+                    continue;
+                }
+
+                XmlElement droot = dxml["order"];
+                if (droot == null) continue;
+
+                XmlElement status = droot["Status"];
+                if (status == null) continue;
+
+                /*if (dates[or.dateordered.Year.ToString() + or.dateordered.Month.ToString() + or.dateordered.Day.ToString() + or.projectid.ToString()] == null)
+                {
+                    DBModule.DeleteOrders(or.projectid, or.dateordered);
+                    dates[or.dateordered.Year.ToString() + or.dateordered.Month.ToString() + or.dateordered.Day.ToString() + or.projectid.ToString()] = true;
+                }*/
+
+                if (or.status == status.InnerText) continue;
+
+                int oid = DBModule.AddOrder(or.oid, status.InnerText, or.dateordered, or.datetodeliver, or.deliverycost, or.deliveryprice, or.iscash, or.additionaldeliverysum, or.sum, or.discounted, or.source, or.projectid, or.ordersource, or.deliverycity);
+
+                XmlElement products = droot["returnedproducts"];
+
+                if (products == null) continue;
+
+                if (oid < 0) oid = -oid;
+
+                foreach (XmlNode node1 in products.ChildNodes)
+                {
+                    if (node1.Name.ToLower() != "product") continue;
+
+                    XmlAttribute pid = node1.Attributes["id"];
+                    XmlNode ProductTitle = node1["producttitle"];
+                    XmlNode Quantity = node1["quantity"];
+                    XmlNode TotalSum = node1["totalsum"];
+
+                    if (pid == null || ProductTitle == null || Quantity == null || TotalSum == null) continue;
+
+
+                    double qty = Convert.ToDouble(ChangeDecimalSymbol(Quantity.InnerText));
+                    decimal ts = Convert.ToDecimal(ChangeDecimalSymbol(TotalSum.InnerText));
+
+                    if (!DBModule.AddOrderDetails(oid, Convert.ToInt32(pid.Value), ProductTitle.InnerText, "", (float)qty, 0, ts, 0, true))
+                    {
+                        //AddLog("GetOrders(AddOrderDetails) - [" + DBModule.lastErrorString + "]", true);
+                    }
+                }
             }
 
             AddLog("GetOrders - [OK]", false);
@@ -1335,7 +1859,6 @@ System.Runtime.Serialization.Json.JsonReaderWriterFactory.CreateJsonReader(Encod
         }
 
         #endregion
-
 
         public OrdersAPIServiceProviderRequest()
         {

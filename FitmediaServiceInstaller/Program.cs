@@ -43,6 +43,8 @@ namespace FitmediaServiceInstaller
         /// <returns>True if the process went thro successfully. False if there was any error.</returns>
         public bool InstallService(string svcPath, string svcName, string svcDispName)
         {
+            ServiceManager.InstallAndStart(svcName, svcDispName, svcPath);
+            return true;
             #region Constants declaration.
             int SC_MANAGER_CREATE_SERVICE = 0x0002;
             int SERVICE_WIN32_OWN_PROCESS = 0x00000010;
@@ -115,6 +117,8 @@ namespace FitmediaServiceInstaller
         /// <param name="svcName">Name of the service to uninstall.</param>
         public bool UnInstallService(string svcName)
         {
+            ServiceManager.Uninstall(svcName);
+            return false;
             int GENERIC_WRITE = 0x40000000;
             IntPtr sc_hndl = OpenSCManager(null, null, GENERIC_WRITE);
             if (sc_hndl.ToInt32() != 0)
@@ -124,6 +128,28 @@ namespace FitmediaServiceInstaller
                 //Console.WriteLine(svc_hndl.ToInt32());
                 if (svc_hndl.ToInt32() != 0)
                 {
+                    
+		      /*  SERVICE_STATUS ss;
+
+                    if( !::ControlService( sc_hndl, SERVICE_CONTROL_STOP, &ss ) )
+		        {
+			        DWORD dwErrCode = GetLastError(); 
+
+			        if( dwErrCode != ERROR_SERVICE_NOT_ACTIVE )
+			        {
+				        return false;
+			        }
+		        }
+
+
+		        // Wait until it stopped (or timeout expired)
+
+		        if( !WaitForServiceToReachState( hService, SERVICE_STOPPED, &ss, INFINITE ) )
+		        {
+			        return false;
+		        }*/
+
+
                     int i = DeleteService(svc_hndl);
                     if (i != 0)
                     {
@@ -147,6 +173,7 @@ namespace FitmediaServiceInstaller
             else
                 return false;
         }
+
 
     }
 

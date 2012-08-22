@@ -9,6 +9,9 @@
 }
 
 namespace APIServiceProviderNamespace.mainTableAdapters {
+    partial class GetStatisticsRecordsTableAdapter
+    {
+    }
     
     
     public partial class WeeklyOrdersCountTableAdapter {

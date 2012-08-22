@@ -3,29 +3,27 @@
 <project>
   <name>Goodcarpets</name>
   <id>Goodcarpets</id>
-
+  <startfrom>01.02.2012</startfrom>
+  <coefs>
+  	<coef provider="Yandex Direct (fitmedia)">
+		<value>29.1</value>
+		<date>01.02.2012</date>
+	</coef>	
+  </coefs>
+  
   <schedules>
-    <schedule>
-      <provider>Yandex Direct (fitmedia)</provider>
+   
+   <schedule>
+	  <id>2</id>
+      <provider>Orders goodcarpets</provider>
       <start></start>
-      <interval></interval>
-
-      
-      <requests>
+      <interval>hourly</interval>
+		        
+        <requests>
         <request>
-          <name>getsummarystats</name>
-          <isinitial>True</isinitial>
+          <name>getorders</name>
+	      <isinitial>True</isinitial>		  
           <params>
-            <param>
-              <name>login</name>
-              <value>fitmedia</value>
-              <type>string</type>
-            </param>
-            <param>
-              <name>client</name>
-              <value>gcpts</value>
-              <type>string</type>
-            </param>
             <param>
               <name>startdate</name>
               <value>01.02.2012</value>
@@ -36,49 +34,12 @@
               <value></value>
               <type>datetime</type>
             </param>
-            <param>
-              <name>isagency</name>
-              <value>True</value>
-              <type>boolean</type>
-            </param>
           </params>
         </request>
-
-         <request>
-          <name>getbanners</name>
-          <isinitial>True</isinitial>
-          <params>
-            <param>
-              <name>login</name>
-              <value>fitmedia</value>
-              <type>string</type>
-            </param>
-            <param>
-              <name>client</name>
-              <value>dondomofon</value>
-              <type>string</type>
-            </param>
-            <param>
-              <name>isagency</name>
-              <value>True</value>
-              <type>boolean</type>
-            </param>
-          </params>
-        </request>
-
         <request>
-          <name>getsummarystats</name>
+          <name>getorders</name>
+	      <isinitial>False</isinitial>		  
           <params>
-            <param>
-              <name>login</name>
-              <value>fitmedia</value>
-              <type>string</type>
-            </param>
-            <param>
-              <name>client</name>
-              <value>gcpts</value>
-              <type>string</type>
-            </param>
             <param>
               <name>startdate</name>
               <value></value>
@@ -89,36 +50,9 @@
               <value></value>
               <type>datetime</type>
             </param>
-            <param>
-              <name>isagency</name>
-              <value>True</value>
-              <type>boolean</type>
-            </param>
           </params>
-        </request>
+        </request>		
       </requests>
-	  
-	  <request>
-          <name>getbanners</name>
-          <params>
-            <param>
-              <name>login</name>
-              <value>fitmedia</value>
-              <type>string</type>
-            </param>
-            <param>
-              <name>client</name>
-              <value>dondomofon</value>
-              <type>string</type>
-            </param>
-            <param>
-              <name>isagency</name>
-              <value>True</value>
-              <type>boolean</type>
-            </param>
-          </params>
-        </request>
     </schedule>
-   
   </schedules>
 </project>

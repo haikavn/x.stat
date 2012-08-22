@@ -4,6 +4,9 @@
   <provider>
     <type>YandexAPIServiceProvider</type>
     <name>Yandex Direct (fitmedia)</name>
+	 <formats>
+      <datetime>yyyy-MM-dd</datetime>
+    </formats>
     <url>https://soap.direct.yandex.ru/json-api/v4/</url>
     <params>
       <param>
@@ -24,6 +27,11 @@
     <type>OrdersAPIServiceProvider</type>
     <name>Orders Insidehome</name>
     <url>http://www.insidehome.ru/api/</url>
+	
+    <formats>
+      <datetime>dd.MM.yyyy</datetime>
+    </formats>
+
     <params>
       <param>
         <name>orders_page</name>
@@ -53,7 +61,7 @@
       </param>
     </params>
   </provider>
-<provider>
+  <provider>
     <type>OrdersAPIServiceProvider</type>
     <name>Orders dondomofon</name>
     <url>http://www.dondomofon.ru/include/</url>
@@ -71,6 +79,24 @@
       </param>
     </params>
   </provider>  
+  <provider>
+    <type>OrdersAPIServiceProvider</type>
+    <name>Orders goodcarpets</name>
+    <url>http://www.goodcarpets.ru/include/</url>
+    <formats>
+      <datetime>yyyy-MM-dd HH:mm:ss</datetime>
+    </formats>
+    <params>
+      <param>
+        <name>orders_page</name>
+        <value>xml_list.php</value>
+      </param>
+      <param>
+        <name>details_page</name>
+        <value>xml_order.php</value>
+      </param>
+    </params>
+  </provider>   
   <provider>
     <type>YandexAPIServiceProvider</type>
     <name>Yandex Direct (insidehome2)</name>

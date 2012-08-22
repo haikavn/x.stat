@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project>
+  <name>Insidehome</name>
+  <id>Insidehome</id>
+  <startfrom>01.09.2011</startfrom>
+  <coefs>
+  	<coef provider="Yandex Direct (insidehome2)">
+		<value>26.4</value>
+		<date>01.09.2011</date>
+	</coef>	
+  </coefs>
+  
+  <schedules>
+    <schedule>
+	  <id>2</id>
+      <provider>Orders Insidehome</provider>
+      <start></start>
+      <interval>hourly</interval>
+      
+        <requests>
+		<request>
+          <name>getorders</name>
+		  <isinitial>True</isinitial>
+          <params>
+            <param>
+              <name>startdate</name>
+              <value>01.09.2011</value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+          </params>
+        </request>
+		
+        <request>
+          <name>getorders</name>
+          <params>
+            <param>
+              <name>startdate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+            <param>
+              <name>enddate</name>
+              <value></value>
+              <type>datetime</type>
+            </param>
+          </params>
+        </request>
+      </requests>
+    </schedule>
+  </schedules>
+</project>

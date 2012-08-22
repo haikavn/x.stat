@@ -19,101 +19,265 @@ namespace fitmedia
 {
     public partial class _Default : System.Web.UI.Page
     {
-        protected void gvData_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            gvData.PageIndex = e.NewPageIndex;
-        }
-
-        protected void gvData_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                DataRowView rowView = (DataRowView)e.Row.DataItem;
-
-                for (int i = 4; i <= 8; i++ )
-                    if (Convert.ToDecimal(rowView[i]) > 0)
-                        e.Row.Cells[i].Text = string.Format("{0:### ### ###} р.", Convert.ToDecimal(rowView[i]));
-                    else
-                    {
-                        e.Row.Cells[i].Text = "0 р.";
-                    }
-
-
-                if (Convert.ToDecimal(rowView[11]) > 0)
-                    e.Row.Cells[11].Text = string.Format("{0:### ### ###} р.", Convert.ToDecimal(rowView[11]));
-                else
-                {
-                    e.Row.Cells[11].Text = "0 р.";
-                }
-            }
-        }
-
-
-        private void FillGrid(Hashtable projectids, Hashtable campaignids)
-        {
-            if (projectids == null || campaignids == null) return;
-
-            DataTable datatable = new DataTable();
-
-            /*datatable.Columns.Add(new DataColumn("Период", typeof(string)));
-            datatable.Columns.Add(new DataColumn("Заказы", typeof(int)));
-            datatable.Columns.Add(new DataColumn("Под. заказы", typeof(int)));
-            datatable.Columns.Add(new DataColumn("Отказы", typeof(int)));
-
-            datatable.Columns.Add(new DataColumn("Общ. сумма заказов", typeof(decimal)));
-            datatable.Columns.Add(new DataColumn("Сумма под. заказов", typeof(decimal)));
-            datatable.Columns.Add(new DataColumn("Сумма отказов", typeof(decimal)));
-            datatable.Columns.Add(new DataColumn("Реал. сумма заказов", typeof(decimal)));
-            datatable.Columns.Add(new DataColumn("Сумма скидок", typeof(decimal)));
-
-            datatable.Columns.Add(new DataColumn("Клики", typeof(int)));
-            datatable.Columns.Add(new DataColumn("Показы", typeof(int)));
-            datatable.Columns.Add(new DataColumn("Расходы", typeof(int)));*/
-
-
-            datatable.Columns.Add(new DataColumn("period", typeof(string)));
-            datatable.Columns.Add(new DataColumn("total", typeof(int)));
-            datatable.Columns.Add(new DataColumn("totala", typeof(int)));
-            datatable.Columns.Add(new DataColumn("totalr", typeof(int)));
-
-            datatable.Columns.Add(new DataColumn("totalsum", typeof(decimal)));
-            datatable.Columns.Add(new DataColumn("totalsuma", typeof(decimal)));
-            datatable.Columns.Add(new DataColumn("totalsumr", typeof(decimal)));
-            datatable.Columns.Add(new DataColumn("totalsumd", typeof(decimal)));
-            datatable.Columns.Add(new DataColumn("totalsumdd", typeof(decimal)));
-
-            datatable.Columns.Add(new DataColumn("clicks", typeof(int)));
-            datatable.Columns.Add(new DataColumn("shows", typeof(int)));
-            datatable.Columns.Add(new DataColumn("expenses", typeof(decimal)));
-
             APIServiceProviderNamespace.main.projectsDataTable dt = DBModule.GetProjects();
 
-            if (dt == null) return;
+            if (dt == null)
+            {
+                //Response.Redirect("index.htm");
+                return;
+            }
 
-            DateTime startdate = (DateTime)Page.Session["startdate"];//new DateTime(2012, 1, 1);//DateTime.Now;
-            DateTime enddate = (DateTime)Page.Session["enddate"];//DateTime.Now;
+            string path = Request.PhysicalApplicationPath;
 
-            
-            while (startdate.DayOfWeek != DayOfWeek.Monday && startdate.Month >= 1 && startdate.Day > 1)
-                startdate = startdate.AddDays(-1);
-            while (enddate.DayOfWeek != DayOfWeek.Sunday)
-                enddate = enddate.AddDays(1);
+            /*            string treehtml = "<ul>";
+                        string treejs = "var items = 0;var n = 0;var it;var root;\r\n\r\n";
+
+                        foreach (APIServiceProviderNamespace.main.projectsRow pr in dt.Rows)
+                        {
+                            treehtml += "<li class=\"p" + pr.id + "\" >" + pr.name + "<ul>";
+
+                            treejs += "$('#jqxTree').jqxTree('addTo', { label: '" + pr.name + "' });\r\n";
+                            treejs += "items = $('#jqxTree').jqxTree('getItems');\r\n";
+                            treejs += "root = items[n];\r\n";
+                            treejs += "root.element.name = \"" + pr.id.ToString() + "\";\r\n";
+                            treejs += "$('#jqxTree').jqxTree('checkItem', root.element, true);";
+                            treejs += "n++;\r\n\r\n";
+
+
+                            APIServiceProviderNamespace.main.campaignsDataTable cdt = DBModule.GetCampaignsByProjectID(pr.id);
+
+                            foreach (APIServiceProviderNamespace.main.campaignsRow cr in cdt.Rows)
+                            {
+                                treehtml += "<li class=\"p" + cr.id + "\" >" + cr.name + "</li>";
+                                treejs += "$('#jqxTree').jqxTree('addTo', { label: '" + cr.name + "' }, root.element);\r\n";
+                                treejs += "items = $('#jqxTree').jqxTree('getItems');\r\n";
+                                treejs += "it = items[n];\r\n";
+                                treejs += "it.element.name = \"" + cr.id.ToString() + "\";\r\n";
+                                treejs += "$('#jqxTree').jqxTree('checkItem', it.element, true);";
+                                treejs += "n++;\r\n\r\n";
+                            }
+
+
+                            treehtml += "</ul></li>";
+                        }
+
+                        treehtml += "</ul>";
+
+                        System.IO.File.WriteAllText(path + "\\ui\\tree.html", treehtml);
+                        System.IO.File.WriteAllText(path + "\\ui\\tree.js", treejs + "isfirstload = false;");*/
+
+            string[] months = new string[12];
+            months[0] = "Январь";
+            months[1] = "Февраль";
+            months[2] = "Март";
+            months[3] = "Апрель";
+            months[4] = "Май";
+            months[5] = "Июнь";
+            months[6] = "Июль";
+            months[7] = "Август";
+            months[8] = "Сентябрь";
+            months[9] = "Октябрь";
+            months[10] = "Ноябрь";
+            months[11] = "Декабрь";
+
+
+            DataTable dtChart = new DataTable("Chart");
+            DataColumn dcCurrent = null;
+            DataRow drCurrent = null;
+
+            string xmldata = "<?xml version='1.0' encoding='utf-8'?>\n";
+            xmldata += "<rows>\n";
+
+            DateTime startdate = DateTime.Now;
+            DateTime enddate = DateTime.Now;
+
+            int groupby = 2;
+
+            if (Request.Params["g"] != null)
+                int.TryParse(Request.Params["g"].ToString(), out groupby);
+
+            if (Request.Params["sd"] != null)
+            {
+                try
+                {
+                    startdate = DateTime.ParseExact(Request.Params["sd"].ToString(), "dd.MM.yyyy", null);
+                }
+                catch
+                {
+                }
+            }
+            else
+                startdate = startdate.AddDays(-(7 * 20));
+
+            if (Request.Params["ed"] != null)
+            {
+                try
+                {
+                    enddate = DateTime.ParseExact(Request.Params["ed"].ToString(), "dd.MM.yyyy", null);
+                }
+                catch
+                {
+                }
+            }
+
+            /*Hashtable projectids = new Hashtable();
+            Hashtable campaignids = new Hashtable();
+
+            if (Request.Params["pids"] != null)
+            {
+                string[] str = Request.Params["pids"].Split(new char[1] {','});
+                int n = 0;
+                for (int i = 0; i < str.Length; i++)
+                    if (int.TryParse(str[i], out n))
+                        projectids[n] = n;
+            }
+
+            if (Request.Params["cids"] != null)
+            {
+                string[] str = Request.Params["cids"].Split(new char[1] { ',' });
+                int n = 0;
+                for (int i = 0; i < str.Length; i++)
+                    if (int.TryParse(str[i], out n))
+                        campaignids[n] = n;
+            }*/
+
+            int city = 0, source = 0, payment = 0, days = 0;
+
+            if (Request.Params["city"] != null)
+            {
+                int.TryParse(Request.Params["city"], out city);
+            }
+            if (Request.Params["source"] != null)
+            {
+                int.TryParse(Request.Params["source"], out source);
+            }
+            if (Request.Params["payment"] != null)
+            {
+                int.TryParse(Request.Params["payment"], out payment);
+            }
+            if (Request.Params["days"] != null)
+            {
+                int.TryParse(Request.Params["days"], out days);
+            }
+
+            int pid = 0;
+
+            if (Request.Params["pid"] != null)
+                int.TryParse(Request.Params["pid"].ToString(), out pid);
+
+            if (groupby == 2)
+            {
+                while (startdate.DayOfWeek != DayOfWeek.Monday && startdate.Month >= 1 && startdate.Day > 1)
+                    startdate = startdate.AddDays(-1);
+                while (enddate.DayOfWeek != DayOfWeek.Sunday)
+                    enddate = enddate.AddDays(1);
+            }
+            else
+                if (groupby == 3)
+                {
+                    int m = startdate.Month;
+                    while (startdate.Month == m)
+                        startdate = startdate.AddDays(-1);
+                    startdate = startdate.AddDays(1);
+                    m = enddate.Month;
+                    while (enddate.Month == m)
+                        enddate = enddate.AddDays(1);
+                    enddate = enddate.AddDays(-1);
+                }
 
             DateTime st = startdate;
             DateTime ed = enddate;
 
-            int total_g = 0;
-            int totala_g = 0;
-            int totalr_g = 0;
-            decimal totalsum_g = 0;
-            decimal totalsuma_g = 0;
-            decimal totalsumr_g = 0;
-            decimal totalsumd_g = 0;
-            decimal totalsumdd_g = 0;
-            int clicks_g = 0;
-            int shows_g = 0;
-            decimal expenses_g = 0;
+            string linksjs = "$('#startdate').val('" + st.ToString("dd.MM.yyyy") + "');$('#enddate').val('" + ed.ToString("dd.MM.yyyy") + "');$('<option />').attr('value', '0').text('All').appendTo('#projects');";
 
+            APIServiceProviderNamespace.main.campaignsDataTable camdt = DBModule.GetCampaignsByProjectID(pid);
+
+            foreach (APIServiceProviderNamespace.main.campaignsRow row in camdt.Rows)
+            {
+                if (row.balance < 100 && row.providertype == 2)
+                    linksjs += "$('<option />').attr('value', '" + row.id.ToString() + "').text('" + row.name + " - " + row.balance.ToString() + "').appendTo('#balance');";
+            }
+
+            string sel1 = ".attr('selected', 'selected')";
+            string sel2 = ".attr('selected', 'selected')";
+            string sel3 = ".attr('selected', 'selected')";
+
+            if (groupby == 1)
+            {
+                sel2 = "";
+                sel3 = "";
+            }
+            else
+                if (groupby == 2)
+                {
+                    sel1 = "";
+                    sel3 = "";
+                }
+                else
+                    if (groupby == 3)
+                    {
+                        sel1 = "";
+                        sel2 = "";
+                    }
+
+            linksjs += "$('<option />').attr('value', '1')" + sel1 + ".text('По дням').appendTo('#groups');";
+            linksjs += "$('<option />').attr('value', '2')" + sel2 + ".text('По неделям').appendTo('#groups');";
+            linksjs += "$('<option />').attr('value', '3')" + sel3 + ".text('По месяцам').appendTo('#groups');";
+
+            switch (city)
+            {
+                case 0:
+                    linksjs += "$('#city').val( 0 ).attr('selected',true);";
+                    break;
+                case 1:
+                    linksjs += "$('#city').val( 1 ).attr('selected',true);";
+                    break;
+                case 2:
+                    linksjs += "$('#city').val( 2 ).attr('selected',true);";
+                    break;
+            }
+
+            switch (source)
+            {
+                case 0:
+                    linksjs += "$('#source').val( 0 ).attr('selected',true);";
+                    break;
+                case 1:
+                    linksjs += "$('#source').val( 1 ).attr('selected',true);";
+                    break;
+                case 2:
+                    linksjs += "$('#source').val( 2 ).attr('selected',true);";
+                    break;
+            }
+
+            switch (payment)
+            {
+                case 0:
+                    linksjs += "$('#payment').val( 0 ).attr('selected',true);";
+                    break;
+                case 1:
+                    linksjs += "$('#payment').val( 1 ).attr('selected',true);";
+                    break;
+                case 2:
+                    linksjs += "$('#payment').val( 2 ).attr('selected',true);";
+                    break;
+            }
+
+
+            switch (days)
+            {
+                case 0:
+                    linksjs += "$('#days').val( 0 ).attr('selected',true);";
+                    break;
+                case 1:
+                    linksjs += "$('#days').val( 1 ).attr('selected',true);";
+                    break;
+                case 2:
+                    linksjs += "$('#days').val( 2 ).attr('selected',true);";
+                    break;
+            }
 
             string chartdata1 = "";
             string griddata = "";
@@ -126,33 +290,341 @@ namespace fitmedia
             string totalsumdds = "";
             string expensess = "";
 
-            while (startdate < enddate)
+            string percents = "";
+
+            string json = "[";
+
+            bool bl = true;
+
+            int records = 0;
+
+            int total = 0;
+            int totala = 0;
+            int totalr = 0;
+            int maxtotal = 1;
+
+            decimal totalsum = 0M;
+            decimal totalsuma = 0M;
+            decimal totalsumr = 0M;
+            decimal totalsumd = 0M;
+            decimal totalsumdd = 0M;
+            decimal maxtotalsum = 1M;
+
+            int clicks = 0;
+            int customclicks = 0;
+            int shows = 0;
+            decimal expenses = 0M;
+            decimal customexp = 0M;
+
+            decimal maxexpenses = 1M;
+
+            DateTime chDt = enddate;
+            if (groupby == 1)
+                chDt = enddate.AddDays(-60);
+            else
+                if (groupby == 2)
+                    chDt = enddate.AddDays(-60 * 7);
+                else
+                    if (groupby == 3)
+                    {
+                        chDt = enddate.AddMonths(-60);
+                        if (chDt.Day <= 15)
+                        {
+                            while (chDt.Day > 1) chDt = chDt.AddDays(-1);
+                        }
+                        else
+                        {
+                            while (chDt.Day != 1) chDt = chDt.AddDays(1);
+                        }
+                    }
+
+
+            chDt = new DateTime(chDt.Year, chDt.Month, chDt.Day, 0, 0, 0);
+            DateTime chDte = new DateTime(enddate.Year, enddate.Month, enddate.Day, 0, 0, 0);
+
+            int nn = 0;
+
+            int omaxheight = 130;
+            int emaxheight = 130;
+            int pmaxheight = 100;
+
+            int maxpercent = 1;
+
+            while (chDt <= chDte)
             {
-                ed = startdate;
-                while (ed.DayOfWeek != DayOfWeek.Sunday )
-                    ed = ed.AddDays(1);
-                
-                int total = 0;
-                int totala = 0;
-                int totalr = 0;
-                decimal totalsum = 0M;
-                decimal totalsuma = 0M;
-                decimal totalsumr = 0M;
-                decimal totalsumd = 0M;
-                decimal totalsumdd = 0M;
-                int clicks = 0;
-                int shows = 0;
-                decimal expenses = 0M;
+                total = 0;
+                totala = 0;
+                totalr = 0;
+                totalsum = 0M;
+                totalsuma = 0M;
+                totalsumr = 0M;
+                totalsumd = 0M;
+                totalsumdd = 0M;
+                clicks = 0;
+                customclicks = 0;
+                shows = 0;
+                expenses = 0M;
+                customexp = 0M;
+
+                nn++;
+
+                DateTime dd = chDt;
+
+                if (groupby == 2)
+                {
+                    dd = chDt.AddDays(6);
+                }
+                else
+                    if (groupby == 3)
+                    {
+                        dd = chDt.AddMonths(1);
+                        while (dd.Month != chDt.Month) dd = dd.AddDays(-1);
+                    }
 
                 foreach (APIServiceProviderNamespace.main.projectsRow pr in dt.Rows)
                 {
-                    if (projectids[pr.id] == null)
-                        continue;
+                    if (pid > 0 && pr.id != pid) continue;
 
-                    APIServiceProviderNamespace.main.ordersTotalsDataTable dt1 = DBModule.GetOrdersTotals(startdate, ed, pr.id);
+                    APIServiceProviderNamespace.main.ordersTotalsDataTable dt1 = DBModule.GetOrdersTotals(chDt, new DateTime(dd.Year, dd.Month, dd.Day, 23, 59, 59), pr.id, city, source, payment, days);
+
                     //APIServiceProviderNamespace.main.ordersTotalsDataTable dt1 = DBModule.GetOrdersTotals(pr.startfrom, DateTime.Now, pr.id);
-                    
-                    if (dt1.Rows.Count > 0) 
+
+                    decimal exp = 0M;
+                    decimal sum = 0M;
+
+                    if (dt1.Rows.Count > 0)
+                    {
+                        APIServiceProviderNamespace.main.ordersTotalsRow or = dt1.Rows[0] as APIServiceProviderNamespace.main.ordersTotalsRow;
+                        total += or.total;
+                        totala += or.totala;
+                        totalr += or.totalr;
+                        totalsum += or.totalsum;
+                        totalsuma += or.totalsuma;
+                        totalsumr += or.totalsumr;
+                        totalsumd += or.totalsumd;
+                        totalsumdd += or.totalsumdd;
+
+                        sum = or.totalsumd;
+                    }
+
+                    APIServiceProviderNamespace.main.statTotalsDataTable dt2 = DBModule.GetStatTotals(chDt, new DateTime(dd.Year, dd.Month, dd.Day, 23, 59, 59), pr.id, 0, days, city);
+
+                    if (dt2.Rows.Count > 0)
+                    {
+                        clicks += Convert.ToInt32(dt2.Rows[0]["clicks"]);
+                        customclicks += Convert.ToInt32(dt2.Rows[0]["customclicks"]);
+                        shows += Convert.ToInt32(dt2.Rows[0]["shows"]);
+                        expenses += Convert.ToDecimal(dt2.Rows[0]["expenses"]);
+                        customexp += Convert.ToDecimal(dt2.Rows[0]["customexp"]);
+
+                        exp = Convert.ToDecimal(dt2.Rows[0]["expenses"]);
+                    }
+                }
+
+                if (total + totala + totalr > maxtotal)
+                    maxtotal = total + totala + totalr;
+
+                //if (totalsum + totalsumd + totalsumr > maxtotalsum)
+                //    maxtotalsum = totalsum + totalsumd + totalsumr;
+
+                if (totalsum > maxtotalsum)
+                    maxtotalsum = totalsum;
+
+                //if (expenses + expenses > maxexpenses)
+                  //  maxexpenses = expenses + expenses;
+
+                if (expenses > maxexpenses)
+                    maxexpenses = expenses;
+
+                dcCurrent = new DataColumn("col" + (dtChart.Columns.Count + 1).ToString(), typeof(decimal));
+                dtChart.Columns.Add(dcCurrent);
+
+                int t1 = chDt.Day;
+
+                if (groupby == 1)
+                {
+                    dcCurrent.ExtendedProperties["month"] = chDt.Month;
+                    dcCurrent.ExtendedProperties["title"] = chDt.ToString("dd.MM.yyyy") + " " + chDt.DayOfWeek.ToString();
+                }
+                else
+                    if (groupby == 2)
+                    {
+                        CultureInfo ciCurr = CultureInfo.CurrentCulture;
+                        t1 = ciCurr.Calendar.GetWeekOfYear(chDt, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+                        dcCurrent.ExtendedProperties["month"] = chDt.Year;
+
+                        dcCurrent.ExtendedProperties["title"] = chDt.ToString("dd.MM.yyyy") + "-" + dd.ToString("dd.MM.yyyy");
+                    }
+                    else
+                    {
+                        dcCurrent.ExtendedProperties["month"] = chDt.Year;
+                        t1 = chDt.Month;
+                        dcCurrent.ExtendedProperties["title"] = chDt.ToString("dd.MM.yyyy") + "-" + dd.ToString("dd.MM.yyyy");
+                    }
+
+                if (t1 >= 10)
+                    dcCurrent.ExtendedProperties["title1"] = t1.ToString();
+                else
+                    dcCurrent.ExtendedProperties["title1"] = "0" + t1.ToString();
+
+                if (nn <= 30)
+                    dcCurrent.ExtendedProperties["left"] = false;
+                else
+                    dcCurrent.ExtendedProperties["left"] = true;
+
+                dcCurrent.ExtendedProperties["total"] = total;
+                dcCurrent.ExtendedProperties["totala"] = totala;
+                dcCurrent.ExtendedProperties["totalr"] = totalr;
+
+                dcCurrent.ExtendedProperties["totalsum"] = (totalsum);
+                dcCurrent.ExtendedProperties["totalsuma"] = (totalsumd);
+                dcCurrent.ExtendedProperties["totalsumr"] = (totalsumr);
+                dcCurrent.ExtendedProperties["clicks"] = (clicks);
+                dcCurrent.ExtendedProperties["googleclicks"] = (customclicks);
+                dcCurrent.ExtendedProperties["yandexclicks"] = (clicks - customclicks);
+                dcCurrent.ExtendedProperties["expenses"] = (expenses);
+                dcCurrent.ExtendedProperties["google"] = (customexp);
+                dcCurrent.ExtendedProperties["yandex"] = (expenses - customexp);
+
+                if (totalsumd > 0)
+                {
+                    dcCurrent.ExtendedProperties["percent"] = Convert.ToInt32(expenses * 100 / totalsumd);
+                }
+                else
+                    if (expenses > 0)
+                    {
+                        dcCurrent.ExtendedProperties["percent"] = 100;
+                    }
+                    else
+                    {
+                        dcCurrent.ExtendedProperties["percent"] = 0;
+                    }
+
+                if (Convert.ToInt32(dcCurrent.ExtendedProperties["percent"]) > maxpercent)
+                    maxpercent = Convert.ToInt32(dcCurrent.ExtendedProperties["percent"]);
+
+                if ((chDt.DayOfWeek == DayOfWeek.Saturday || chDt.DayOfWeek == DayOfWeek.Sunday || DBModule.IsNotWorkingDay(chDt)) && groupby == 1)
+                    dcCurrent.ExtendedProperties["bg"] = "#eeeeee";
+                else
+                    dcCurrent.ExtendedProperties["bg"] = "#ffffff";
+
+
+                if (groupby == 2)
+                {
+                    int dow = (int)chDt.DayOfWeek;
+                    if (dow == 0) dow = 7;
+                    int days1 = 7 - dow + 1;
+                    chDt = chDt.AddDays(days1);
+                }
+                else
+                    if (groupby == 1)
+                        chDt = chDt.AddDays(1);
+                    else
+                        if (groupby == 3)
+                        {
+                            chDt = chDt.AddMonths(1);
+                        }
+            }
+
+            foreach(DataColumn dc in dtChart.Columns)
+            {
+                dc.ExtendedProperties["total_h"] = omaxheight * ((Convert.ToDecimal(dc.ExtendedProperties["totalsum"]) - Convert.ToDecimal(dc.ExtendedProperties["totalsuma"]) - Convert.ToDecimal(dc.ExtendedProperties["totalsumr"])) * 100 / maxtotalsum) / 100;
+                //dc.ExtendedProperties["total_h"] = omaxheight * (Convert.ToDecimal(dc.ExtendedProperties["totalsum"]) * 100 / maxtotalsum) / 100;
+                dc.ExtendedProperties["totala_h"] = omaxheight * (Convert.ToDecimal(dc.ExtendedProperties["totalsuma"]) * 100 / maxtotalsum) / 100;
+                dc.ExtendedProperties["totalr_h"] = omaxheight * (Convert.ToDecimal(dc.ExtendedProperties["totalsumr"]) * 100 / maxtotalsum) / 100;
+
+                dc.ExtendedProperties["expenses_h"] = emaxheight * ((Convert.ToDecimal(dc.ExtendedProperties["expenses"]) - Convert.ToDecimal(dc.ExtendedProperties["google"]) - Convert.ToDecimal(dc.ExtendedProperties["yandex"])) * 100 / maxexpenses) / 100;
+                //dc.ExtendedProperties["expenses_h"] = emaxheight * (Convert.ToDecimal(dc.ExtendedProperties["expenses"]) * 100 / maxexpenses) / 100;
+                dc.ExtendedProperties["google_h"] = emaxheight * (Convert.ToDecimal(dc.ExtendedProperties["google"]) * 100 / maxexpenses) / 100;
+                dc.ExtendedProperties["yandex_h"] = emaxheight * (Convert.ToDecimal(dc.ExtendedProperties["yandex"]) * 100 / maxexpenses) / 100;
+
+                int perc = Convert.ToInt32(dc.ExtendedProperties["percent"]);
+
+                int mp = maxpercent;
+                if (mp > 120)
+                {
+                    //dc.ExtendedProperties["pbg"] = "#FF0000";
+                    mp = 120;
+                }
+                if (perc > 120)
+                    perc = 120;
+                //else
+                    //dc.ExtendedProperties["pbg"] = "#91b6d3";
+                dc.ExtendedProperties["percent_h"] = pmaxheight * (perc * 100 / mp) / 100;
+            }
+
+
+            while (startdate < enddate || (startdate <= enddate && groupby == 1))
+            {
+                records++;
+
+                startdate = new DateTime(startdate.Year, startdate.Month, startdate.Day, 0, 0, 0);
+
+                ed = startdate;
+
+
+                if (groupby == 1)
+                {
+
+                }
+                else
+                    if (groupby == 2)
+                    {
+                        while (ed.DayOfWeek != DayOfWeek.Sunday)
+                            ed = ed.AddDays(1);
+                    }
+                    else
+                        if (groupby == 3)
+                        {
+                            ed = ed.AddMonths(1);
+                            ed = ed.AddDays(-1);
+                        }
+
+                ed = new DateTime(ed.Year, ed.Month, ed.Day, 23, 59, 59);
+
+                total = 0;
+                totala = 0;
+                totalr = 0;
+                totalsum = 0M;
+                totalsuma = 0M;
+                totalsumr = 0M;
+                totalsumd = 0M;
+                totalsumdd = 0M;
+                clicks = 0;
+                customclicks = 0;
+                shows = 0;
+                expenses = 0M;
+                customexp = 0M;
+
+                json += "{";
+
+                foreach (APIServiceProviderNamespace.main.projectsRow pr in dt.Rows)
+                {
+                    if (bl)
+                    {
+                        if (pid == 0 || (pid > 0 && pid != pr.id))
+                            linksjs += "$('<option />').attr('value', '" + pr.id.ToString() + "').text('" + pr.name + "').appendTo('#projects');";
+                        else
+                        {
+                            // if (pid == pr.id)
+                            linksjs += "$('<option />').attr('value', '" + pr.id.ToString() + "').attr('selected', 'selected').text('" + pr.name + "').appendTo('#projects');";
+                        }
+
+                    }
+
+
+                    if (pid > 0 && pr.id != pid) continue;
+                    //linksjs += "$('<a />').attr('href', 'datagen.aspx?pid=" + pr.id.ToString() + "').text(\"" + pr.name + "\").appendTo('#links');";
+                    //linksjs += "$('#projects').append($('<option></option>').val(" + pr.id.ToString() + ").html(" + pr.name + "));";
+
+                    //     if (projectids[pr.id] == null)
+                    //  continue;
+
+                    APIServiceProviderNamespace.main.ordersTotalsDataTable dt1 = DBModule.GetOrdersTotals(startdate, ed, pr.id, city, source, payment, days);
+                    //APIServiceProviderNamespace.main.ordersTotalsDataTable dt1 = DBModule.GetOrdersTotals(pr.startfrom, DateTime.Now, pr.id);
+
+                    if (dt1.Rows.Count > 0)
                     {
                         APIServiceProviderNamespace.main.ordersTotalsRow or = dt1.Rows[0] as APIServiceProviderNamespace.main.ordersTotalsRow;
                         total += or.total;
@@ -165,12 +637,23 @@ namespace fitmedia
                         totalsumdd += or.totalsumdd;
                     }
 
-                    APIServiceProviderNamespace.main.campaignsDataTable cdt = DBModule.GetCampaignsByProjectID(pr.id);
+                    APIServiceProviderNamespace.main.statTotalsDataTable dt2 = DBModule.GetStatTotals(startdate, ed, pr.id, 0, days, city);
+
+                    if (dt2.Rows.Count > 0)
+                    {
+                        clicks += Convert.ToInt32(dt2.Rows[0]["clicks"]);
+                        customclicks += Convert.ToInt32(dt2.Rows[0]["customclicks"]);
+                        shows += Convert.ToInt32(dt2.Rows[0]["shows"]);
+                        expenses += Convert.ToDecimal(dt2.Rows[0]["expenses"]);
+                        customexp += Convert.ToDecimal(dt2.Rows[0]["customexp"]);
+                    }
+
+                    /*APIServiceProviderNamespace.main.campaignsDataTable cdt = DBModule.GetCampaignsByProjectID(pr.id);
 
                     foreach (APIServiceProviderNamespace.main.campaignsRow cr in cdt.Rows)
                     {
-                        if (campaignids[cr.id] == null)
-                            continue;
+                        //if (campaignids[cr.id] == null)
+                          //  continue;
 
                         APIServiceProviderNamespace.main.statTotalsDataTable dt2 = DBModule.GetStatTotals(startdate, ed, pr.id, cr.id);
 
@@ -180,8 +663,22 @@ namespace fitmedia
                             shows += Convert.ToInt32(dt2.Rows[0]["shows"]);
                             expenses += Convert.ToDecimal(dt2.Rows[0]["expenses"]);
                         }
-                    }
+                    }*/
                 }
+
+                json += "\"report\": \"Report\",";
+                json += "\"period\":\"" + startdate.ToString("dd.MM.yyyy") + " - " + ed.ToString("dd.MM.yyyy") + "\",";
+                json += "\"total\": \"" + total.ToString() + "\",";
+                json += "\"totala\": \"" + totala.ToString() + "\",";
+                json += "\"totalr\": \"" + totalr.ToString() + "\",";
+                json += "\"totalsum\": \"" + (totalsum).ToString().Replace(",", ".") + "\",";
+                json += "\"totalsuma\": \"" + (totalsuma).ToString().Replace(",", ".") + "\",";
+                json += "\"totalsumr\": \"" + (totalsumr).ToString().Replace(",", ".") + "\",";
+                json += "\"totalsumd\": \"" + (totalsumd).ToString().Replace(",", ".") + "\",";
+                json += "\"totalsumdd\": \"" + (totalsumdd).ToString().Replace(",", ".") + "\",";
+                json += "\"clicks\": \"" + clicks.ToString() + "\",";
+                json += "\"shows\": \"" + shows.ToString() + "\",";
+                json += "\"expenses\": \"" + (expenses).ToString().Replace(",", ".") + "\"";
 
                 griddata += "row = {};";
                 griddata += "row[\"period\"] = \"" + startdate.ToString("dd.MM.yyyy") + " - " + ed.ToString("dd.MM.yyyy") + "\";";
@@ -195,52 +692,101 @@ namespace fitmedia
                 griddata += "row[\"totalsumdd\"] = \"" + totalsumdd.ToString("### ### ###") + " р." + "\";";
                 griddata += "row[\"clicks\"] = \"" + clicks.ToString() + "\";";
                 griddata += "row[\"shows\"] = \"" + shows.ToString() + "\";";
-                griddata += "row[\"expenses\"] = \"" + expenses.ToString("### ### ###") + " р." + "\";";
+                griddata += "row[\"expenses\"] = \"" + (expenses).ToString("### ### ###") + " р." + "\";";
                 griddata += "data[i]=row;";
                 griddata += "i++;";
 
-                DataRow row = datatable.NewRow();
-                row["period"] = startdate.ToString("dd.MM.yyyy") + " - " + ed.ToString("dd.MM.yyyy");
-                row["total"] = total;
-                row["totala"] = totala;
-                row["totalr"] = totalr;
-                row["totalsum"] = totalsum;
-                row["totalsuma"] = totalsuma;
-                row["totalsumr"] = totalsumr;
-                row["totalsumd"] = totalsumd;
-                row["totalsumdd"] = totalsumdd;
-                row["clicks"] = clicks;
-                row["shows"] = shows;
-                row["expenses"] = expenses;
+
+                json += "},";
 
                 cat1 += "'" + startdate.ToString("dd.MM.yyyy") + "-" + ed.ToString("dd.MM.yyyy") + "'";
                 cat1 += ",";
+
+                xmldata += "<row>\n";
+                //xmldata += "<cell>" + st.ToString("dd.MM.yyyy") + " - " + enddate.ToString("dd.MM.yyyy") + "</cell>\n";
+                xmldata += "<cell>" + startdate.ToString("dd.MM.yyyy") + " - " + ed.ToString("dd.MM.yyyy") + "</cell>\n";
+                xmldata += "<cell>" + total.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totala.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totalr.ToString() + "</cell>\n";
+                if (totalsum > 0)
+                    xmldata += "<cell>" + totalsum.ToString("### ### ###") + " р." + "</cell>\n";
+                else
+                    xmldata += "<cell>0 р.</cell>\n";
+                if (totalsuma > 0)
+                    xmldata += "<cell>" + totalsuma.ToString("### ### ###") + " р." + "</cell>\n";
+                else
+                    xmldata += "<cell>0 р.</cell>\n";
+                if (totalsumr > 0)
+                    xmldata += "<cell>" + totalsumr.ToString("### ### ###") + " р." + "</cell>\n";
+                else
+                    xmldata += "<cell>0 р.</cell>\n";
+                if (totalsumd > 0)
+                    xmldata += "<cell>" + totalsumd.ToString("### ### ###") + " р." + "</cell>\n";
+                else
+                    xmldata += "<cell>0 р.</cell>\n";
+                if (totalsumdd > 0)
+                    xmldata += "<cell>" + totalsumdd.ToString("### ### ###") + " р." + "</cell>\n";
+                else
+                    xmldata += "<cell>0 р.</cell>\n";
+                xmldata += "<cell>" + clicks.ToString() + "</cell>\n";
+                xmldata += "<cell>" + shows.ToString() + "</cell>\n";
+                if (expenses > 0)
+                    xmldata += "<cell>" + (expenses).ToString("### ### ###") + " р." + "</cell>\n";
+                else
+                    xmldata += "<cell>0 р.</cell>\n";
+
+               /* xmldata += "<cell>" + total.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totala.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totalr.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totalsum.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totalsuma.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totalsumr.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totalsumd.ToString() + "</cell>\n";
+                xmldata += "<cell>" + totalsumdd.ToString() + "</cell>\n";
+                xmldata += "<cell>" + clicks.ToString() + "</cell>\n";
+                xmldata += "<cell>" + shows.ToString() + "</cell>\n";
+                xmldata += "<cell>" + (expenses).ToString() + "</cell>\n";*/
+                xmldata += "</row>\n";
 
                 totalsums += totalsum.ToString().Replace(",", ".") + ",";
                 totalsumas += totalsuma.ToString().Replace(",", ".") + ",";
                 totalsumrs += totalsumr.ToString().Replace(",", ".") + ",";
                 totalsumds += totalsumd.ToString().Replace(",", ".") + ",";
                 totalsumdds += totalsumdd.ToString().Replace(",", ".") + ",";
-                expensess += expenses.ToString().Replace(",", ".") + ",";
+                expensess += (expenses).ToString().Replace(",", ".") + ",";
 
-                total_g += total;
-                totala_g += totala;
-                totalr_g += totalr;
-                totalsum_g += totalsum;
-                totalsuma_g += totalsuma;
-                totalsumr_g += totalsumr;
-                totalsumd_g += totalsumd;
-                totalsumdd_g += totalsumdd;
-                clicks_g += clicks;
-                shows_g += shows;
-                expenses_g += expenses;
+                if (totalsumd > 0)
+                    percents += Math.Round(Convert.ToDecimal(expenses * 100 / totalsumd), 1).ToString().Replace(",", ".") + ",";
+                else
+                    if (expenses > 0)
+                        percents += "100,";
+                    else
+                        percents += "0,";
 
-                datatable.Rows.Add(row);
-                int dow = (int)startdate.DayOfWeek;
-                if (dow == 0) dow = 7;
-                int days =  7 - dow + 1;
-                startdate = startdate.AddDays(days);
+                if (groupby == 2)
+                {
+                    int dow = (int)startdate.DayOfWeek;
+                    if (dow == 0) dow = 7;
+                    int days1 = 7 - dow + 1;
+                    startdate = startdate.AddDays(days1);
+                }
+                else
+                    if (groupby == 1)
+                        startdate = startdate.AddDays(1);
+                    else
+                        if (groupby == 3)
+                            startdate = startdate.AddMonths(1);
+
+                bl = false;
             }
+
+            json = json.Remove(json.Length - 1);
+
+            json += "]";
+
+            // xmldata += "<total>" + ((int)(records / 10)).ToString() + "</total>";
+            // xmldata += "<records>" + records.ToString() + "</records>";
+            xmldata += "</rows>\n";
 
             cat1 = cat1.Remove(cat1.Length - 1);
             totalsums = totalsums.Remove(totalsums.Length - 1);
@@ -249,265 +795,398 @@ namespace fitmedia
             totalsumds = totalsumds.Remove(totalsumds.Length - 1);
             totalsumdds = totalsumdds.Remove(totalsumdds.Length - 1);
             expensess = expensess.Remove(expensess.Length - 1);
+            percents = percents.Remove(percents.Length - 1);
+
+            /* chartdata1 += "{\r\n";
+             chartdata1 += "name: 'Общ. сумма заказов',\r\n";
+             chartdata1 += "data: [" + totalsums + "]\r\n";
+             chartdata1 += "},\r\n";
+
+             chartdata1 += "{\r\n";
+             chartdata1 += "name: 'Сумма под. заказов',\r\n";
+             chartdata1 += "data: [" + totalsumas + "]\r\n";
+             chartdata1 += "},\r\n";
+
+             chartdata1 += "{\r\n";
+             chartdata1 += "name: 'Сумма отказов',\r\n";
+             chartdata1 += "data: [" + totalsumrs + "]\r\n";
+             chartdata1 += "},\r\n";
+
+             chartdata1 += "{\r\n";
+             chartdata1 += "name: 'Сумма скидок',\r\n";
+             chartdata1 += "data: [" + totalsumdds + "]\r\n";
+             chartdata1 += "},";
+
+             chartdata1 += "{\r\n";
+             chartdata1 += "name: 'Реал. сумма заказов',\r\n";
+             chartdata1 += "data: [" + totalsumds + "]\r\n";
+             chartdata1 += "},\r\n";
+
+             chartdata1 += "{\r\n";
+             chartdata1 += "name: 'Расходы',\r\n";
+             chartdata1 += "data: [" + expensess + "]\r\n";
+             chartdata1 += "}";*/
 
             chartdata1 += "{\r\n";
-            chartdata1 += "name: 'Общ. сумма заказов',\r\n";
-            chartdata1 += "data: [" + totalsums + "]\r\n";
-            chartdata1 += "},\r\n";
-
-            chartdata1 += "{\r\n";
-            chartdata1 += "name: 'Сумма под. заказов',\r\n";
-            chartdata1 += "data: [" + totalsumas + "]\r\n";
-            chartdata1 += "},\r\n";
-
-            chartdata1 += "{\r\n";
-            chartdata1 += "name: 'Сумма отказов',\r\n";
-            chartdata1 += "data: [" + totalsumrs + "]\r\n";
-            chartdata1 += "},\r\n";
-
-            chartdata1 += "{\r\n";
-            chartdata1 += "name: 'Реал. сумма заказов',\r\n";
-            chartdata1 += "data: [" + totalsumds + "]\r\n";
-            chartdata1 += "},\r\n";
-         
-            chartdata1 += "{\r\n";
-            chartdata1 += "name: 'Сумма скидок',\r\n";
-            chartdata1 += "data: [" + totalsumdds + "]\r\n";
-            chartdata1 += "},";
-
-            chartdata1 += "{\r\n";
-            chartdata1 += "name: 'Расходы',\r\n";
-            chartdata1 += "data: [" + expensess + "]\r\n";
+            chartdata1 += "name: '% расходов от заказов',\r\n";
+            chartdata1 += "data: [" + percents + "]\r\n";
             chartdata1 += "}";
 
-          /*  NumberFormatInfo nfi = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
-            nfi.CurrencyGroupSeparator = " ";
-            nfi.CurrencyDecimalSeparator = ".";
-            nfi.CurrencyDecimalDigits = 1;
-            nfi.CurrencySymbol = "";*/
-          // totalsum_g = 155698745;
 
+            linksjs += "$('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val());";
 
-            /*gvData.Columns[0].FooterText = "Всего";
-            gvData.Columns[1].FooterText = total_g.ToString();
-            gvData.Columns[2].FooterText = totala_g.ToString();
-            gvData.Columns[3].FooterText = totalr_g.ToString();
-            if (totalsum_g > 0)
-                gvData.Columns[4].FooterText = totalsum_g.ToString("### ### ###") + " р.";
-            else
-                gvData.Columns[4].FooterText = "0 р.";
-            if (totalsuma_g > 0)
-                gvData.Columns[5].FooterText = totalsuma_g.ToString("### ### ###") + " р.";
-            else
-                gvData.Columns[5].FooterText = "0 р.";
-            if (totalsumr_g > 0)
-                gvData.Columns[6].FooterText = totalsumr_g.ToString("### ### ###") + " р.";
-            else
-                gvData.Columns[6].FooterText = "0 р.";
-            if (totalsumd_g > 0)
-                gvData.Columns[7].FooterText = totalsumd_g.ToString("### ### ###") + " р.";
-            else
-                gvData.Columns[7].FooterText = "0 р.";
-            if (totalsumdd_g > 0)
-                gvData.Columns[8].FooterText = totalsumdd_g.ToString("### ### ###") + " р.";
-            else
-                gvData.Columns[8].FooterText = "0 р.";
-            gvData.Columns[9].FooterText = clicks_g.ToString();
-            gvData.Columns[10].FooterText = shows_g.ToString();
-            if (expenses_g > 0)
-                gvData.Columns[11].FooterText = expenses_g.ToString("### ### ###") + " р.";
-            else
-                gvData.Columns[11].FooterText = "0 р.";*/
+            linksjs += "$('#edit').attr('href', 'dataedit.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val());";
 
+            APIServiceProviderNamespace.main.execlogDataTable eldt = DBModule.GetLastExecLog(pid);
+            if (eldt != null && eldt.Rows.Count > 0)
+                linksjs += "$('#lastexec').text('Последняя дата обновления: " + eldt.Rows[0]["dt"].ToString() + "');";
+            else
+                linksjs += "$('#lastexec').text('Последняя дата обновления: неизвестно');";
 
-            /*GridView1.Columns.FromDataField("period").FooterValue = "Total";
-            JQGrid1.Columns.FromDataField("total").FooterValue = total_g.ToString();
-            JQGrid1.Columns.FromDataField("totala").FooterValue = totala_g.ToString();
-            JQGrid1.Columns.FromDataField("totalr").FooterValue = totalr_g.ToString();
-            JQGrid1.Columns.FromDataField("totalsum").FooterValue = totalsum_g.ToString();
-            JQGrid1.Columns.FromDataField("totalsuma").FooterValue = totalsuma_g.ToString();
-            JQGrid1.Columns.FromDataField("totalsumr").FooterValue = totalsumr_g.ToString();
-            JQGrid1.Columns.FromDataField("totalsumd").FooterValue = totalsumd_g.ToString();
-            JQGrid1.Columns.FromDataField("totalsumdd").FooterValue = totalsumdd_g.ToString();
-            JQGrid1.Columns.FromDataField("clicks").FooterValue = clicks_g.ToString();
-            JQGrid1.Columns.FromDataField("shows").FooterValue = shows_g.ToString();
-            JQGrid1.Columns.FromDataField("expenses").FooterValue = expenses_g.ToString();*/
+            linksjs += "$('#lastexec').css('color', '#0000FF');";
 
-            /*string path = Request.PhysicalApplicationPath;
+            eldt = DBModule.GetErrorLogs(pid);
+
+            if (eldt != null && eldt.Rows.Count > 0)
+            {
+                string s = "Последние 3 запроса с ошибкой: ";
+
+                int i = 0;
+                while (i < eldt.Rows.Count)
+                {
+                    if (i > 2) break;
+
+                    s += eldt.Rows[i]["methodname"];
+
+                    if (i < 2)
+                        s += ",";
+
+                    i++;
+                }
+
+                linksjs += "$('#errors').text('Найдено ошибок " + eldt.Rows.Count.ToString() + "; " + s + "');";
+                linksjs += "$('#errors').css('color', '#FF0000');";
+            }
+            else
+            {
+                linksjs += "$('#errors').text('Ошибок нет');";
+                linksjs += "$('#errors').css('color', '#00FF00');";
+            }
+
+            //linksjs += "jQuery('#datagrid').jqGrid({ url: 'datagen.aspx?sd=" + st.ToString("dd.MM.yyyy") + "&ed=" + ed.ToString("dd.MM.yyyy") + "&pid=" + pid.ToString() + "' });";
+
             string js = System.IO.File.ReadAllText(path + "\\ui\\ui_tpl.js");
-           // string jsgrid = System.IO.File.ReadAllText(path + "\\ui\\grid_tpl.js");
 
-            if (!ClientScript.IsStartupScriptRegistered("JSScript"))
-            {
-                js = js.Replace("{[(CONT1)]}", "container").Replace("{[(TITLE1)]}", "График за период времени").Replace("{[(SUBTITLE1)]}", st.ToString("dd.MM.yyyy") + "-" + ed.ToString("dd.MM.yyyy")).Replace("{[(CAT1)]}", cat1).Replace("{[(DATA1)]}", chartdata1).Replace("{[(GDATA)]}", griddata);
-                //js = js.Replace("{[(CONT2)]}", "container1").Replace("{[(TITLE2)]}", "График за текущую неделю").Replace("{[(DATA2)]}", chartdata1);
-                ClientScript.RegisterStartupScript(this.GetType(), "JSScript", js);
-            }*/
-        }
+            js = js.Replace("{[(CONT1)]}", "container").Replace("{[(TITLE1)]}", "График за период времени").Replace("{[(SUBTITLE1)]}", st.ToString("dd.MM.yyyy") + "-" + ed.ToString("dd.MM.yyyy")).Replace("{[(CAT1)]}", cat1).Replace("{[(DATA1)]}", chartdata1).Replace("{[(LINKS)]}", linksjs);
+            //js = js.Replace("{[(GDATA)]}", griddata);
 
-        private void LoadChart()
-        {
-        }
 
-        public void tvCampaigns_CheckChanged(Object sender, TreeNodeEventArgs e)
-        {
-            Hashtable campaignids = (Hashtable) Page.Session["campaignids"];
-            if (campaignids == null)
-            {
-                campaignids = new Hashtable();
-                Page.Session["campaignids"] = campaignids;
-            }
-    
-            Hashtable projectids = (Hashtable)Page.Session["projectids"];
-            if (projectids == null)
-            {
-                projectids = new Hashtable();
-                Page.Session["projectids"] = projectids;
-            }
+            /* string chData = "GenerateChart('chart', ";
+             string cols = "[";
+             string data = "[";
+             foreach (DataColumn dc in dtChart.Columns)
+             {
+                 cols += "'" + dc.ExtendedProperties["title"].ToString() + "',";
+                 data += "{";
+                // if (Convert.ToDecimal(dc.ExtendedProperties["totalsum"]) > 0)
+                 {
+                     data += "totala_p:55,";// + Convert.ToInt32(Convert.ToDecimal(dc.ExtendedProperties["totalsuma"]) * 100 / Convert.ToDecimal(dc.ExtendedProperties["totalsum"])).ToString() + ",";
+                     data += "totalr_p:45,";// + Convert.ToInt32(Convert.ToDecimal(dc.ExtendedProperties["totalsumr"]) * 100 / Convert.ToDecimal(dc.ExtendedProperties["totalsum"])).ToString();
+                 }
+                // else
+                // {
+                //     data += "totala: 0, totalr: 0";
+                // }
 
-            if (e.Node.Checked)
+                 data += "yandex_p:30,";
+                 data += "google_p:70";
+                 data += "},";
+             }
+
+             cols = cols.Remove(cols.Length - 1);
+             data = data.Remove(data.Length - 1);
+
+             cols += "]";
+             data += "]";
+
+             chData += cols + "," + data + ");";
+
+            
+             js = System.IO.File.ReadAllText(path + "\\ui\\chartnew_tpl.htm");
+             js = js.Replace("{[(FCALL)]}", chData);
+
+             System.IO.File.WriteAllText(path + "\\ui\\chartnew.htm", js);*/
+
+            string chData = "<table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" style=\"cursor:default; background-color:#cccccc; border:1px solid #cccccc;\" id=\"statsTable\">";
+            int n = 0;
+
+            chData += "<tr>";
+
+            int cm = (int)dtChart.Columns[0].ExtendedProperties["month"];
+
+            int colspan = 0;
+
+            foreach (DataColumn dc in dtChart.Columns)
             {
-                if (e.Node.Parent != null)
+                if (cm != Convert.ToInt32(dc.ExtendedProperties["month"]))
                 {
-                    campaignids[Convert.ToInt32(e.Node.Value)] = e.Node.Value;
-                    projectids[Convert.ToInt32(e.Node.Parent.Value)] = e.Node.Parent.Value;
-                    e.Node.Parent.Checked = true;
+                    chData += "<td colspan=\"" + colspan.ToString() + "\" style=\"background-color: #ffffff; color: #979797; font-size: 13px;padding: 4px;text-align: left;color: black;\">";
+                    if (groupby == 1)
+                        chData += "<div>" + months[cm - 1] + "</div>";
+                    else
+                        chData += "<div>" + cm.ToString() + "</div>";
+                    chData += "</td>";
+                    cm = Convert.ToInt32(dc.ExtendedProperties["month"]);
+                    colspan = 0;
                 }
-                else
-                {
-                    projectids[Convert.ToInt32(e.Node.Value)] = e.Node.Value;
-                    foreach (TreeNode node in e.Node.ChildNodes)
-                    {
-                        node.Checked = true;
-                        campaignids[Convert.ToInt32(node.Value)] = node.Value;
-                    }
-                }
+                colspan++;
             }
+
+            chData += "<td colspan=\"" + colspan.ToString() + "\" style=\"background-color: #ffffff; color: #979797; font-size: 13px;padding: 4px;text-align: left;color: black;\">";
+            if (groupby == 1)
+                chData += "<div>" + months[cm - 1] + "</div>";
             else
+                chData += "<div>" + cm.ToString() + "</div>";
+            chData += "</td>";
+
+            chData += "</tr>";
+
+            while (n <= 3)
             {
-                if (e.Node.Parent != null)
+                chData += "<tr>";
+
+                foreach (DataColumn dc in dtChart.Columns)
                 {
-                    campaignids.Remove(Convert.ToInt32(e.Node.Value));
-                    foreach (TreeNode node in e.Node.Parent.ChildNodes)
+                    int pa = 0;
+                    if (Convert.ToDecimal(dc.ExtendedProperties["totalsum"]) > 0)
+                        pa = Convert.ToInt32(Convert.ToDecimal(dc.ExtendedProperties["totalsuma"]) * 100 / Convert.ToDecimal(dc.ExtendedProperties["totalsum"]));
+
+                    int pr = 0;
+                    if (Convert.ToDecimal(dc.ExtendedProperties["totalsum"]) > 0)
+                        pr = Convert.ToInt32(Convert.ToDecimal(dc.ExtendedProperties["totalsumr"]) * 100 / Convert.ToDecimal(dc.ExtendedProperties["totalsum"]));
+
+
+                    int py = 0;
+                    if (Convert.ToDecimal(dc.ExtendedProperties["expenses"]) > 0)
+                        py = Convert.ToInt32(Convert.ToDecimal(dc.ExtendedProperties["yandex"]) * 100 / Convert.ToDecimal(dc.ExtendedProperties["expenses"]));
+
+                    int pg = 0;
+                    if (Convert.ToDecimal(dc.ExtendedProperties["expenses"]) > 0)
+                        pg = Convert.ToInt32(Convert.ToDecimal(dc.ExtendedProperties["google"]) * 100 / Convert.ToDecimal(dc.ExtendedProperties["expenses"]));
+
+                    int dw = 13;
+
+                    switch (n)
                     {
-                        if (node.Checked) return;
+                        case 0:
+                            chData += "<td style=\"background-color: " + dc.ExtendedProperties["bg"].ToString() + ";font-size: 13px;padding: 4px;text-align: center;color: black;\" title=\"" + dc.ExtendedProperties["title"].ToString() + "\" width=\"" + (dw + 4).ToString() + "\">";
+                            chData += "<div>";
+                            //if (!Convert.ToBoolean(dcCurrent.ExtendedProperties["left"]))
+                            chData += "<a href=\"#\">" + dc.ExtendedProperties["title1"].ToString() + "</a>";
+                            chData += "</div>";
+                            chData += "</td>";
+                            break;
+                        case 1:
+                            {
+                                int hh = Convert.ToInt32(dc.ExtendedProperties["total_h"]);
+                                if (hh == 0) hh = 1;
+                                chData += "<td style=\"vertical-align: bottom; text-align: center; padding-top:20px; background-color: " + dc.ExtendedProperties["bg"].ToString() + "\" title=\"" + dc.ExtendedProperties["title"].ToString() + "\" height=\"" + omaxheight.ToString() + "\">";
+                                if (Convert.ToInt32(dc.ExtendedProperties["totala"]) > 0 && Convert.ToInt32(dc.ExtendedProperties["totalr"]) > 0)
+                                    chData += "<div  style=\"height:" + hh.ToString() + "px;background-color: #c2c2c2;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:10px;color:White;padding:2px;margin-left:auto;margin-right:auto;\">&nbsp;" + /*dc.ExtendedProperties["total"].ToString() + */"</div>";
+
+                                hh = Convert.ToInt32(dc.ExtendedProperties["totala_h"]);
+                                if (hh == 0) hh = 1;
+                                if (Convert.ToInt32(dc.ExtendedProperties["totala"]) > 0)
+                                    chData += "<div  style=\"height:" + hh.ToString() + "px;background-color: #3f3f3f;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:10px;color:White;padding:2px;margin-left:auto;margin-right:auto;\">&nbsp;" + /*dc.ExtendedProperties["totala"].ToString() +*/ "</div>";
+
+                                hh = Convert.ToInt32(dc.ExtendedProperties["totalr_h"]);
+                                if (hh == 0) hh = 1;
+                                if (Convert.ToInt32(dc.ExtendedProperties["totalr"]) > 0)
+                                    chData += "<div  style=\"height:" + hh.ToString() + "px;background-color: #b00000;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:10px;color:White;padding:2px;margin-left:auto;margin-right:auto;\">&nbsp;" + /*dc.ExtendedProperties["totalr"].ToString() +*/ "</div>";
+
+                                chData += "</td>";
+                            }
+                            break;
+                        case 2:
+                            {
+                                chData += "<td style=\"background-color: " + dc.ExtendedProperties["bg"].ToString() + ";padding-bottom:20px;vertical-align: top; text-align: center;\" title=\"" + dc.ExtendedProperties["title"].ToString() + "\" height=\"" + emaxheight.ToString() + "\">";
+                                //                            chData += "<div style=\"height:" + Convert.ToInt32((Math.Ceiling(Convert.ToDouble(dc.ExtendedProperties["expenses"]) / 1000.0)) + 10).ToString() + "px;background-color: #FF9999;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:11px;color:White;padding:2px;\">" + Convert.ToDecimal(dc.ExtendedProperties["expenses"]).ToString("### ### ###") + "</div>";
+                                //                            chData += "<div style=\"height:" + ((pg + 1) * 2).ToString() + "px;background-color: #FF9900;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:11px;color:White;padding:2px;\">" + Convert.ToDecimal(dc.ExtendedProperties["google"]).ToString("### ### ###") + "</div>";
+                                //                            chData += "<div style=\"height:" + ((py + 1) * 2).ToString() + "px;background-color: #3300FF;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:11px;color:White;padding:2px;\">" + Convert.ToDecimal(dc.ExtendedProperties["yandex"]).ToString("### ### ###") + "</div>";
+
+                                decimal k = 200.0M;
+
+                                if (groupby == 2 || groupby == 3)
+                                    k = 5000.0M;
+
+                                decimal yd = Convert.ToDecimal(dc.ExtendedProperties["yandex"]);
+                                decimal gg = Convert.ToDecimal(dc.ExtendedProperties["google"]);
+                                decimal ex = Convert.ToDecimal(dc.ExtendedProperties["expenses"]);
+
+                                //if (yd > 0)
+                                if (Convert.ToInt32(dc.ExtendedProperties["yandex_h"]) > 0)
+                                {
+                                    /*if (yd < 10000M)
+                                        k = 100M;
+                                    else
+                                        if (yd >= 10000 && yd < 100000)
+                                            k = 1000M;
+                                        else
+                                            if (yd >= 100000 && yd < 1000000)
+                                                k = 10000M;
+                                            else
+                                                k = 10000M;*/
+
+                                    chData += "<div style=\"height:" + Convert.ToInt32(dc.ExtendedProperties["yandex_h"]).ToString() + "px;background-color: #dbbf00;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:10px;color:White;padding:2px;margin-left:auto;margin-right:auto;\">&nbsp;</div>";
+                                }
+                                //if (gg > 0)
+                                if (Convert.ToInt32(dc.ExtendedProperties["google_h"]) > 0)
+                                {
+                                    /* if (gg < 10000M)
+                                         k = 100M;
+                                     else
+                                         if (gg >= 10000 && gg < 100000)
+                                             k = 1000M;
+                                         else
+                                             if (gg >= 100000 && gg < 1000000)
+                                                 k = 10000M;
+                                             else
+                                                 k = 10000M;*/
+                                    chData += "<div style=\"height:" + Convert.ToInt32(dc.ExtendedProperties["google_h"]).ToString() + "px;background-color: #2b9900;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:10px;color:White;padding:2px;margin-left:auto;margin-right:auto;\">&nbsp;</div>";
+                                }
+                                //if (gg > 0 && yd > 0)
+                                if (Convert.ToInt32(dc.ExtendedProperties["expenses_h"]) > 0)
+                                {
+                                    /*if (ex < 10000M)
+                                        k = 100M;
+                                    else
+                                        if (ex >= 10000 && ex < 100000)
+                                            k = 1000M;
+                                        else
+                                            if (ex >= 100000 && ex < 1000000)
+                                                k = 10000M;
+                                            else
+                                                k = 10000M;*/
+
+
+                                    chData += "<div style=\"height:" + Convert.ToInt32(dc.ExtendedProperties["expenses_h"]).ToString() + "px;background-color: #949494;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:10px;color:White;padding:2px;margin-left:auto;margin-right:auto;\">&nbsp;</div>";
+                                }
+
+                                chData += "</td>";
+                            }
+                            break;
+                        case 3:
+                            {
+                                chData += "<td style=\"background-color: " + dc.ExtendedProperties["bg"].ToString() + ";padding-bottom:2px;vertical-align: bottom; text-align: center;\" title=\"" + dc.ExtendedProperties["title"].ToString() + "\" height=\"" + pmaxheight.ToString() + "\">";
+                                //                            chData += "<div style=\"height:" + Convert.ToInt32((Math.Ceiling(Convert.ToDouble(dc.ExtendedProperties["expenses"]) / 1000.0)) + 10).ToString() + "px;background-color: #FF9999;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:11px;color:White;padding:2px;\">" + Convert.ToDecimal(dc.ExtendedProperties["expenses"]).ToString("### ### ###") + "</div>";
+                                //                            chData += "<div style=\"height:" + ((pg + 1) * 2).ToString() + "px;background-color: #FF9900;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:11px;color:White;padding:2px;\">" + Convert.ToDecimal(dc.ExtendedProperties["google"]).ToString("### ### ###") + "</div>";
+                                //                            chData += "<div style=\"height:" + ((py + 1) * 2).ToString() + "px;background-color: #3300FF;width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:11px;color:White;padding:2px;\">" + Convert.ToDecimal(dc.ExtendedProperties["yandex"]).ToString("### ### ###") + "</div>";
+
+                                int perc = Convert.ToInt32(dc.ExtendedProperties["percent"]);
+
+                                if (perc > 0)
+                                {
+                                    string bg = "#91b6d3";
+                                    if (perc > 120)
+                                        bg = "#FF0000";
+                                    
+                                    chData += "<div style=\"height:" + Convert.ToInt32(dc.ExtendedProperties["percent_h"]).ToString() + "px;background-color: " + bg + ";width: " + dw.ToString() + "px;text-align: center;vertical-align: top;font-size:10px;color:White;padding:2px;margin-left:auto;margin-right:auto;\">&nbsp;</div>";
+                                }
+
+
+                                chData += "<div>";
+                                //if (!Convert.ToBoolean(dcCurrent.ExtendedProperties["left"]))
+                                chData += "<div class=\"sum\" style=\"display:none;position: absolute;z-index: 1000;background-color: white;padding-left: 15px;padding-top: 5px;border: 1px solid #666666;color: black;text-align: left;font-size:12px;\">";
+                                chData += dc.ExtendedProperties["title"].ToString() + "<br/><br/>";
+                                chData += "<table>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #c2c2c2\">Всего заказов</span></td><td style=\"width: 35px\"><span style=\"color: #c2c2c2\">" + dc.ExtendedProperties["total"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #c2c2c2\">&nbsp;на&nbsp;" + Convert.ToDecimal(dc.ExtendedProperties["totalsum"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #3f3f3f\">Доставлено</span></td><td style=\"width: 35px\"><span style=\"color: #3f3f3f\">" + dc.ExtendedProperties["totala"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #3f3f3f\">&nbsp;на&nbsp;" + Convert.ToDecimal(dc.ExtendedProperties["totalsuma"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #b00000\">Отказов</span></td><td style=\"width: 35px\"><span style=\"color: #b00000\">" + dc.ExtendedProperties["totalr"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #b00000\">&nbsp;на&nbsp;" + Convert.ToDecimal(dc.ExtendedProperties["totalsumr"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "</table><br/>";
+
+                                chData += "<table>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #dbbf00\"><u>yandex.direct</u></span></td><td style=\"width: 35px\"><span style=\"color: #dbbf00\">" + dc.ExtendedProperties["yandexclicks"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #dbbf00\">" + Convert.ToDecimal(dc.ExtendedProperties["yandex"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #2b9900\"><u>google.adwords</u></span></td><td style=\"width: 35px\"><span style=\"color: #2b9900\">" + dc.ExtendedProperties["googleclicks"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #2b9900\">" + Convert.ToDecimal(dc.ExtendedProperties["google"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #949494\"><u>Всего расходов</u></span></td><td style=\"width: 35px\"><span style=\"color: #949494\">" + dc.ExtendedProperties["clicks"].ToString() + "</td><td style=\"width: 90px\"><span style=\"color: #949494\">" + Convert.ToDecimal(dc.ExtendedProperties["expenses"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "</table><br/>";
+
+                                chData += "<table>";
+                                if (Convert.ToDecimal(dc.ExtendedProperties["totalsuma"]) > 0)
+                                    chData += "<tr><td style=\"width: 140px\"><span style=\"color: #91b6d3\">% расходов от заказов</span></td><td><span style=\"color: #91b6d3\">" + Convert.ToInt32(Convert.ToDecimal(dc.ExtendedProperties["expenses"]) * 100 / Convert.ToDecimal(dc.ExtendedProperties["totalsuma"])).ToString() + "%</span></td></td></tr>";
+                                else
+                                    if (Convert.ToDecimal(dc.ExtendedProperties["expenses"]) > 0)
+                                        chData += "<tr><td style=\"width: 140px\"><span style=\"color: #91b6d3\">% расходов от заказов</span></td><td><span style=\"color: #91b6d3\">100%</span></td></td></tr>";
+                                    else
+                                        chData += "<tr><td style=\"width: 140px\"><span style=\"color: #91b6d3\">% расходов от заказов</span></td><td><span style=\"color: #91b6d3\">0%</span></td></td></tr>";
+                                chData += "</table><br/>";
+
+                                chData += "</div>";
+                                // if (Convert.ToBoolean(dcCurrent.ExtendedProperties["left"]))
+                                //    chData += "<a href=\"#\">" + dc.ExtendedProperties["title1"].ToString() + "</a>";
+                                chData += "</div>";
+
+                                chData += "</td>";
+                            }
+                            break;
+                        case 4:
+                            {
+                                chData += "<td style=\"background-color: " + dc.ExtendedProperties["bg"].ToString() + ";font-size: 13px;padding: 4px;text-align: center;color: black;\" title=\"" + dc.ExtendedProperties["title"].ToString() + "\" width=\"" + (dw + 4).ToString() + "\" height=\"0\">";
+                                chData += "<div>";
+                                //if (!Convert.ToBoolean(dcCurrent.ExtendedProperties["left"]))
+                                chData += "<div class=\"sum\" style=\"display:none;position: absolute;z-index: 1000;background-color: white;padding-left: 15px;padding-top: 5px;border: 1px solid #666666;color: black;text-align: left;\">";
+                                chData += dc.ExtendedProperties["title"].ToString() + "<br/><br/>";
+                                chData += "<table>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #c2c2c2\">Всего заказов</span></td><td style=\"width: 35px\"><span style=\"color: #c2c2c2\">" + dc.ExtendedProperties["total"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #c2c2c2\">&nbsp;на&nbsp;" + Convert.ToDecimal(dc.ExtendedProperties["totalsum"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #b00000\">Доставлено</span></td><td style=\"width: 35px\"><span style=\"color: #b00000\">" + dc.ExtendedProperties["totala"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #b00000\">&nbsp;на&nbsp;" + Convert.ToDecimal(dc.ExtendedProperties["totalsuma"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #3f3f3f\">Отказов</span></td><td style=\"width: 35px\"><span style=\"color: #3f3f3f\">" + dc.ExtendedProperties["totalr"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #3f3f3f\">&nbsp;на&nbsp;" + Convert.ToDecimal(dc.ExtendedProperties["totalsumr"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "</table><br/>";
+
+                                chData += "<table>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #dbbf00\"><u>yandex.direct</u></span></td><td style=\"width: 35px\"><span style=\"color: #dbbf00\">" + dc.ExtendedProperties["yandexclicks"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #dbbf00\">" + Convert.ToDecimal(dc.ExtendedProperties["yandex"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #2b9900\"><u>google.adwords</u></span></td><td style=\"width: 35px\"><span style=\"color: #2b9900\">" + dc.ExtendedProperties["googleclicks"].ToString() + "</span></td><td style=\"width: 90px\"><span style=\"color: #2b9900\">" + Convert.ToDecimal(dc.ExtendedProperties["google"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "<tr><td style=\"width: 100px\"><span style=\"color: #949494\"><u>Всего расходов</u></span></td><td style=\"width: 35px\"><span style=\"color: #949494\">" + dc.ExtendedProperties["clicks"].ToString() + "</td><td style=\"width: 90px\"><span style=\"color: #949494\">" + Convert.ToDecimal(dc.ExtendedProperties["expenses"]).ToString("### ### ###").Replace(",", ".") + "&nbsp;р.</span></td></tr>";
+                                chData += "</table><br/>";
+
+                                chData += "<table>";
+                                if (Convert.ToDecimal(dc.ExtendedProperties["totalsuma"]) > 0)
+                                    chData += "<tr><td style=\"width: 140px\"><span style=\"color: #91b6d3\">% расходов от заказов</span></td><td><span style=\"color: #91b6d3\">" + Convert.ToInt32(Convert.ToDecimal(dc.ExtendedProperties["expenses"]) * 100 / Convert.ToDecimal(dc.ExtendedProperties["totalsuma"])).ToString() + "%</span></td></td></tr>";
+                                else
+                                    if (Convert.ToDecimal(dc.ExtendedProperties["expenses"]) > 0)
+                                        chData += "<tr><td style=\"width: 140px\"><span style=\"color: #91b6d3\">% расходов от заказов</span></td><td><span style=\"color: #91b6d3\">100%</span></td></td></tr>";
+                                    else
+                                        chData += "<tr><td style=\"width: 140px\"><span style=\"color: #91b6d3\">% расходов от заказов</span></td><td><span style=\"color: #91b6d3\">0%</span></td></td></tr>";
+                                chData += "</table><br/>";
+
+                                chData += "</div>";
+                                // if (Convert.ToBoolean(dcCurrent.ExtendedProperties["left"]))
+                                //    chData += "<a href=\"#\">" + dc.ExtendedProperties["title1"].ToString() + "</a>";
+                                chData += "</div>";
+                                chData += "</td>";
+                            }
+                            break;
                     }
-                    projectids.Remove(Convert.ToInt32(e.Node.Parent.Value));
-                    e.Node.Parent.Checked = false;
                 }
-                else
-                {
-                    projectids.Remove(Convert.ToInt32(e.Node.Value));
-                    foreach (TreeNode node in e.Node.ChildNodes)
-                    {
-                        node.Checked = false;
-                        campaignids.Remove(Convert.ToInt32(node.Value));
-                    }
-                }
-            }
-        }
 
-        public void btnReload_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        public void Startdate_SelChange(object sender, EventArgs e)
-        {
-            Page.Session["startdate"] = Calendar1.SelectedDate;
-        }
-
-        public void Enddate_SelChange(object sender, EventArgs e)
-        {
-            Page.Session["enddate"] = Calendar2.SelectedDate;
-        }
-
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-
-/*
-
-            DateTime startdate = DateTime.Now;
-            DateTime enddate = DateTime.Now;
-
-            while (startdate.DayOfWeek != DayOfWeek.Monday)
-                startdate = startdate.AddDays(-1);
-            while (enddate.DayOfWeek != DayOfWeek.Sunday)
-                enddate = enddate.AddDays(1);
-
-            if (Page.Session["startdate"] != null)
-                startdate = (DateTime)Page.Session["startdate"];
-            else
-            {
-                Calendar1.TodaysDate = startdate;
-                Calendar1.SelectedDate = startdate;
-                Page.Session["startdate"] = startdate;
+                chData += "</tr>";
+                n++;
             }
 
-            if (Page.Session["enddate"] != null)
-                enddate = (DateTime)Page.Session["enddate"];
-            else
-            {
-                Calendar2.TodaysDate = enddate;
-                Calendar2.SelectedDate = enddate;
-                Page.Session["enddate"] = enddate;
-            }
+            chData += "</table>";
 
-            bool isfirst = false;
+            //js = System.IO.File.ReadAllText(path + "\\ui\\mychart_tpl.htm");
+            //js = js.Replace("{[(TBL)]}", chData);
 
-            if (Page.Session["projectids"] == null)
-            {
-                isfirst = true;
-                Page.Session["projectids"] = new Hashtable();
-            }
+            //System.IO.File.WriteAllText(path + "\\ui\\mychart.htm", js);
 
+            js = js.Replace("{[(SCH)]}", chData);
 
-            if (Page.Session["campaignids"] == null)
-            {
-                isfirst = true;
-                Page.Session["campaignids"] = new Hashtable();
-            }*/
+            System.IO.File.WriteAllText(path + "\\ui\\ui.js", js);
+            System.IO.File.WriteAllText(path + "\\ui\\griddata.xml", xmldata);
 
-            if (!IsPostBack)
-            {
-                /*tvCampaigns.Nodes.Clear();
-
-                APIServiceProviderNamespace.main.projectsDataTable dt = DBModule.GetProjects();
-
-                foreach (APIServiceProviderNamespace.main.projectsRow pr in dt.Rows)
-                {
-                    TreeNode root = new TreeNode(pr.name, pr.id.ToString());
-                    root.Checked = true;
-                    //(Page.Session["projectids"] as Hashtable)[Convert.ToInt32(root.Value)] = root.Value;
-
-                    tvCampaigns.Nodes.Add(root);
-                    APIServiceProviderNamespace.main.campaignsDataTable cdt = DBModule.GetCampaignsByProjectID(pr.id);
-
-                    foreach (APIServiceProviderNamespace.main.campaignsRow cr in cdt.Rows)
-                    {
-                        TreeNode node = new TreeNode(cr.name, cr.id.ToString());
-                        root.ChildNodes.Add(node);
-                        node.Checked = true;
-                       //(Page.Session["campaignids"] as Hashtable)[Convert.ToInt32(node.Value)] = node.Value;
-                    }
-                }*/
-            }
-
-           // FillGrid((Hashtable)Page.Session["projectids"], (Hashtable)Page.Session["campaignids"]);
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                object o = Page.Session["example"];
-                Page.Session.Remove("startdate");
-                Page.Session.Remove("enddate");
-            }
-
-
-
+            //Response.ContentType = "text/xml";
+            //Response.Write(xmldata);
+            //Response.Redirect("http://xstat.fitmedia.ru");
+            //Response.Redirect("index.htm");
         }
     }
 }

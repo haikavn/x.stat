@@ -10,6 +10,14 @@ using System.IO;
 
 namespace APIServiceProviderNamespace
 {
+    public enum APIServiceProviderTypes
+    {
+        Unknown = 0,
+        Orders = 1,
+        YandexDirect = 2,
+        GoogleAdwords = 3
+    }
+
     public class APIServiceProvider
     {
         #region Private Members
@@ -17,6 +25,7 @@ namespace APIServiceProviderNamespace
         private string name = "";
         private string url = "";
         private Hashtable requiredParams = new Hashtable();
+        private APIServiceProviderTypes serviceProviderType = APIServiceProviderTypes.Unknown;
         private APIServiceProviderRequest serviceProviderRequest = new APIServiceProviderRequest();
 
         private Project proj = null;
@@ -42,7 +51,13 @@ namespace APIServiceProviderNamespace
         public Hashtable RequiredParams
         {
             get { return requiredParams; }
-         // set { requiredParams = value; }
+            // set { requiredParams = value; }
+        }
+
+        public APIServiceProviderTypes ServiceProviderType
+        {
+            get { return serviceProviderType; }
+            set { serviceProviderType = value; }
         }
 
         public virtual APIServiceProviderRequest ServiceProviderRequest
@@ -197,6 +212,7 @@ namespace APIServiceProviderNamespace
 
         public YandexAPIServiceProvider()
         {
+            ServiceProviderType = APIServiceProviderTypes.YandexDirect;
             ServiceProviderRequest = new YandexAPIServiceProviderRequest();
             ServiceProviderRequest.ServiceProvider = this;
             string[] str = new string[1];
@@ -221,6 +237,7 @@ namespace APIServiceProviderNamespace
 
         public OrdersAPIServiceProvider()
         {
+            ServiceProviderType = APIServiceProviderTypes.Orders;
             ServiceProviderRequest = new OrdersAPIServiceProviderRequest();
             ServiceProviderRequest.ServiceProvider = this;
         }

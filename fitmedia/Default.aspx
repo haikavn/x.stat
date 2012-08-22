@@ -1,153 +1,197 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="fitmedia._Default" %>
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1" runat="server">
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <title></title>
+
     <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.16/themes/redmond/jquery-ui.css" />
-    
+    <link rel="stylesheet" type="text/css" media="screen" href="js/jqGrid-4.3.1/css/ui.jqgrid.css" />  
+  
     <!-- jQuery runtime minified -->   
-    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>   
+    <script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>   
 
     <!-- The localization file we need, English in this case -->   
-    <script src="/js/trirand/i18n/grid.locale-en.js" type="text/javascript"></script>   
+    <script src="js/jqGrid-4.3.1/js/i18n/grid.locale-en.js" type="text/javascript"></script>   
       
     <!-- The jqGrid client-side javascript -->    
-    <script src="/js/trirand/jquery.jqGrid.min.js" type="text/javascript"></script>   
-    <script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
-    <script type="text/javascript" src="/js/highcharts/modules/exporting.js"></script>
-    
-    <link rel="stylesheet" href="/js/jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />    
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxcore.js"></script>    
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxdata.js"></script>     
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxbuttons.js"></script>    
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxscrollbar.js"></script>    
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxmenu.js"></script>    
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxgrid.js"></script>    
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxgrid.selection.js"></script>    
-    <script type="text/javascript" src="/js/jqwidgets/scripts/gettheme.js"></script>   
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxdatetimeinput.js"></script>
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxcalendar.js"></script>
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxtooltip.js"></script>
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/globalization/jquery.global.js"></script> 
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxtree.js"></script>        
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxcheckbox.js"></script>        
-    <script type="text/javascript" src="/js/jqwidgets/jqwidgets/jqxbuttons.js"></script>
-
-    <script type="text/javascript">
-        var isfirstload = true;
-        var pItem = null;
-        var cItem = null;
-        var cItemCount = 0;
-        var cCurIndex = 0;
-        var rCount = 0;
-  
-    </script>
-
-    <script language=javascript>
-        function myPostBack() {
-            var res = $.get("datagen.aspx?sd=01.01.2012", function () {
-                loadData();
-            });            
-           // data = new Array();
-           // var source = {localdata: data, datatype: "array"};
-           // $("#jqxgrid").jqxGrid({ source: source });
-           // $('#jqxgrid').jqxGrid('updatebounddata');
-            
-            //$('#jqxgrid').jqxGrid('refreshdata');
-
-            //var o = window.event.srcElement;
-            //if (o.tagName == "INPUT" && o.type == "checkbox") {
-                //__doPostBack("", "");
-            //}
-        }
-    </script>
-
+    <script src="js/jqGrid-4.3.1/js/jquery.jqGrid.min.js" type="text/javascript"></script>   
+	
+	<script type="text/javascript" src="js/jquery-ui-1.8.18.custom/js/jquery-ui-1.8.18.custom.min.js"></script>
 </head>
-<body>
-    <form id="form1" runat="server">
-    <div id="uijs">
-    <script type="text/javascript" src="ui/ui.js" ></script>  
+<body class='default'>
+    <table>
+        <tr>
+            <th align="left">
+                Проекты:
+            </th>
+            <th align="left">
+                Начало:
+            </th>
+            <th align="left">
+                Конец:
+            </th>
+            <th align="left">
+                Группировать:
+            </th>
+            <th align="left">
+                Город:
+            </th>
+            <th align="left">
+                Источник:
+            </th>
+            <th align="left">
+                Оплата:
+            </th>
+            <th align="left">
+                Дни:
+            </th>
+            <th align="left">
+            </th>
+        </tr>
+        <tr>
+            <th align="left">
+                <select id="projects"></select>
+            </th>
+            <th align="left">
+                <input id="startdate" type="text">
+            </th>
+            <th align="left">
+                <input id="enddate" type="text">
+            </th>
+            <th align="left">
+                <select id="groups"></select>
+            </th>
+            <th align="left">
+                <select id="city">
+                    <option selected="selected" value="0">Все</option>
+                    <option value="1">Москва и МО</option>
+                    <option value="2">Регионы</option>
+                </select>
+            </th>
+            <th align="left">
+                <select id="source">
+                    <option selected="selected" value="0">Все</option>
+                    <option value="1">Сайт</option>
+                    <option value="2">Телефон</option>                
+                </select>
+            </th>
+            <th align="left">
+                <select id="payment">
+                    <option selected="selected" value="0">Все</option>
+                    <option value="1">Наличными</option>
+                    <option value="2">Безнал</option>                 
+                </select>
+            </th>
+            <th align="left">
+                <select id="days">
+                    <option selected="selected" value="0">Все</option>
+                    <option value="1">Выходные</option>
+                </select>
+            </th>
+            <th align="left">
+                <a href="#" id="navigate">Показать</a>&nbsp;&nbsp;
+                <a href="#" id="edit">Редактировать</a>&nbsp;&nbsp;
+                <a href="lidataedit.aspx" id="liveinternet">Live Internet</a>&nbsp;&nbsp;
+                <a href="nwdgen.aspx" id="notworkingdays">Нерабочие дни</a>
+            </th>
+        </tr>
+    </table>
+    <br />
+                <select id="balance" name="balance"></select>
+    <br />
+    <label id="lastexec"></label><br />
+    <label id="errors"></label>
+    <br />
+	<div id="statsChart"></div>
+    <br />
+    <div>
+        <table id="datagrid" style="width: 100%"></table>
+        <div id="datagridpager"></div>
     </div>
-    <div id="jqxTree" style="float: left;">
-    <ul></ul>
-    </div>
-    <div id="startdate" style="float: left;"></div>
-    <div id="enddate" style="float: left;"></div>
-                    <div id="jqxgrid"></div>
-                    <div>
-                    <input type="button" value="Button" id='jqxButton' />
-                    </div>
-    <div style="float:left;">
-        <div style="vertical-align: top">
-        <asp:Table runat="server">
-        <asp:TableRow runat="server">
-            <asp:TableCell runat="server">
-            </asp:TableCell>
-            <asp:TableCell runat="server">
     
-            </asp:TableCell>
-        </asp:TableRow>
-        <asp:TableRow>
-        <asp:TableCell VerticalAlign="Top">
-            <asp:TreeView ID="tvCampaigns" runat="server" ShowCheckBoxes="Root,Parent,Leaf" OnTreeNodeCheckChanged="tvCampaigns_CheckChanged" OnClick="myPostBack();">    </asp:TreeView><br/>
-        </asp:TableCell>
-        <asp:TableCell VerticalAlign="Top">
-                <asp:Table ID="Table1" runat="server">
-        <asp:TableRow ID="TableRow1" runat="server">
-        <asp:TableCell ID="TableCell1" runat="server">
-            <asp:Label ID="Label1" runat="server" Text="Начало"></asp:Label>
-            <asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Startdate_SelChange"></asp:Calendar><br />
-
-        </asp:TableCell>
-        <asp:TableCell ID="TableCell2" runat="server">
-            <asp:Label ID="Label2" runat="server" Text="Конец"></asp:Label>
-            <asp:Calendar ID="Calendar2" runat="server" OnSelectionChanged="Enddate_SelChange"></asp:Calendar><br />
-
-        </asp:TableCell>
-        </asp:TableRow>
-        </asp:Table><br/>
-        
-            <asp:GridView ID="gvData" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" OnPageIndexChanging="gvData_PageIndexChanging" ShowFooter="True" OnRowDataBound="gvData_RowDataBound" Width="100%">
-            <Columns>
-                <asp:BoundField HeaderText="Период" DataField="period" HeaderStyle-Width="10%"></asp:BoundField>
-                <asp:BoundField HeaderText="Заказы" DataField="total" HeaderStyle-Width="5%" ItemStyle-HorizontalAlign="Right"></asp:BoundField>
-                <asp:BoundField HeaderText="Под. заказы" DataField="totala" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="5%"></asp:BoundField>
-                <asp:BoundField HeaderText="Отказы" DataField="totalr" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="5%"></asp:BoundField>
-                <asp:BoundField HeaderText="Сумма заказов" DataField="totalsum" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Width="7%"></asp:BoundField>
-                <asp:BoundField HeaderText="Сумма под. заказов" DataField="totalsuma" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Width="7%"></asp:BoundField>
-                <asp:BoundField HeaderText="Сумма отказов" DataField="totalsumr" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Width="7%"></asp:BoundField>
-                <asp:BoundField HeaderText="Реал. сумма заказов" DataField="totalsumd" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Width="7%"></asp:BoundField>
-                <asp:BoundField HeaderText="Сумма скидок" DataField="totalsumdd" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Width="7%"></asp:BoundField>
-                <asp:BoundField HeaderText="Клики" DataField="clicks" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Width="5%"></asp:BoundField>
-                <asp:BoundField HeaderText="Показы" DataField="shows" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Width="5%"></asp:BoundField>
-                <asp:BoundField HeaderText="Расходы" DataField="expenses" ItemStyle-HorizontalAlign="Right"  HeaderStyle-Width="7%"></asp:BoundField>
-            </Columns>
-
-            <FooterStyle BackColor="#CCCC99" Font-Bold="True" HorizontalAlign="Right" Font-Size="10"></FooterStyle>
-            <PagerStyle ForeColor="Black" HorizontalAlign="Center" 
-                BackColor="#F7F7DE"></PagerStyle>
-            <HeaderStyle ForeColor="White" Font-Bold="True" Font-Size="11" 
-                BackColor="#6B696B"></HeaderStyle>
-            <AlternatingRowStyle BackColor="White"></AlternatingRowStyle>
-            <RowStyle BackColor="#F7F7DE" Font-Size="10"></RowStyle>
-
-            </asp:GridView>
-            </asp:TableCell>
-        </asp:TableRow>
-        </asp:Table>
-
-        </div>
-
-<div>
-<div id="container" style="width: 100%; height: 400px; margin: 0 auto; float:left"></div>     
-<div id="container1" style="width: 1000px; height: 400px; margin: 0 auto; float:left"></div>     
-</div>
-    </div>
-
-  
-    </form>
 </body>
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // $("a").button();
+
+        $("#projects").change(function (e) {
+            $('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val());
+            $('#edit').attr('href', 'dataedit.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val());
+            // jQuery("#datagrid").jqGrid({
+            //    url: 'datagen.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val()
+            //});
+        });
+
+        $("#groups").change(function (e) {
+            $('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val());
+            $('#edit').attr('href', 'dataedit.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val());
+            // jQuery("#datagrid").jqGrid({
+            //    url: 'datagen.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val()
+            //});
+        });
+
+        $("#city").change(function (e) {
+            $('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val());
+        });
+
+        $("#source").change(function (e) {
+            $('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val());
+        });
+
+        $("#payment").change(function (e) {
+            $('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val());
+        });
+
+        $("#days").change(function (e) {
+            $('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val());
+        });
+
+        $("#startdate").datepicker({ dateFormat: "dd.mm.yy", onSelect: function (dateText, inst) { $('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val()); } });
+        $("#enddate").datepicker({ dateFormat: "dd.mm.yy", onSelect: function (dateText, inst) { $('#navigate').attr('href', 'Default.aspx?sd=' + $('#startdate').val() + '&ed=' + $('#enddate').val() + '&pid=' + $('#projects').val() + '&g=' + $('#groups').val() + '&city=' + $('#city').val() + '&source=' + $('#source').val() + '&payment=' + $('#payment').val() + '&days=' + $('#days').val()); } });
+        jQuery("#datagrid").jqGrid({
+            url: 'ui/griddata.xml',
+            datatype: "xml",
+            colNames: [ 'Период', 'Заказы', 'Под. заказы', 'Отказы', 'Сумма заказов', 'Сумма под. заказов', 'Сумма отказов', 'Реал. сумма заказов', 'Сумма скидок', 'Клики', 'Показы', 'Расходы'],
+            colModel: [
+   		{ name: 'period', index: 'period', width: 90 },
+   		{ name: 'total', index: 'total', width: 50, align: "right", summaryType: 'sum' },
+   		{ name: 'totala', index: 'totala', width: 50, align: "right", summaryType: 'sum' },
+   		{ name: 'totalr', index: 'totalr', width: 50, align: "right", summaryType: 'sum' },
+   		{ name: 'totalsum', index: 'totalsum', width: 80, align: "right", summaryType: 'sum' },
+   		{ name: 'totalsuma', index: 'totalsuma', width: 80, align: "right", summaryType: 'sum' },
+   		{ name: 'totalsumr', index: 'totalsumr', width: 80, align: "right", summaryType: 'sum' },
+   		{ name: 'totalsumd', index: 'totalsumd', width: 80, align: "right", summaryType: 'sum' },
+   		{ name: 'totalsumdd', index: 'totalsumdd', width: 80, align: "right", summaryType: 'sum' },
+   		{ name: 'clicks', index: 'clicks', width: 80, align: "right", summaryType: 'sum' },
+   		{ name: 'shows', index: 'shows', width: 80, align: "right", summaryType: 'sum' },
+   		{ name: 'expenses', index: 'expenses', width: 80, align: "right", summaryType: 'sum' }
+   	],
+            rowNum: 5000,
+            height: 400,
+            autowidth: true,
+            rowList: [10, 20, 30],
+            sortname: 'period',
+            viewrecords: true,
+            sortorder: "desc",
+            caption: "Report",
+            grouping: false,
+            groupingView: {
+                groupField: ['report'],
+                groupSummary: [true],
+                groupColumnShow: [false],
+                groupText: [],
+                groupCollapse: false,
+                groupOrder: ['asc']
+            }
+
+        }).navGrid('#datagridpager', { edit: false, add: false, del: false });
+
+        $.getScript("ui/ui.js");
+    });				
+</script> 
+
+

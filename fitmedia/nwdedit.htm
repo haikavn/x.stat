@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+
+    <script src="js/jquery-1.7.1.min.js" type="text/javascript"></script> 
+</head>
+<body class='default'>
+   <form method="post" action="nwdedit.aspx">
+   Нерабочие дни за 
+	<select id="year" name="year"><option>2011</option><option selected="selected">2012</option><option>2013</option><option>2014</option><option>2015</option></select>&nbsp;год
+    &nbsp;&nbsp;<a href="nwdgen.aspx?year=2012" id="navigate">Показать</a>
+    &nbsp;&nbsp;
+    по умолчанию
+    <input id="default" name="default" type="checkbox" />
+   <br/><br/>
+		
+   <table border="0" cellpadding="0" cellspacing="1" style="cursor:default; background-color:#ffffff; border:1px solid #cccccc;" id="statsTable">
+<tr>
+<td colspan="31">Январь</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">31</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" id="1_1" name="1_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_2" name="1_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_3" name="1_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_4" name="1_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_5" name="1_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_6" name="1_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="1_7" name="1_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="1_8" name="1_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_9" name="1_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_10" name="1_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_11" name="1_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_12" name="1_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_13" name="1_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="1_14" name="1_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="1_15" name="1_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_16" name="1_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_17" name="1_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_18" name="1_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_19" name="1_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_20" name="1_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="1_21" name="1_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="1_22" name="1_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_23" name="1_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_24" name="1_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_25" name="1_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_26" name="1_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_27" name="1_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="1_28" name="1_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="1_29" name="1_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_30" name="1_30" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="1_31" name="1_31" /></td></tr>
+<tr>
+<td colspan="29">Февраль</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_1" name="2_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_2" name="2_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_3" name="2_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="2_4" name="2_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="2_5" name="2_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_6" name="2_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_7" name="2_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_8" name="2_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_9" name="2_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_10" name="2_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="2_11" name="2_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="2_12" name="2_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_13" name="2_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_14" name="2_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_15" name="2_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_16" name="2_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_17" name="2_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="2_18" name="2_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="2_19" name="2_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_20" name="2_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_21" name="2_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_22" name="2_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_23" name="2_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_24" name="2_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="2_25" name="2_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="2_26" name="2_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_27" name="2_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_28" name="2_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="2_29" name="2_29" /></td></tr>
+<tr>
+<td colspan="31">Март</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">31</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_1" name="3_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_2" name="3_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_3" name="3_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_4" name="3_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_5" name="3_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_6" name="3_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_7" name="3_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_8" name="3_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_9" name="3_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_10" name="3_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_11" name="3_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_12" name="3_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_13" name="3_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_14" name="3_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_15" name="3_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_16" name="3_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_17" name="3_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_18" name="3_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_19" name="3_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_20" name="3_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_21" name="3_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_22" name="3_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_23" name="3_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_24" name="3_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_25" name="3_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_26" name="3_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_27" name="3_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_28" name="3_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_29" name="3_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="3_30" name="3_30" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="3_31" name="3_31" /></td></tr>
+<tr>
+<td colspan="30">Апрель</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_1" name="4_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_2" name="4_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_3" name="4_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_4" name="4_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_5" name="4_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_6" name="4_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_7" name="4_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_8" name="4_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_9" name="4_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_10" name="4_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_11" name="4_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_12" name="4_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_13" name="4_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_14" name="4_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_15" name="4_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_16" name="4_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_17" name="4_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_18" name="4_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_19" name="4_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_20" name="4_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_21" name="4_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_22" name="4_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_23" name="4_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_24" name="4_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_25" name="4_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_26" name="4_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_27" name="4_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_28" name="4_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="4_29" name="4_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="4_30" name="4_30" /></td></tr>
+<tr>
+<td colspan="31">Май</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">31</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_1" name="5_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_2" name="5_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_3" name="5_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_4" name="5_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="5_5" name="5_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="5_6" name="5_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_7" name="5_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_8" name="5_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_9" name="5_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_10" name="5_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_11" name="5_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="5_12" name="5_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="5_13" name="5_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_14" name="5_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_15" name="5_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_16" name="5_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_17" name="5_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_18" name="5_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="5_19" name="5_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="5_20" name="5_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_21" name="5_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_22" name="5_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_23" name="5_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_24" name="5_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_25" name="5_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="5_26" name="5_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="5_27" name="5_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_28" name="5_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_29" name="5_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_30" name="5_30" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="5_31" name="5_31" /></td></tr>
+<tr>
+<td colspan="30">Июнь</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_1" name="6_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_2" name="6_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_3" name="6_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_4" name="6_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_5" name="6_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_6" name="6_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_7" name="6_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_8" name="6_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_9" name="6_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_10" name="6_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_11" name="6_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_12" name="6_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_13" name="6_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_14" name="6_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_15" name="6_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_16" name="6_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_17" name="6_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_18" name="6_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_19" name="6_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_20" name="6_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_21" name="6_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_22" name="6_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_23" name="6_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_24" name="6_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_25" name="6_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_26" name="6_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_27" name="6_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_28" name="6_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="6_29" name="6_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="6_30" name="6_30" /></td></tr>
+<tr>
+<td colspan="31">Июль</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">31</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_1" name="7_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_2" name="7_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_3" name="7_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_4" name="7_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_5" name="7_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_6" name="7_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_7" name="7_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_8" name="7_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_9" name="7_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_10" name="7_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_11" name="7_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_12" name="7_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_13" name="7_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_14" name="7_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_15" name="7_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_16" name="7_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_17" name="7_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_18" name="7_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_19" name="7_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_20" name="7_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_21" name="7_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_22" name="7_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_23" name="7_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_24" name="7_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_25" name="7_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_26" name="7_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_27" name="7_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_28" name="7_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="7_29" name="7_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_30" name="7_30" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="7_31" name="7_31" /></td></tr>
+<tr>
+<td colspan="31">Август</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">31</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_1" name="8_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_2" name="8_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_3" name="8_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="8_4" name="8_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="8_5" name="8_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_6" name="8_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_7" name="8_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_8" name="8_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_9" name="8_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_10" name="8_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="8_11" name="8_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="8_12" name="8_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_13" name="8_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_14" name="8_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_15" name="8_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_16" name="8_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_17" name="8_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="8_18" name="8_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="8_19" name="8_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_20" name="8_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_21" name="8_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_22" name="8_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_23" name="8_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_24" name="8_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="8_25" name="8_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="8_26" name="8_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_27" name="8_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_28" name="8_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_29" name="8_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_30" name="8_30" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="8_31" name="8_31" /></td></tr>
+<tr>
+<td colspan="30">Сентябрь</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_1" name="9_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_2" name="9_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_3" name="9_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_4" name="9_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_5" name="9_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_6" name="9_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_7" name="9_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_8" name="9_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_9" name="9_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_10" name="9_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_11" name="9_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_12" name="9_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_13" name="9_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_14" name="9_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_15" name="9_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_16" name="9_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_17" name="9_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_18" name="9_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_19" name="9_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_20" name="9_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_21" name="9_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_22" name="9_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_23" name="9_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_24" name="9_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_25" name="9_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_26" name="9_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_27" name="9_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="9_28" name="9_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_29" name="9_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="9_30" name="9_30" /></td></tr>
+<tr>
+<td colspan="31">Октябрь</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">31</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_1" name="10_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_2" name="10_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_3" name="10_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_4" name="10_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_5" name="10_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="10_6" name="10_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="10_7" name="10_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_8" name="10_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_9" name="10_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_10" name="10_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_11" name="10_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_12" name="10_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="10_13" name="10_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="10_14" name="10_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_15" name="10_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_16" name="10_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_17" name="10_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_18" name="10_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_19" name="10_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="10_20" name="10_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="10_21" name="10_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_22" name="10_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_23" name="10_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_24" name="10_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_25" name="10_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_26" name="10_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="10_27" name="10_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="10_28" name="10_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_29" name="10_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_30" name="10_30" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="10_31" name="10_31" /></td></tr>
+<tr>
+<td colspan="30">Ноябрь</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_1" name="11_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_2" name="11_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="11_3" name="11_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="11_4" name="11_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_5" name="11_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_6" name="11_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_7" name="11_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_8" name="11_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_9" name="11_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="11_10" name="11_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="11_11" name="11_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_12" name="11_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_13" name="11_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_14" name="11_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_15" name="11_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_16" name="11_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="11_17" name="11_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="11_18" name="11_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_19" name="11_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_20" name="11_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_21" name="11_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_22" name="11_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_23" name="11_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="11_24" name="11_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="11_25" name="11_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_26" name="11_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_27" name="11_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_28" name="11_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_29" name="11_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="11_30" name="11_30" /></td></tr>
+<tr>
+<td colspan="31">Декабрь</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;">1</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">2</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">3</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">4</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">5</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">6</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">7</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">8</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">9</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">10</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">11</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">12</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">13</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">14</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">15</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">16</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">17</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">18</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">19</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">20</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">21</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">22</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">23</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">24</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">25</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">26</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">27</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">28</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">29</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">30</td>
+<td style="text-align: center;padding: 4px; font-size: 10px;">31</td>
+</tr>
+<tr>
+<td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_1" name="12_1" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_2" name="12_2" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_3" name="12_3" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_4" name="12_4" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_5" name="12_5" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_6" name="12_6" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_7" name="12_7" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_8" name="12_8" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_9" name="12_9" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_10" name="12_10" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_11" name="12_11" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_12" name="12_12" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_13" name="12_13" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_14" name="12_14" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_15" name="12_15" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_16" name="12_16" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_17" name="12_17" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_18" name="12_18" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_19" name="12_19" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_20" name="12_20" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_21" name="12_21" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_22" name="12_22" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_23" name="12_23" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_24" name="12_24" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_25" name="12_25" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_26" name="12_26" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_27" name="12_27" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_28" name="12_28" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_29" name="12_29" /></td><td style="text-align: center;padding: 4px; font-size: 10px;background-color:#999999;"><input type="checkbox" checked="checked" id="12_30" name="12_30" /></td><td style="text-align: center;padding: 4px; font-size: 10px;"><input type="checkbox" id="12_31" name="12_31" /></td></tr>
+</table>
+
+       
+   <br/>
+   <input type="submit" value="Submit" />
+   </form>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#year").change(function (e) {
+            $('#navigate').attr('href', 'nwdgen.aspx?year=' + $('#year').val());
+        });
+    });				
+</script> 

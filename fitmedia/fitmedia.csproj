@@ -61,12 +61,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="balance.aspx" />
+    <Content Include="dataedit.aspx" />
     <Content Include="datagen.aspx" />
     <Content Include="datagrid.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="default1.aspx" />
     <Content Include="default2.aspx" />
-    <Content Include="index.html" />
+    <Content Include="edit.aspx" />
+    <Content Include="edit.htm" />
+    <Content Include="editform.htm" />
+    <Content Include="index.htm" />
+    <Content Include="lidataedit.aspx" />
+    <Content Include="liedit.aspx" />
+    <Content Include="liedit.htm" />
+    <Content Include="logview.aspx" />
+    <Content Include="nwdedit.aspx" />
+    <Content Include="nwdedit.htm" />
+    <Content Include="nwdgen.aspx" />
     <Content Include="orders.aspx" />
     <Content Include="orders_chart.aspx" />
     <Content Include="Web.config">
@@ -74,6 +86,20 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="balance.aspx.cs">
+      <DependentUpon>balance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="balance.aspx.designer.cs">
+      <DependentUpon>balance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="dataedit.aspx.cs">
+      <DependentUpon>dataedit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dataedit.aspx.designer.cs">
+      <DependentUpon>dataedit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="datagen.aspx.cs">
       <DependentUpon>datagen.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -109,7 +135,49 @@
     <Compile Include="default2.aspx.designer.cs">
       <DependentUpon>default2.aspx</DependentUpon>
     </Compile>
+    <Compile Include="edit.aspx.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="edit.aspx.designer.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HAGridView.cs" />
+    <Compile Include="lidataedit.aspx.cs">
+      <DependentUpon>lidataedit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="lidataedit.aspx.designer.cs">
+      <DependentUpon>lidataedit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="liedit.aspx.cs">
+      <DependentUpon>liedit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="liedit.aspx.designer.cs">
+      <DependentUpon>liedit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logview.aspx.cs">
+      <DependentUpon>logview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logview.aspx.designer.cs">
+      <DependentUpon>logview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="nwdedit.aspx.cs">
+      <DependentUpon>nwdedit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="nwdedit.aspx.designer.cs">
+      <DependentUpon>nwdedit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="nwdgen.aspx.cs">
+      <DependentUpon>nwdgen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="nwdgen.aspx.designer.cs">
+      <DependentUpon>nwdgen.aspx</DependentUpon>
+    </Compile>
     <Compile Include="orders.aspx.cs">
       <DependentUpon>orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

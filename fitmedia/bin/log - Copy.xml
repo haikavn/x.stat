@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<globallogs>
+  <globallog datetime="19.06.2012 2:41 PM">
+    <projectlog datetime="19.06.2012 14:41" name="Dondomofon">
+      <schedulelog datetime="19.06.2012 14:41" id="1" initial="True">
+        <requestlog methodname="getreport" datetime="19.06.2012 14:41" isinitial="True">
+          <params>
+            <param>fitmedia</param>
+            <param>dondomofon</param>
+            <param>18.06.2012 12:00:00 AM</param>
+            <param>19.06.2012 2:41:30 PM</param>
+            <param>True</param>
+            <param>False</param>
+          </params>
+          <logs>
+            <log status="OK">GetSubClients - [OK]</log>
+            <log status="OK">GetCampaignList - [OK]</log>
+            <log status="OK">GetReportList - [OK]</log>
+            <log status="OK">CreateNewReport - [OK]</log>
+            <log status="OK">GetReportList - [OK]</log>
+            <log status="OK">CreateNewReport - [OK]</log>
+            <log status="OK">GetReportList - [OK]</log>
+            <log status="OK">CreateNewReport - [OK]</log>
+            <log status="OK">GetReportList - [OK]</log>
+            <log status="OK">CreateNewReport - [OK]</log>
+            <log status="OK">GetReportList - [OK]</log>
+            <log status="OK">GetReport - [OK]</log>
+          </logs>
+        </requestlog>
+      </schedulelog>
+    </projectlog>
+  </globallog>
+  <globallog datetime="19.06.2012 5:51 PM">
+  </globallog>
+</globallogs>

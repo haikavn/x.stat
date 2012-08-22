@@ -1,0 +1,116 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* chart */
+
+.GraphColummnDownTd
+{
+    vertical-align: top;
+     background-color:White;
+}
+
+.GraphColummnDown
+{
+    background-color: #666688;  
+    width: 12px; 
+    text-align: center; 
+    vertical-align: top; 
+    font-size:11px; 
+    color:White; 
+    padding:2px;    
+}
+
+.sum
+{
+    position: absolute;
+    background-color: white;
+    padding: 2px;
+    border: 1px solid #666666;
+    color: black;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.DateColumn
+{
+    font-size: 10px;
+    text-align: center;
+    
+    color: black;
+}
+
+.AvgOrderColumn
+{
+    font-size: 10px;
+    text-align: center;
+    color: black;
+    background-color:White;
+    padding: 1px;
+}
+
+.ItemsPerDay
+{
+    background-color: #666677; 
+    width: 12px; 
+    text-align: center; 
+    vertical-align: bottom; 
+    font-size:10px; 
+    color:White; 
+    padding:2px;
+}
+
+.AvgOrderColumn div
+{
+         background-color: #cccccc; 
+}
+
+.ReturnedProductsTable
+{
+    margin-top: 20px;
+    font-size: .8em;    
+}
+.ReturnedProductsTable td
+{
+    padding-right: 30px;
+    border-bottomm: 1px solid #cccccc;    
+}
+
+.statsTable
+{
+    font-size: .8em;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #cccccc;
+    text-align: right;
+    margin-bottom: 20px;
+}
+.statsTable td
+{
+    
+    padding: 3px ;
+    padding-left: 20px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.statsTable th
+{
+    font-size: .9em;
+    font-weight: normal;
+    padding: 3px ;
+    padding-left: 30px;
+    border-bottom: 2px solid #cccccc;
+}
+
+.statsTable tr:hover
+{
+    background-color: #ffffcc;
+    
+}
+
+.statsTable h2
+{
+    margin-top: 0;
+    display: block;
+    text-align: left;
+    margin-left: -20px;   
+}
