@@ -545,13 +545,13 @@ namespace APIServiceProviderNamespace
             switch (interval)
             {
                 case "hourly":
-                    if (ts.TotalHours < 0.99) return "";
+                    if (ts.TotalHours < 0.995) return "";
                     break;
                 case "daily":
-                    if (ts.TotalDays < 0.99) return "";
+                    if (ts.TotalDays < 0.995) return "";
                     break;
                 case "weekly":
-                    if (ts.TotalDays < 6.99) return "";
+                    if (ts.TotalDays < 6.995) return "";
                     break;
             }
 
@@ -1150,9 +1150,6 @@ namespace APIServiceProviderNamespace
                 return "";
             }*/
 
-
-            Stop();
-
             try
             {
                 string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
@@ -1162,6 +1159,8 @@ namespace APIServiceProviderNamespace
             catch
             {
             }
+
+            Stop();
 
             projects.LoadProjects(this, Project.LoadOptions.Coefs);
 
@@ -1212,9 +1211,18 @@ namespace APIServiceProviderNamespace
             if (isFirstTimerEvent)
             {
                 isFirstTimerEvent = false;
-                while (SyncManager.ExecutingDate.Second != 59 || SyncManager.ExecutingDate.Minute != 59)
+                while (SyncManager.ExecutingDate.Second != 58 || SyncManager.ExecutingDate.Minute != 59)
                 {
                     SyncManager.ExecutingDate = DateTime.Now;
+                    try
+                    {
+                        string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+                        //if (File.Exists(path.Replace("file:\\", "") + "\\requests.txt"))
+                        File.AppendAllText(path.Replace("file:\\", "") + "\\requests.txt", SyncManager.ExecutingDate.ToString() + "\r\n");
+                    }
+                    catch
+                    {
+                    }
                 }
             }
 

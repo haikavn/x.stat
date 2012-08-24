@@ -45,6 +45,11 @@ namespace FitmediaSync
                 File.Delete(path.Replace("file:\\", "") + "\\shutdown");
         }
 
+        protected override void OnContinue()
+        {
+            base.OnContinue();
+        }
+
         protected override void OnShutdown()
         {
             sm.Stop();

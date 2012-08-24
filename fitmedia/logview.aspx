@@ -16,7 +16,7 @@
         <asp:ListItem Text="Errors" Value="1"></asp:ListItem>
         <asp:ListItem Text="Success" Value="2"></asp:ListItem>
         </asp:DropDownList>
-        <asp:Button ID="refresh" runat="server" OnClick="refresh_Click" />
+        <asp:Button ID="refresh" runat="server" OnClick="refresh_Click" Text="Refresh" />
      <asp:Repeater ID="log" runat="server" EnableViewState="false">
         <headertemplate>
         <table border="1">

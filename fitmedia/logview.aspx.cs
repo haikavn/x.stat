@@ -23,6 +23,13 @@ namespace fitmedia
 
         protected override void OnPreRender(EventArgs e)
         {
+ 
+            
+            base.OnPreRender(e);
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
             int pid = 0;
 
             if (Request.Params["pid"] != null)
@@ -51,12 +58,6 @@ namespace fitmedia
 
             log.DataSource = DBModule.GetErrorLogs(pid);
             log.DataBind();
-            
-            base.OnPreRender(e);
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
 
         }
     }

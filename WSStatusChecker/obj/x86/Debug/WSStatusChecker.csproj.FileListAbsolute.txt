@@ -1,0 +1,5 @@
+D:\Hayk\Work\Vigen\fitmedia\WSStatusChecker\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Hayk\Work\Vigen\fitmedia\WSStatusChecker\bin\Debug\WSStatusChecker.exe
+D:\Hayk\Work\Vigen\fitmedia\WSStatusChecker\bin\Debug\WSStatusChecker.pdb
+D:\Hayk\Work\Vigen\fitmedia\WSStatusChecker\obj\x86\Debug\WSStatusChecker.exe
+D:\Hayk\Work\Vigen\fitmedia\WSStatusChecker\obj\x86\Debug\WSStatusChecker.pdb
